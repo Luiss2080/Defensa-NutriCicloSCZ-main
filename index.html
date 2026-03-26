@@ -491,6 +491,37 @@ body{overflow-x:hidden;background:#f8fdf4}
 .dt-card.red .dt-total{background:#b63124}
 .dt-card.green .dt-total{background:#117541}
 
+/* ── ETAPA 5: EVALUACIÓN CUANTITATIVA ── */
+#evaluacion-cuantitativa{
+  background:
+    radial-gradient(circle at 16% 8%, rgba(22,92,146,.14), transparent 28%),
+    linear-gradient(180deg,#f5fbff,#ffffff);
+  padding:3.2rem 0;
+}
+.ev-wrap{max-width:1260px;margin:0 auto}
+.ev-kicker{display:flex;align-items:center;justify-content:center;gap:.55rem;font-size:1rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin:0 0 .7rem;color:#154a73}
+.ev-kicker i{font-size:1rem;color:#1f6da5}
+.ev-card{background:#fff;border:1px solid #cde0ee;border-radius:16px;overflow:hidden;box-shadow:0 12px 30px rgba(12,58,95,.11);margin-bottom:1rem}
+.ev-head{padding:.72rem .95rem;background:linear-gradient(90deg,#1d4566,#225c8b);border-bottom:1px solid #9dc1da}
+.ev-head h4{margin:0;color:#fff;font-size:.98rem;font-weight:900;letter-spacing:.02em}
+.ev-subline{padding:.45rem .95rem;background:#e8f2f9;color:#2a5a7d;font-size:.78rem}
+.ev-badges{display:flex;flex-wrap:wrap;gap:.42rem;padding:.5rem .95rem;border-bottom:1px solid #dbeaf4;background:#f6fbff}
+.ev-pill{border:1px solid #c3dbec;background:#fff;border-radius:999px;padding:.18rem .55rem;font-size:.7rem;font-weight:800;color:#2a5a7d}
+
+.ev-table-wrap{overflow:auto}
+.ev-table{width:100%;min-width:1080px;border-collapse:separate;border-spacing:0}
+.ev-table thead th{position:sticky;top:0;background:#2b4c68;color:#fff;font-size:.78rem;font-weight:800;padding:.56rem .45rem;border-right:1px solid rgba(255,255,255,.22);line-height:1.25}
+.ev-table thead th:last-child{border-right:none}
+.ev-table tbody td{font-size:.78rem;color:#1e4058;padding:.5rem .45rem;vertical-align:top;line-height:1.32;border-right:1px solid #d1e3ef;border-bottom:1px solid #d1e3ef;background:#fff}
+.ev-table tbody td:last-child{border-right:none}
+.ev-table tbody tr:nth-child(even) td{background:#f4f9fd}
+.ev-table tbody tr:hover td{background:#e9f3fa}
+.ev-table tbody tr td:first-child{font-weight:900;text-align:center;width:36px}
+.ev-ok{font-weight:900;color:#1f7f48}
+.ev-mid{font-weight:900;color:#a26a00}
+
+.ev-total{padding:.45rem .95rem;background:#1e5c8f;color:#fff;font-size:.8rem;font-weight:900;letter-spacing:.02em;text-align:center}
+
 /* ── ACTIVIDAD / INFOGRAFÍAS COMPLEMENTARIAS ── */
 #actividad-complementaria{
   background:linear-gradient(180deg,#ffffff,#f4f9f2);
@@ -628,6 +659,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .aprobadas-grid{grid-template-columns:1fr}
   .aprobadas-cell{min-height:auto}
   .dt-table{min-width:980px}
+  .ev-table{min-width:940px}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
   .stat-item:last-child{border-bottom:none}
 }
@@ -1472,6 +1504,162 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
           </table>
         </div>
         <div class="dt-total">TOTAL IDEAS VIABLES: 4 de 11 ideas del cuadrante grupal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     ETAPA 5: EVALUACIÓN CUANTITATIVA
+══════════════════════════════════ -->
+<section id="evaluacion-cuantitativa">
+  <div class="container">
+    <div class="sec-head" data-aos="fade-up">
+      <div class="sec-label"><i class="ri-survey-line"></i>Etapa 5</div>
+      <h2 class="sec-title">Evaluación <span>Cuantitativa</span></h2>
+      <p class="sec-desc mx-auto mt-2">Validación de la sub-idea central de NutriCiclo mediante contraste de datos estadísticos y respuestas de usuarios del entorno local.</p>
+    </div>
+
+    <div class="ev-wrap" data-aos="fade-up" data-aos-delay="90">
+      <p class="ev-kicker"><i class="ri-bar-chart-2-line"></i>Tabla 1 · Evaluación Cuantitativa</p>
+      <div class="ev-card">
+        <div class="ev-head">
+          <h4>NutriCiclo: Métricas De Validación Cuantitativa</h4>
+        </div>
+        <div class="ev-subline">Indicadores clave del contexto cruceño y su relación con la viabilidad operativa del modelo de valorización de residuos.</div>
+        <div class="ev-badges">
+          <span class="ev-pill">5 indicadores de base</span>
+          <span class="ev-pill">Fuentes públicas y sectoriales</span>
+          <span class="ev-pill">Enfoque de viabilidad inicial</span>
+        </div>
+        <div class="ev-table-wrap">
+          <table class="ev-table" aria-label="Evaluación cuantitativa de NutriCiclo">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Indicador</th>
+                <th>Dato / Estadística</th>
+                <th>Relevancia para NutriCiclo</th>
+                <th>Fuente</th>
+                <th>Lectura</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Residuos sólidos generados en SCZ</td>
+                <td>SCZ supera 1,200 ton/día de residuos; más de la mitad son orgánicos.</td>
+                <td>Existe flujo continuo de materia prima para escalar el modelo.</td>
+                <td>Gobierno Municipal / reportes ambientales</td>
+                <td class="ev-ok">Alta oportunidad</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Restaurantes y servicios gastronómicos</td>
+                <td>Miles de restaurantes activos generan borra, cáscaras y restos orgánicos diariamente.</td>
+                <td>Permite estructurar red de recolección cercana y de bajo costo logístico.</td>
+                <td>Registros empresariales y prensa económica</td>
+                <td class="ev-ok">Mercado proveedor amplio</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Crecimiento del sector pecuario</td>
+                <td>Actividad ganadera sostenida en el departamento con demanda de nutrición estratégica.</td>
+                <td>Favorece adopción de subproductos proteicos y bloques multinutricionales.</td>
+                <td>Informes sector ganadero</td>
+                <td class="ev-ok">Demanda potencial clara</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Gasto en insumos alimenticios</td>
+                <td>Productores reportan presión por costos en época de escasez forrajera.</td>
+                <td>NutriCiclo entra como alternativa local con foco en costo-beneficio.</td>
+                <td>Entrevistas exploratorias y asociaciones</td>
+                <td class="ev-mid">Ventana de entrada</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Conciencia ambiental urbana</td>
+                <td>Aumento de interés por soluciones circulares y consumo responsable en jóvenes y pymes.</td>
+                <td>Mejora la receptividad para alianzas y narrativa de impacto trazable.</td>
+                <td>Medios locales y observación de mercado</td>
+                <td class="ev-ok">Contexto favorable</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ev-total">Resultado global: la base cuantitativa respalda un piloto operativo y comercialmente viable.</div>
+      </div>
+
+      <p class="ev-kicker"><i class="ri-chat-check-line"></i>Tabla 2 · Evaluación Cualitativa</p>
+      <div class="ev-card">
+        <div class="ev-head">
+          <h4>NutriCiclo: Percepción Del Entorno Y Validación Cualitativa</h4>
+        </div>
+        <div class="ev-subline">Evaluación concisa con 6 personas del entorno, mediante preguntas adaptadas a la propuesta de valorización multi-flujo.</div>
+        <div class="ev-badges">
+          <span class="ev-pill">6 respuestas directas</span>
+          <span class="ev-pill">Perfiles mixtos (comercio, barrio, campo)</span>
+          <span class="ev-pill">Foco en disposición y percepción de novedad</span>
+        </div>
+        <div class="ev-table-wrap">
+          <table class="ev-table" aria-label="Evaluación cualitativa de NutriCiclo">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre y perfil</th>
+                <th>Pregunta</th>
+                <th>Respuesta</th>
+                <th>Opinión</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Diego, 23 años, trabaja en cafetería del centro</td>
+                <td>¿Entregarían residuos orgánicos si alguien los recoge de forma fija?</td>
+                <td>Sí, a diario se desecha borra y cáscaras; prefieren retirarlas a botarlas.</td>
+                <td class="ev-ok">Sí</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Rolando, 52 años, dueño de pensión en Warnes</td>
+                <td>¿Ve útil una empresa que recoja residuos para convertirlos en productos?</td>
+                <td>Le parece buena idea si hay constancia en recolección y retorno de valor.</td>
+                <td class="ev-ok">Sí</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Marcos, 21 años, estudiante y emprendedor digital</td>
+                <td>¿Conoce oferta similar en SCZ con este enfoque integral?</td>
+                <td>No identifica una propuesta equivalente con ese nivel de integración.</td>
+                <td class="ev-ok">Sí</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Elena, 41 años, administradora de comedor</td>
+                <td>¿Participaría en un piloto con cronograma semanal de retiro?</td>
+                <td>Participaría si se garantiza puntualidad y trazabilidad del destino final.</td>
+                <td class="ev-ok">Sí</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Pedro, 37 años, productor ganadero periurbano</td>
+                <td>¿Probaría subproductos nutritivos locales si reducen costos en sequía?</td>
+                <td>Haría prueba de campo si la formulación está validada técnicamente.</td>
+                <td class="ev-ok">Sí</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Lucía, 29 años, emprendimiento de alimentos</td>
+                <td>¿La economía circular mejora la imagen y diferenciación de su negocio?</td>
+                <td>Considera que sí, siempre que se pueda comunicar impacto real al cliente.</td>
+                <td class="ev-ok">Sí</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ev-total">Resultado cualitativo: 6 de 6 respuestas favorables para iniciar prueba de concepto NutriCiclo.</div>
       </div>
     </div>
   </div>
