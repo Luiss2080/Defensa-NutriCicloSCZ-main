@@ -403,6 +403,39 @@ body{overflow-x:hidden;background:#f8fdf4}
 .cierre-card-body{padding:.8rem .95rem}
 .cierre-note{background:#f5faf3;border:1px solid #d9e8d4;border-radius:10px;padding:.65rem .75rem;font-size:.8rem;color:#34573d;line-height:1.45}
 
+/* ── ETAPA 3: MATRIZ DE INNOVACIÓN ── */
+#matriz-innovacion{
+  background:
+    radial-gradient(circle at 14% 8%, rgba(123,193,66,.16), transparent 28%),
+    linear-gradient(180deg,#f7fbf5,#ffffff);
+  padding:3.2rem 0;
+}
+.matriz-wrap{max-width:1240px;margin:0 auto}
+.matriz-card{background:#fff;border:1px solid #d9e8d4;border-radius:16px;overflow:hidden;box-shadow:0 10px 26px rgba(18,64,35,.09)}
+.matriz-head{padding:.75rem 1rem;background:linear-gradient(90deg,#f7fcf6,#ecf6e8);border-bottom:1px solid #e2eee0}
+.matriz-head h4{margin:0;font-size:.96rem;color:#174228;font-weight:900;letter-spacing:.03em}
+.matriz-sub{font-size:.78rem;color:#4f6f57;margin-top:.15rem}
+.matriz-table-wrap{overflow:auto}
+.matriz-table{width:100%;min-width:1020px;border-collapse:separate;border-spacing:0}
+.matriz-table thead th{position:sticky;top:0;background:#1f4e2d;color:#fff;font-size:.78rem;font-weight:800;padding:.62rem .5rem;border-right:1px solid rgba(255,255,255,.22);white-space:nowrap}
+.matriz-table thead th:last-child{border-right:none}
+.matriz-table tbody td{font-size:.77rem;color:#22422f;padding:.5rem .45rem;border-right:1px solid #d6e5d2;border-bottom:1px solid #d6e5d2;vertical-align:top;line-height:1.3}
+.matriz-table tbody tr td:first-child{font-weight:800;text-align:center;width:40px}
+.matriz-table tbody tr:nth-child(even){background:#f8fcf7}
+.matriz-table tbody tr.grp-maria{background:linear-gradient(90deg,#fff8e7,#fff2d2)}
+.matriz-table tbody tr.grp-douglas{background:linear-gradient(90deg,#f5ebf8,#eee0f3)}
+.matriz-table tbody tr.grp-luis{background:linear-gradient(90deg,#edf2fb,#e5ecf8)}
+.matriz-badge{display:inline-block;padding:.12rem .42rem;border-radius:999px;font-size:.66rem;font-weight:800;letter-spacing:.02em}
+.impacto-alto{background:#e9f7ee;color:#1e7a42}
+.impacto-medio{background:#fff4df;color:#ac6a00}
+.impacto-bajo{background:#ffe9e9;color:#b43d3d}
+
+.aprobadas-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#274731;border-top:1px solid #274731}
+.aprobadas-cell{background:#ffffff;padding:1rem .95rem;min-height:170px}
+.aprobadas-cell h5{font-size:.82rem;font-weight:900;color:#174228;margin:0 0 .45rem}
+.aprobadas-list{margin:0;padding-left:1rem}
+.aprobadas-list li{font-size:.86rem;color:#2f5238;line-height:1.42;margin:.2rem 0}
+
 /* ── ACTIVIDAD / INFOGRAFÍAS COMPLEMENTARIAS ── */
 #actividad-complementaria{
   background:linear-gradient(180deg,#ffffff,#f4f9f2);
@@ -537,6 +570,8 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .empathy-stage{padding:.8rem .55rem .65rem}
   .emp-profile-band{flex-direction:column;text-align:center;gap:.6rem}
   .emp-map-wrap{grid-template-columns:repeat(6,minmax(220px,1fr));grid-template-rows:1fr;min-height:auto}
+  .aprobadas-grid{grid-template-columns:1fr}
+  .aprobadas-cell{min-height:auto}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
   .stat-item:last-child{border-bottom:none}
 }
