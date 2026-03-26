@@ -2364,21 +2364,117 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 <!-- ══════════════════════════════════
      R's CIRCULARES
 ══════════════════════════════════ -->
-<section id="circular" style="padding:5rem 0">
+<section id="circular">
   <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
-      <span class="sec-label" style="background:rgba(255,255,255,.2);color:#fff"><i class="ri-recycle-line"></i>Economía Circular</span>
-      <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:#fff;margin-top:.5rem">Las R's que <span style="color:var(--g4)">aplicamos</span></h2>
-      <p style="color:rgba(255,255,255,.6);font-size:.95rem">Haz clic en cada R para ver cómo NutriCiclo la aplica en su modelo de negocio.</p>
+    <div class="sec-head" data-aos="fade-up">
+      <div class="sec-label"><i class="ri-recycle-line"></i>Economía Circular</div>
+      <h2 class="sec-title">Las 6 R's que <span>aplicamos</span></h2>
+      <p class="sec-desc mx-auto mt-2">Actualización del ADN circular de NutriCiclo con enfoque dinámico: 6 principios conectados al ciclo biológico cerrado.</p>
     </div>
-    <div class="row g-3 justify-content-center" data-aos="fade-up" data-aos-delay="100">
-      <div class="col-6 col-md-4 col-lg-3"><div class="r-card" onclick="this.classList.toggle('lit')"><div class="r-letter">Re</div><div class="r-name">Rechazar</div><div class="r-desc">Rechazamos el modelo lineal. No usamos materia prima virgen como base del producto.</div></div></div>
-      <div class="col-6 col-md-4 col-lg-3"><div class="r-card" onclick="this.classList.toggle('lit')"><div class="r-letter">Ru</div><div class="r-name">Reutilizar</div><div class="r-desc">Sangre, vísceras, huesos, melaza, cascarilla y afrecho son residuos reutilizados como materia prima.</div></div></div>
-      <div class="col-6 col-md-4 col-lg-3"><div class="r-card" onclick="this.classList.toggle('lit')"><div class="r-letter">Rd</div><div class="r-name">Reducir</div><div class="r-desc">Reducimos +20,000 ton/año de residuos al vertedero, emisiones de metano e importación de soya.</div></div></div>
-      <div class="col-6 col-md-4 col-lg-3"><div class="r-card lit" onclick="this.classList.toggle('lit')"><div class="r-letter">♻️</div><div class="r-name">NutriCiclo</div><div class="r-desc">Ciclo biológico cerrado: TODA la materia regresa a la tierra como compost, frass BSF o ceniza.</div></div></div>
-      <div class="col-6 col-md-4 col-lg-3"><div class="r-card" onclick="this.classList.toggle('lit')"><div class="r-letter">Rm</div><div class="r-name">Remanufacturar</div><div class="r-desc">Vísceras → larvas BSF → harina proteica premium con 42-50% de proteína. Valor desde residuo.</div></div></div>
-      <div class="col-6 col-md-4 col-lg-3"><div class="r-card" onclick="this.classList.toggle('lit')"><div class="r-letter">Rc</div><div class="r-name">Reciclar</div><div class="r-desc">Estiércol del ganado → compost con lombriz roja → fertiliza suelo de cañeros.</div></div></div>
-      <div class="col-6 col-md-4 col-lg-3"><div class="r-card" onclick="this.classList.toggle('lit')"><div class="r-letter">Ri</div><div class="r-name">Reintegrar</div><div class="r-desc">Compost, frass BSF y ceniza regresan a la tierra. Ciclo biológico 100% cerrado.</div></div></div>
+
+    <div class="r-shell" data-aos="fade-up" data-aos-delay="80">
+      <div class="r-hero">
+        <article class="r-image-card">
+          <img src="R.png" alt="Las 6 R de la economia circular aplicadas por NutriCiclo">
+        </article>
+        <article class="r-note-card">
+          <h4>ADN Circular de NutriCiclo</h4>
+          <p>El modelo transforma residuos orgánicos locales en valor nutricional para ganado, cerrando el ciclo biológico y reduciendo emisiones asociadas a descomposición.</p>
+          <p>Las 6 R trabajan en conjunto: rechazar dependencia externa, reutilizar flujos residuales, reducir impactos, repensar materiales, remanufacturar proteína de alto valor y reintegrar biomasa al suelo.</p>
+        </article>
+      </div>
+
+      <div class="row g-3 r-grid">
+        <div class="col-md-6 col-lg-4">
+          <article class="r2-card" onclick="toggleCollapse(this)">
+            <div class="r2-head"><span class="r2-badge">R1</span><h5 class="r2-title">Rechazar</h5></div>
+            <p class="r2-summary">Se rechaza el modelo lineal y la dependencia de materias primas vírgenes o importadas.</p>
+            <div class="collapse r2-detail">
+              <ul>
+                <li>Se prioriza uso de residuos generados localmente.</li>
+                <li>Disminuye costo operativo frente a insumos externos.</li>
+                <li>Reduce presión sobre recursos naturales.</li>
+              </ul>
+            </div>
+            <small class="r2-toggle-label">▼ Ver detalle</small>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <article class="r2-card" onclick="toggleCollapse(this)">
+            <div class="r2-head"><span class="r2-badge">R2</span><h5 class="r2-title">Reutilizar</h5></div>
+            <p class="r2-summary">Residuos agroindustriales locales se convierten en insumos funcionales para el bloque.</p>
+            <div class="collapse r2-detail">
+              <ul>
+                <li>Incluye sangre, vísceras, huesos, melaza y cascarilla.</li>
+                <li>Evita disposición en ríos y botaderos informales.</li>
+                <li>Incrementa valor económico de subproductos.</li>
+              </ul>
+            </div>
+            <small class="r2-toggle-label">▼ Ver detalle</small>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <article class="r2-card" onclick="toggleCollapse(this)">
+            <div class="r2-head"><span class="r2-badge">R3</span><h5 class="r2-title">Reducir</h5></div>
+            <p class="r2-summary">Disminuye residuos enviados al vertedero y reduce emisiones de metano por descomposición.</p>
+            <div class="collapse r2-detail">
+              <ul>
+                <li>Se proyecta reducción superior a 20,000 t/año.</li>
+                <li>Se reduce contaminación hídrica por efluentes.</li>
+                <li>Baja dependencia de suplementos importados.</li>
+              </ul>
+            </div>
+            <small class="r2-toggle-label">▼ Ver detalle</small>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <article class="r2-card" onclick="toggleCollapse(this)">
+            <div class="r2-head"><span class="r2-badge">R4</span><h5 class="r2-title">Remanufacturar</h5></div>
+            <p class="r2-summary">Vísceras y subproductos animales se transforman en harina proteica premium vía BSF.</p>
+            <div class="collapse r2-detail">
+              <ul>
+                <li>Proteína objetivo de 42 a 50 por ciento.</li>
+                <li>Genera un nuevo producto funcional local.</li>
+                <li>Integra innovación biotecnológica aplicada.</li>
+              </ul>
+            </div>
+            <small class="r2-toggle-label">▼ Ver detalle</small>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <article class="r2-card" onclick="toggleCollapse(this)">
+            <div class="r2-head"><span class="r2-badge">R5</span><h5 class="r2-title">Reintegrar</h5></div>
+            <p class="r2-summary">Toda la biomasa residual útil vuelve al suelo fértil en forma de enmienda orgánica.</p>
+            <div class="collapse r2-detail">
+              <ul>
+                <li>Incluye compost, frass BSF y cenizas controladas.</li>
+                <li>Contribuye a un sistema de cero desperdicio.</li>
+                <li>Fortalece pasturas y productividad agrícola.</li>
+              </ul>
+            </div>
+            <small class="r2-toggle-label">▼ Ver detalle</small>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <article class="r2-card" onclick="toggleCollapse(this)">
+            <div class="r2-head"><span class="r2-badge">R6</span><h5 class="r2-title">Repensar</h5></div>
+            <p class="r2-summary">Se rediseña la lógica productiva para convertir lo que era basura en materia prima de alto valor.</p>
+            <div class="collapse r2-detail">
+              <ul>
+                <li>Cambia enfoque de descarte por valorización circular.</li>
+                <li>Combina sostenibilidad con competitividad local.</li>
+                <li>Consolida un ciclo biológico cerrado y escalable.</li>
+              </ul>
+            </div>
+            <small class="r2-toggle-label">▼ Ver detalle</small>
+          </article>
+        </div>
+      </div>
     </div>
   </div>
 </section>
