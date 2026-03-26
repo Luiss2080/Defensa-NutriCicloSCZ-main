@@ -415,6 +415,10 @@ body{overflow-x:hidden;background:#f8fdf4}
 .matriz-head{padding:.75rem 1rem;background:linear-gradient(90deg,#f7fcf6,#ecf6e8);border-bottom:1px solid #e2eee0}
 .matriz-head h4{margin:0;font-size:.96rem;color:#174228;font-weight:900;letter-spacing:.03em}
 .matriz-sub{font-size:.78rem;color:#4f6f57;margin-top:.15rem}
+.matriz-kicker{display:flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#174228;margin:0 0 .55rem .2rem}
+.matriz-kicker i{font-size:1rem;color:#2d6e18}
+.matriz-insights{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.45rem}
+.matriz-pill{border:1px solid #cfe0ca;background:#ffffff;border-radius:999px;padding:.2rem .55rem;font-size:.7rem;font-weight:800;color:#295338}
 .matriz-table-wrap{overflow:auto}
 .matriz-table{width:100%;min-width:1020px;border-collapse:separate;border-spacing:0}
 .matriz-table thead th{position:sticky;top:0;background:#1f4e2d;color:#fff;font-size:.78rem;font-weight:800;padding:.62rem .5rem;border-right:1px solid rgba(255,255,255,.22);white-space:nowrap}
@@ -422,9 +426,14 @@ body{overflow-x:hidden;background:#f8fdf4}
 .matriz-table tbody td{font-size:.77rem;color:#22422f;padding:.5rem .45rem;border-right:1px solid #d6e5d2;border-bottom:1px solid #d6e5d2;vertical-align:top;line-height:1.3}
 .matriz-table tbody tr td:first-child{font-weight:800;text-align:center;width:40px}
 .matriz-table tbody tr:nth-child(even){background:#f8fcf7}
+.matriz-table tbody tr:hover{background:#eff7ec}
 .matriz-table tbody tr.grp-maria{background:linear-gradient(90deg,#fff8e7,#fff2d2)}
 .matriz-table tbody tr.grp-douglas{background:linear-gradient(90deg,#f5ebf8,#eee0f3)}
 .matriz-table tbody tr.grp-luis{background:linear-gradient(90deg,#edf2fb,#e5ecf8)}
+.matriz-table tbody tr.idea-descartada td{color:#7d6f66;text-decoration:line-through;opacity:.76}
+.matriz-table tbody tr.idea-descartada .matriz-badge{opacity:.5;text-decoration:none}
+.matriz-table tbody tr.idea-activa td{font-weight:700}
+.matriz-table tbody tr.idea-activa td:nth-child(3){color:#1f5a2e}
 .matriz-badge{display:inline-block;padding:.12rem .42rem;border-radius:999px;font-size:.66rem;font-weight:800;letter-spacing:.02em}
 .impacto-alto{background:#e9f7ee;color:#1e7a42}
 .impacto-medio{background:#fff4df;color:#ac6a00}
@@ -432,7 +441,7 @@ body{overflow-x:hidden;background:#f8fdf4}
 
 .aprobadas-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#274731;border-top:1px solid #274731}
 .aprobadas-cell{background:#ffffff;padding:1rem .95rem;min-height:170px}
-.aprobadas-cell h5{font-size:.82rem;font-weight:900;color:#174228;margin:0 0 .45rem}
+.aprobadas-cell h5{font-size:.9rem;font-weight:900;color:#174228;margin:0 0 .45rem;padding-bottom:.3rem;border-bottom:1px dashed #cddfca}
 .aprobadas-list{margin:0;padding-left:1rem}
 .aprobadas-list li{font-size:.86rem;color:#2f5238;line-height:1.42;margin:.2rem 0}
 
@@ -1136,10 +1145,16 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
     </div>
 
     <div class="matriz-wrap" data-aos="fade-up" data-aos-delay="90">
+      <p class="matriz-kicker"><i class="ri-table-2"></i>Cuadro 1 · Ideas Propuestas</p>
       <div class="matriz-card mb-3">
         <div class="matriz-head">
           <h4>Ideas Propuestas Del Grupo</h4>
           <div class="matriz-sub">Inventario completo de ideas del taller de economía circular en SCZ.</div>
+          <div class="matriz-insights">
+            <span class="matriz-pill">16 ideas evaluadas</span>
+            <span class="matriz-pill">4 participantes</span>
+            <span class="matriz-pill">1 idea seleccionada de María Ortiz</span>
+          </div>
         </div>
         <div class="matriz-table-wrap">
           <table class="matriz-table" aria-label="Inventario completo de ideas del grupo">
@@ -1163,19 +1178,19 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
               <tr>
                 <td>3</td><td>Joel Miranda</td><td>Cuadernos con papel reciclado</td><td>Papel reciclado</td><td><span class="matriz-badge impacto-bajo">Bajo</span></td><td>Fácil</td>
               </tr>
-              <tr class="grp-maria">
+              <tr class="grp-maria idea-descartada">
                 <td>4</td><td>Maria Ortiz</td><td>Macetas con botellas plásticas</td><td>Plástico PET</td><td><span class="matriz-badge impacto-alto">Alto</span></td><td>Fácil</td>
               </tr>
-              <tr class="grp-maria">
+              <tr class="grp-maria idea-descartada">
                 <td>5</td><td>Maria Ortiz</td><td>Cuadernos con papel reciclado</td><td>Papel reciclado</td><td><span class="matriz-badge impacto-alto">Alto</span></td><td>Fácil</td>
               </tr>
-              <tr class="grp-maria">
+              <tr class="grp-maria idea-activa">
                 <td>6</td><td>Maria Ortiz</td><td>Lápices plantables</td><td>Residuos de madera y papel</td><td><span class="matriz-badge impacto-medio">Medio</span></td><td>Fácil</td>
               </tr>
-              <tr class="grp-maria">
+              <tr class="grp-maria idea-descartada">
                 <td>7</td><td>Maria Ortiz</td><td>Jabones a base de aceite reciclado</td><td>Aceite vegetal usado</td><td><span class="matriz-badge impacto-bajo">Bajo</span></td><td>Fácil</td>
               </tr>
-              <tr class="grp-maria">
+              <tr class="grp-maria idea-descartada">
                 <td>8</td><td>Maria Ortiz</td><td>Mochilas y tote bags con tela de jeans reciclados</td><td>Textil reciclado</td><td><span class="matriz-badge impacto-bajo">Bajo</span></td><td>Fácil</td>
               </tr>
               <tr class="grp-douglas">
@@ -1207,10 +1222,16 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         </div>
       </div>
 
+      <p class="matriz-kicker"><i class="ri-checkbox-circle-line"></i>Cuadro 2 · Ideas Aprobadas</p>
       <div class="matriz-card">
         <div class="matriz-head">
           <h4>Cuadro De Ideas Aprobadas</h4>
           <div class="matriz-sub">Selección final priorizada por viabilidad, impacto y alineación con el modelo de negocio.</div>
+          <div class="matriz-insights">
+            <span class="matriz-pill">4 cuadrantes de priorización</span>
+            <span class="matriz-pill">11 ideas aprobadas</span>
+            <span class="matriz-pill">Base para prototipado</span>
+          </div>
         </div>
         <div class="aprobadas-grid">
           <article class="aprobadas-cell">
