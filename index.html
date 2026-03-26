@@ -551,6 +551,35 @@ body{overflow-x:hidden;background:#f8fdf4}
 .dec-list li{margin:.26rem 0;font-size:.78rem;color:#34573d;line-height:1.4}
 .dec-list li strong{color:#1f4d2d}
 
+/* ── PASO B: MATRIZ DE ANÁLISIS DE MATERIALES E INSUMOS ── */
+#matriz-insumos-analisis{
+  background:
+    radial-gradient(circle at 8% 8%, rgba(123,193,66,.12), transparent 25%),
+    linear-gradient(180deg,#162314,#0f160f);
+  padding:3.2rem 0;
+}
+#matriz-insumos-analisis .sec-title{color:#f4fff0}
+#matriz-insumos-analisis .sec-title span{color:#a3de72}
+#matriz-insumos-analisis .sec-desc{color:#d7e8ce}
+#matriz-insumos-analisis .sec-label{background:#456f2f;color:#f3ffe8}
+.mb-wrap{max-width:1260px;margin:0 auto}
+.mb-card{background:rgba(255,255,255,.05);border:1px solid rgba(220,239,210,.26);border-radius:14px;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.26)}
+.mb-head{padding:.72rem .9rem;background:linear-gradient(90deg,#263f1e,#35552a);border-bottom:1px solid rgba(255,255,255,.18)}
+.mb-head h4{margin:0;color:#eef9e8;font-size:.95rem;font-weight:900;letter-spacing:.02em;text-transform:uppercase}
+.mb-table-wrap{overflow:auto}
+.mb-table{width:100%;min-width:1120px;border-collapse:separate;border-spacing:0}
+.mb-table thead th{position:sticky;top:0;background:#2c441f;color:#f6fff0;font-size:.78rem;font-weight:800;padding:.56rem .44rem;border-right:1px solid rgba(255,255,255,.22);line-height:1.24}
+.mb-table thead th:last-child{border-right:none}
+.mb-table tbody td{font-size:.78rem;color:#f1f7ed;padding:.5rem .44rem;vertical-align:top;line-height:1.3;border-right:1px solid rgba(219,236,209,.24);border-bottom:1px solid rgba(219,236,209,.24);background:rgba(255,255,255,.04)}
+.mb-table tbody td:last-child{border-right:none}
+.mb-table tbody tr:nth-child(even) td{background:rgba(255,255,255,.07)}
+.mb-table tbody tr:hover td{background:rgba(163,222,114,.12)}
+.mb-table tbody tr td:first-child{font-weight:900;text-align:center;width:170px}
+.mb-analysis{margin-top:.85rem;background:rgba(255,255,255,.05);border:1px solid rgba(220,239,210,.26);border-radius:14px;padding:.9rem 1rem;box-shadow:0 12px 28px rgba(0,0,0,.22)}
+.mb-analysis h4{margin:0 0 .5rem;color:#f0faea;font-size:1rem;font-weight:900;text-transform:uppercase;letter-spacing:.02em}
+.mb-analysis p{margin:0 0 .48rem;color:#deedda;font-size:.84rem;line-height:1.6}
+.mb-analysis p:last-child{margin-bottom:0}
+
 /* ── DIAGRAMA VISUAL DECONSTRUIDO ── */
 #diagrama-deconstruido{
   background:
@@ -721,6 +750,10 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .dt-table{min-width:980px}
   .ev-table{min-width:940px}
   .dec-card-media img{height:170px}
+  .mb-table{min-width:980px}
+  .mb-analysis{padding:.78rem .78rem}
+  .mb-analysis h4{font-size:.9rem}
+  .mb-analysis p{font-size:.8rem}
   .diag-btn{font-size:.82rem;padding:.72rem .82rem}
   .diag-body{padding:.68rem .62rem .72rem}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
@@ -748,6 +781,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         <li class="nav-item"><a class="nav-link" href="#about">Quiénes Somos</a></li>
         <li class="nav-item"><a class="nav-link" href="#empathy">Mapa de Empatía</a></li>
         <li class="nav-item"><a class="nav-link" href="#matriz-innovacion">Idea de Negocio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#matriz-insumos-analisis">Paso B</a></li>
         <li class="nav-item"><a class="nav-link" href="#diagrama-deconstruido">Diagrama</a></li>
         <li class="nav-item"><a class="nav-link" href="#canvas">Canvas</a></li>
         <li class="nav-item"><a class="nav-link" href="#circular">R's Circular</a></li>
@@ -1831,6 +1865,119 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
           </article>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     PASO B: MATRIZ DE ANÁLISIS DE MATERIALES E INSUMOS
+══════════════════════════════════ -->
+<section id="matriz-insumos-analisis">
+  <div class="container">
+    <div class="sec-head" data-aos="fade-up">
+      <div class="sec-label"><i class="ri-table-2"></i>Paso B</div>
+      <h2 class="sec-title">Matriz de Análisis de <span>Materiales e Insumos</span></h2>
+      <p class="sec-desc mx-auto mt-2">Evaluación integral de procedencia, proceso e impacto potencial de cada componente del bloque multinutricional.</p>
+    </div>
+
+    <div class="mb-wrap" data-aos="fade-up" data-aos-delay="80">
+      <div class="mb-card">
+        <div class="mb-head">
+          <h4>4.2 Matriz Completa de Materiales e Insumos</h4>
+        </div>
+        <div class="mb-table-wrap">
+          <table class="mb-table" aria-label="Matriz de análisis de materiales e insumos">
+            <thead>
+              <tr>
+                <th>Parte o insumo</th>
+                <th>¿De qué material es?</th>
+                <th>¿De dónde proviene?</th>
+                <th>¿Qué procesos hacemos con el mismo?</th>
+                <th>¿Qué impacto potencial podría generar?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Melaza de caña</td>
+                <td>Líquido viscoso rico en azúcares fermentables</td>
+                <td>Ingenios azucareros del norte integrado (Montero, Warnes), subproducto circular</td>
+                <td>Se almacena en tanques o turriles y se vierte manualmente o con bomba simple en cada lote, mezclándose con otros insumos usando palas o mezcladora básica</td>
+                <td>No genera residuos ni efluentes, impacto ambiental bajo</td>
+              </tr>
+              <tr>
+                <td>Harina de sangre</td>
+                <td>Proteína animal deshidratada en polvo</td>
+                <td>Mataderos del Parque Industrial y zona Cotoca, residuo circular</td>
+                <td>Recolección manual, cocción en ollas o tambores metálicos, secado al sol o en secador simple y molienda con molino pequeño o manual</td>
+                <td>Uso de agua y calor, pero evita que la sangre contamine ríos</td>
+              </tr>
+              <tr>
+                <td>Cascarilla de arroz</td>
+                <td>Fibra vegetal seca rica en celulosa</td>
+                <td>Arroceras del norte integrado (Mineros, Okinawa), residuo circular</td>
+                <td>Transporte a granel, triturado con molino básico o uso directo si está fina, mezcla manual en cada lote</td>
+                <td>Genera poco polvo, evita quema de residuos agrícolas</td>
+              </tr>
+              <tr>
+                <td>Afrecho de soya</td>
+                <td>Subproducto vegetal rico en proteína</td>
+                <td>Industrias aceiteras de Santa Cruz (zona industrial), subproducto parcial</td>
+                <td>Se pesa y se mezcla directamente sin ningún procesamiento adicional</td>
+                <td>No genera residuos ni impactos adicionales</td>
+              </tr>
+              <tr>
+                <td>Harina de hueso</td>
+                <td>Polvo mineral obtenido por calcinación de huesos</td>
+                <td>Mataderos locales de Santa Cruz, residuo circular</td>
+                <td>Recolección, secado al sol, quema en horno artesanal o tambor adaptado y molienda básica</td>
+                <td>Uso de combustible (leña o gas), pero reduce residuos óseos</td>
+              </tr>
+              <tr>
+                <td>Harina BSF</td>
+                <td>Proteína de insecto procesada</td>
+                <td>Producción propia en Santa Cruz usando residuos de matadero</td>
+                <td>Cría en cajas o bandejas simples, alimentación manual, secado al sol o en horno básico y molienda sencilla</td>
+                <td>Reduce residuos orgánicos, bajo impacto si se usa energía mínima</td>
+              </tr>
+              <tr>
+                <td>Frass</td>
+                <td>Residuo orgánico de larvas similar a abono</td>
+                <td>Generado en la producción BSF en la biofábrica</td>
+                <td>Recolección manual y almacenamiento en sacos para uso o venta</td>
+                <td>No genera contaminación, se reutiliza como fertilizante</td>
+              </tr>
+              <tr>
+                <td>Urea agrícola</td>
+                <td>Compuesto químico nitrogenado</td>
+                <td>Agropecuarias de Santa Cruz (Montero, Warnes), origen industrial</td>
+                <td>Disolución en baldes con agua y mezcla manual en cada lote usando herramientas básicas</td>
+                <td>Riesgo si no se dosifica bien, pero no genera residuos</td>
+              </tr>
+              <tr>
+                <td>Cal viva</td>
+                <td>Óxido de calcio en polvo</td>
+                <td>Proveedores locales, origen mineral</td>
+                <td>Se agrega al final de la mezcla y se integra manualmente con pala, usando protección básica</td>
+                <td>Puede causar irritación, pero no genera residuos</td>
+              </tr>
+              <tr>
+                <td>Sal mineralizada y azufre</td>
+                <td>Mezcla de minerales esenciales y complemento mineral elemental</td>
+                <td>Veterinarias y agropecuarias locales (Santa Cruz)</td>
+                <td>Se pesan en pequeñas cantidades y se mezclan directamente con los demás insumos</td>
+                <td>No generan residuos relevantes por su baja dosificación</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <article class="mb-analysis" data-aos="fade-up" data-aos-delay="120">
+        <h4>4.3 Análisis General de Resultados</h4>
+        <p>A partir de la matriz se observa que la mayoría de los insumos provienen de residuos de otras actividades, como mataderos o agroindustrias, lo que permite aprovechar materiales que normalmente serían desechados.</p>
+        <p>También se identifica que casi todos los insumos se integran completamente en el producto, por lo que no se generan residuos dentro del proceso.</p>
+        <p>Como puntos de atención, se recomienda controlar el uso de energía en secado y calcinación, además de promover la reutilización de empaques para mantener el enfoque circular de NutriCiclo.</p>
+      </article>
     </div>
   </div>
 </section>
