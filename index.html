@@ -2547,6 +2547,32 @@ function switchRec(tab,btn){
   if(tab==='ene') btn.className='rec-tab-btn active-ene';
   if(tab==='nat') btn.className='rec-tab-btn active-nat';
 }
+
+// Deconstruccion table interactions
+function toggleDecDetail(btn){
+  const row = btn.closest('tr');
+  if(!row) return;
+  const next = row.nextElementSibling;
+  if(!next || !next.classList.contains('dec-detail-row')) return;
+  const isHidden = next.classList.toggle('hidden');
+  btn.textContent = isHidden ? 'Ver más' : 'Ocultar';
+}
+
+function filterDecRows(kind,btn){
+  document.querySelectorAll('.dec-filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+
+  const rows = document.querySelectorAll('#decTableBody tr[data-kind]');
+  rows.forEach((row)=>{
+    const show = kind==='all' || row.dataset.kind===kind;
+    row.style.display = show ? '' : 'none';
+    if(!show && row.classList.contains('dec-detail-row')) row.classList.add('hidden');
+  });
+
+  document.querySelectorAll('#decTableBody .dec-row-btn').forEach((b)=>{
+    b.textContent = 'Ver más';
+  });
+}
 </script>
 </body>
 </html>
