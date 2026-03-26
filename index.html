@@ -33,13 +33,27 @@ body{overflow-x:hidden;background:#f8fdf4}
 .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center}
 .slide-overlay{position:absolute;inset:0}
 .slide-content{position:relative;z-index:2;height:100%;display:flex;align-items:center}
-#hero .slide-content .hero-layout{padding-right:calc(30% + 1rem)}
+#hero .slide-content .hero-layout{padding-right:calc(40% + 1.2rem);padding-left:1.1rem}
+#hero .slide-content .hero-layout > .row{justify-content:flex-start}
+.hero-main-col{max-width:900px}
+.hero-content-card{
+  background:linear-gradient(135deg,rgba(6,22,8,.78),rgba(8,30,11,.56));
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:22px;
+  padding:1.25rem 1.25rem 1.05rem;
+  box-shadow:0 16px 30px rgba(0,0,0,.24);
+  backdrop-filter:blur(2px);
+}
+.hero-meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.42rem;margin-top:.75rem}
+.hero-meta-item{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);border-radius:10px;padding:.45rem .55rem}
+.hero-meta-item strong{display:block;font-size:.9rem;color:#dff7c7;line-height:1.1}
+.hero-meta-item span{display:block;font-size:.67rem;color:rgba(255,255,255,.74);line-height:1.25;margin-top:.12rem}
 .hero-side-photo{
   position:absolute;
   right:0;
   top:0;
   bottom:0;
-  width:30%;
+  width:40%;
   background-size:cover;
   background-position:center;
   z-index:1;
@@ -152,7 +166,7 @@ body{overflow-x:hidden;background:#f8fdf4}
 .s1-overlay{background:radial-gradient(ellipse at 60% 40%,rgba(123,193,66,.12),transparent 60%)}
 .hero-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:#fff;line-height:1.05}
 .hero-title span{color:var(--g4)}
-.hero-sub{font-size:clamp(.95rem,1.8vw,1.2rem);color:rgba(255,255,255,.75);line-height:1.7;max-width:580px}
+.hero-sub{font-size:clamp(.95rem,1.8vw,1.2rem);color:rgba(255,255,255,.75);line-height:1.7;max-width:none}
 .btn-hero-primary{background:var(--g3);color:#fff;border:none;padding:.7rem 2rem;border-radius:30px;font-weight:700;font-size:.9rem;letter-spacing:.04em;transition:.3s}
 .btn-hero-primary:hover{background:var(--g4);transform:translateY(-2px);box-shadow:0 8px 30px rgba(74,154,40,.5);color:#fff}
 .btn-hero-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4);padding:.7rem 2rem;border-radius:30px;font-weight:700;font-size:.9rem;letter-spacing:.04em;transition:.3s}
@@ -514,7 +528,12 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 
 @media(max-width:768px){
   .carousel-item{height:88vh;min-height:500px}
-  #hero .slide-content .hero-layout{padding-right:calc(30% + .5rem)}
+  #hero .slide-content .hero-layout{padding-right:1rem;padding-left:1rem}
+  #hero .slide-content .hero-layout > .row{justify-content:flex-start}
+  .hero-side-photo{display:none}
+  .hero-main-col{max-width:100%}
+  .hero-content-card{padding:1rem .95rem .95rem}
+  .hero-meta-grid{grid-template-columns:1fr 1fr}
   #hero .carousel-control-prev{left:.55rem}
   #hero .carousel-control-next{right:.55rem}
   .hero-counter{right:.8rem;bottom:1rem}
@@ -581,7 +600,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <div class="slide-content">
         <div class="container hero-layout">
           <div class="row align-items-center">
-            <div class="col-lg-7">
+            <div class="col-12 col-xl-10 hero-main-col">
               <div class="mb-3" data-aos="fade-down">
                 <span class="hero-chip">Economía Circular · Bolivia 2026</span>
               </div>
@@ -613,7 +632,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <div class="slide-content">
         <div class="container hero-layout">
           <div class="row align-items-center">
-          <div class="col-lg-7">
+          <div class="col-12 col-xl-10 hero-main-col">
             <div class="mb-3">
               <span class="hero-chip">Modelo de Negocio</span>
             </div>
@@ -623,7 +642,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
             <p style="color:rgba(255,255,255,.75);font-size:1rem;line-height:1.7" class="mb-4">
               El único bloque en Bolivia a base de sangre y proteína de larvas BSF. Resolvemos 2 problemas a la vez: contaminación de mataderos + alimentación en sequía.
             </p>
-            <div class="d-flex gap-3">
+            <div class="d-flex gap-3 flex-wrap">
               <div class="hero-kpi">
                 <div style="font-size:1.6rem;font-weight:900;color:var(--g4)">74%</div>
                 <div style="font-size:.72rem;color:rgba(255,255,255,.6)">Origen circular</div>
@@ -674,7 +693,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <div class="slide-content">
         <div class="container hero-layout">
           <div class="row align-items-center">
-            <div class="col-lg-7">
+            <div class="col-12 col-xl-10 hero-main-col">
               <div class="mb-3">
                 <span class="hero-chip">Investigación Aplicada</span>
               </div>
