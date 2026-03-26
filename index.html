@@ -85,43 +85,57 @@ body{overflow-x:hidden;background:#f8fdf4}
 .team-avatar{width:28px;height:28px;border-radius:50%;background:var(--g3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:800}
 
 /* ── EMPATHY MAP ── */
-#empathy{background:linear-gradient(180deg,#f0f8e8,#fff);padding:5rem 0}
+#empathy{background:linear-gradient(180deg,#f7fbf5,#ffffff);padding:5rem 0}
 .emp-map-wrap{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
   grid-template-rows:1fr 1fr 1fr;
-  gap:12px;
+  gap:16px;
   max-width:960px;
   margin:0 auto;
-  min-height:580px;
+  min-height:500px;
 }
 .emp-empty{background:transparent}
 .emp-zone{
-  border-radius:18px;cursor:pointer;
+  border-radius:14px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  transition:all .28s;position:relative;overflow:hidden;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  transition:all .25s;position:relative;overflow:hidden;
+  border:1px solid #d7e7d3;
+  box-shadow:0 6px 18px rgba(17,67,33,.08);
 }
-.emp-zone:hover{transform:scale(1.04);box-shadow:0 12px 40px rgba(0,0,0,.16);z-index:5}
-.emp-zone-inner{padding:1.4rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.6rem;width:100%}
-.emp-zone-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
-.emp-zone h5{font-size:.9rem;font-weight:800;color:#1a3d0a;margin:0;line-height:1.3}
-.emp-zone p{font-size:.76rem;color:#5a7a4a;line-height:1.5;margin:0}
-.emp-clic{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-top:.2rem}
+.emp-zone:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(17,67,33,.14);border-color:#9fbe95;z-index:5}
+.emp-zone-inner{padding:1.35rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.65rem;width:100%}
+.emp-zone h5{font-size:1rem;font-weight:800;color:#174228;margin:0;line-height:1.3}
+.emp-zone p{font-size:.86rem;color:#2f5238;line-height:1.6;margin:0}
+.emp-clic{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:.25rem;color:#2d6e18}
 /* colores por zona */
-.emp-piensa{background:linear-gradient(145deg,#e8f5e9,#c8e6c9)} .emp-piensa .emp-clic{color:#2e7d32}
-.emp-oye{background:linear-gradient(145deg,#fff8e1,#ffecb3)} .emp-oye .emp-clic{color:#f57f17}
-.emp-ve{background:linear-gradient(145deg,#e3f2fd,#bbdefb)} .emp-ve .emp-clic{color:#1565c0}
-.emp-dice{background:linear-gradient(145deg,#f3e5f5,#e1bee7)} .emp-dice .emp-clic{color:#6a1b9a}
+.emp-piensa{background:linear-gradient(180deg,#ffffff,#f3f8f2)}
+.emp-oye{background:linear-gradient(180deg,#ffffff,#f4f9f3)}
+.emp-ve{background:linear-gradient(180deg,#ffffff,#f2f8f1)}
+.emp-dice{background:linear-gradient(180deg,#ffffff,#f5faf4)}
+.emp-esf{background:linear-gradient(180deg,#ffffff,#f7fbf5)}
+.emp-res{background:linear-gradient(180deg,#ffffff,#f3f8f1)}
+.emp-duo{max-width:960px;margin:0 auto}
 /* celda central */
 .emp-center-cell{
   background:#fff;
-  border-radius:50%;display:flex;
+  border-radius:22px;display:flex;
   align-items:center;justify-content:center;
-  box-shadow:0 8px 40px rgba(45,110,24,.35);
+  box-shadow:0 12px 30px rgba(17,67,33,.16);
   overflow:hidden;
-  border:4px solid var(--g3);
+  border:2px solid #2d6e18;
 }
+
+/* ── ACTIVIDAD / INFOGRAFÍAS COMPLEMENTARIAS ── */
+#actividad-complementaria{background:#fff;padding:5rem 0}
+#infografias-complementarias{background:linear-gradient(180deg,#f8fdf4,#eef6e7);padding:5rem 0}
+.comp-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 26px rgba(0,0,0,.09);height:100%}
+.comp-card img{width:100%;height:auto;display:block}
+.comp-caption{padding:1rem 1.1rem;font-size:.86rem;color:#496a39;font-weight:600}
+.info-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.08);transition:.25s;height:100%}
+.info-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.14)}
+.info-card img{width:100%;height:auto;display:block}
+.info-card .ttl{padding:.9rem 1rem;font-size:.8rem;font-weight:700;color:#35552a;border-top:1px solid #eef4e9;text-align:center}
 
 /* ── CANVAS ── */
 #canvas{background:#fff;padding:5rem 0}
@@ -210,22 +224,18 @@ footer .f-divider{border-color:rgba(255,255,255,.1);margin:1.5rem 0 1rem}
 footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 
 /* ── MODAL EMPATÍA ── */
-.modal-header.piensa{background:#e8f5e9}
-.modal-header.ve{background:#e3f2fd}
-.modal-header.oye{background:#fff3e0}
-.modal-header.dice{background:#f3e5f5}
-.modal-header.esf{background:#fffde7}
-.modal-header.res{background:#f1f8e9}
-.modal-title-h{font-weight:900;color:var(--g1);font-size:1.05rem}
-.modal-item-row{display:flex;gap:.8rem;align-items:flex-start;padding:.8rem;background:#f9fdf7;border-radius:10px;border-left:3px solid var(--g3);margin-bottom:.7rem}
-.modal-item-row .mit-ico{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
-.modal-item-row p{font-size:.84rem;color:#3a5a28;line-height:1.55;margin:0}
+.modal-header.piensa,.modal-header.ve,.modal-header.oye,.modal-header.dice,.modal-header.esf,.modal-header.res{background:#edf5ea}
+.modal-title-h{font-weight:900;color:#123c24;font-size:1.05rem}
+.modal-item-row{padding:.95rem;background:#f8fcf7;border-radius:10px;border-left:4px solid #2d6e18;margin-bottom:.75rem}
+.modal-item-row p{font-size:.87rem;color:#2e4f38;line-height:1.58;margin:0}
 
 /* AOS overrides */
 [data-aos]{transition-duration:.7s!important}
 
 @media(max-width:768px){
-  .emp-grid{grid-template-columns:1fr}
+  .emp-map-wrap{grid-template-columns:1fr;grid-template-rows:auto;min-height:auto}
+  .emp-empty{display:none}
+  .emp-center-cell{min-height:220px;border-radius:14px}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
   .stat-item:last-child{border-bottom:none}
 }
@@ -443,7 +453,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
     <div class="text-center mb-4" data-aos="fade-up">
       <div class="sec-label">Actividad 3</div>
       <h2 class="sec-title">Mapa de <span>Empatía</span></h2>
-      <p class="sec-desc mx-auto mt-2">Haz clic en cada sección para ver el contenido detallado.</p>
+      <p class="sec-desc mx-auto mt-2">Análisis del perfil del cliente sostenible en Santa Cruz, estructurado en seis dimensiones clave.</p>
     </div>
 
     <!-- MAPA TIPO CRUZ -->
@@ -453,10 +463,9 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <div class="emp-empty"></div>
       <div class="emp-zone emp-piensa" onclick="openEmpModal('piensa')">
         <div class="emp-zone-inner">
-          <div class="emp-zone-icon" style="background:#c8e6c9">🧠</div>
           <h5>¿Qué piensa y siente?</h5>
-          <p>Se preocupa por la sequía, busca reducir costos y quiere soluciones locales para su ganado.</p>
-          <span class="emp-clic">👆 Clic para ver más</span>
+          <p>Manifiesta preocupación ambiental y busca coherencia entre su estilo de vida, su economía personal y sus decisiones de consumo.</p>
+          <span class="emp-clic">Ver desarrollo</span>
         </div>
       </div>
       <div class="emp-empty"></div>
@@ -464,21 +473,19 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <!-- FILA 2: OYE | PERSONA | VE -->
       <div class="emp-zone emp-oye" onclick="openEmpModal('oye')">
         <div class="emp-zone-inner">
-          <div class="emp-zone-icon" style="background:#ffe0b2">👂</div>
           <h5>¿Qué oye?</h5>
-          <p>Recomendaciones de otros ganaderos, noticias de sequías severas y la Ley 755.</p>
-          <span class="emp-clic">👆 Clic para ver más</span>
+          <p>Recibe mensajes sobre reciclaje, crisis ambientales regionales y consumo responsable desde medios, entorno social y espacios académicos.</p>
+          <span class="emp-clic">Ver desarrollo</span>
         </div>
       </div>
       <div class="emp-center-cell">
-        <img src="logo y slogan.png" alt="NutriCiclo" style="width:100%;height:100%;object-fit:contain;padding:.5rem;border-radius:50%">
+        <img src="logo y slogan.png" alt="Perfil del cliente sostenible" style="width:100%;height:100%;object-fit:contain;padding:1rem">
       </div>
       <div class="emp-zone emp-ve" onclick="openEmpModal('ve')">
         <div class="emp-zone-inner">
-          <div class="emp-zone-icon" style="background:#bbdefb">👁️</div>
           <h5>¿Qué ve?</h5>
-          <p>Pastizales secos, residuos sin aprovechar y precios de soya importada subiendo.</p>
-          <span class="emp-clic">👆 Clic para ver más</span>
+          <p>Observa contraste entre iniciativas ecológicas emergentes y prácticas de consumo cotidiano con alta presencia de plástico desechable.</p>
+          <span class="emp-clic">Ver desarrollo</span>
         </div>
       </div>
 
@@ -486,15 +493,115 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <div class="emp-empty"></div>
       <div class="emp-zone emp-dice" onclick="openEmpModal('dice')">
         <div class="emp-zone-inner">
-          <div class="emp-zone-icon" style="background:#e1bee7">💬</div>
           <h5>¿Qué dice y hace?</h5>
-          <p>Busca alternativas económicas, asiste a capacitaciones y habla sobre ganadería sostenible.</p>
-          <span class="emp-clic">👆 Clic para ver más</span>
+          <p>Promueve hábitos sostenibles en su discurso, aunque en la práctica enfrenta decisiones condicionadas por tiempo, comodidad y precio.</p>
+          <span class="emp-clic">Ver desarrollo</span>
         </div>
       </div>
       <div class="emp-empty"></div>
 
     </div><!-- /emp-map-wrap -->
+
+    <div class="row g-3 mt-3 emp-duo" data-aos="fade-up" data-aos-delay="150">
+      <div class="col-md-6">
+        <div class="emp-zone emp-esf h-100" onclick="openEmpModal('esf')">
+          <div class="emp-zone-inner">
+            <h5>¿Cuáles son los esfuerzos?</h5>
+            <p>Realiza esfuerzos de tiempo, presupuesto y disciplina para sostener hábitos responsables dentro de una dinámica urbana exigente.</p>
+            <span class="emp-clic">Ver desarrollo</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="emp-zone emp-res h-100" onclick="openEmpModal('res')">
+          <div class="emp-zone-inner">
+            <h5>¿Cuáles son los resultados/beneficios?</h5>
+            <p>Define éxito como reducción de residuos, mejora de bienestar personal y validación social de prácticas sostenibles replicables.</p>
+            <span class="emp-clic">Ver desarrollo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD COMPLEMENTARIA
+══════════════════════════════════ -->
+<section id="actividad-complementaria">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <div class="sec-label">Actividad Complementaria</div>
+      <h2 class="sec-title">Primera y <span>Segunda Parte</span></h2>
+      <p class="sec-desc mx-auto mt-2">Material visual complementario del mapa de empatía trabajado en clase.</p>
+    </div>
+
+    <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-lg-6">
+        <div class="comp-card">
+          <img src="Defensa_01/Primera Parte (1).jpg" alt="Actividad complementaria - Primera parte">
+          <div class="comp-caption">Primera Parte</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="comp-card">
+          <img src="Defensa_01/Segunda Parte.jpg" alt="Actividad complementaria - Segunda parte">
+          <div class="comp-caption">Segunda Parte</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     INFOGRAFÍAS COMPLEMENTARIAS
+══════════════════════════════════ -->
+<section id="infografias-complementarias">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <div class="sec-label">Infografías Complementarias</div>
+      <h2 class="sec-title">Galería de <span>Apoyo Visual</span></h2>
+      <p class="sec-desc mx-auto mt-2">Infografías de la carpeta Defensa_01 para reforzar la lectura del perfil del cliente sostenible.</p>
+    </div>
+
+    <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-md-6 col-lg-4">
+        <div class="info-card">
+          <img src="Defensa_01/General.png" alt="Infografía general del mapa de empatía">
+          <div class="ttl">General</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="info-card">
+          <img src="Defensa_01/QUÉ OYE.png" alt="Infografía complementaria de qué oye">
+          <div class="ttl">Qué oye</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="info-card">
+          <img src="Defensa_01/QUÉ VE.png" alt="Infografía complementaria de qué ve">
+          <div class="ttl">Qué ve</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="info-card">
+          <img src="Defensa_01/QUE PIENSA Y SIENTE.png" alt="Infografía complementaria de qué piensa y siente">
+          <div class="ttl">Qué piensa y siente</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="info-card">
+          <img src="Defensa_01/CUALES SON LOS ESFUERZOS.png" alt="Infografía complementaria de esfuerzos">
+          <div class="ttl">Cuáles son los esfuerzos</div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="info-card">
+          <img src="Defensa_01/RESULTADOS Y BENEFICIOS.png" alt="Infografía complementaria de resultados y beneficios">
+          <div class="ttl">Resultados y beneficios</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
