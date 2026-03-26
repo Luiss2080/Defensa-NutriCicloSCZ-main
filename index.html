@@ -632,16 +632,65 @@ body{overflow-x:hidden;background:#f8fdf4}
 .info-card .ttl{padding:.65rem .75rem;font-size:.76rem;font-weight:700;color:#35552a;border-top:1px solid #eef4e9;text-align:center}
 
 /* ── CANVAS ── */
-#canvas{background:#fff;padding:3.2rem 0}
-.nav-pills .nav-link{border-radius:30px;font-weight:700;font-size:.85rem;padding:.5rem 1.5rem;color:#555;background:#f5f5f5}
-.nav-pills .nav-link.active.pos-tab{background:var(--g2);color:#fff}
-.nav-pills .nav-link.active.neg-tab{background:#c62828;color:#fff}
-.canvas-card{border:none;border-radius:14px;border-top:4px solid var(--g3);box-shadow:0 4px 20px rgba(0,0,0,.07);transition:.3s;cursor:pointer;height:100%}
-.canvas-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.12)}
-.canvas-card.neg{border-top-color:#e53935}
-.canvas-card .q-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--g3);margin-bottom:.3rem}
-.canvas-card.neg .q-label{color:#e53935}
-.canvas-card .collapse-content{font-size:.83rem;color:#5a7a4a;line-height:1.6}
+#canvas{
+  background:
+    radial-gradient(circle at 8% 8%, rgba(123,193,66,.12), transparent 28%),
+    linear-gradient(180deg,#ffffff,#f3f9f1);
+  padding:3.2rem 0;
+}
+.canvas-shell{max-width:1240px;margin:0 auto}
+.canvas-tabbar{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:.45rem;
+  margin:0 0 .95rem;
+  padding:.4rem;
+  border:1px solid #d8e8d4;
+  background:#ffffff;
+  border-radius:999px;
+  box-shadow:0 8px 20px rgba(18,64,35,.08);
+}
+.canvas-tab-btn{
+  border:none;
+  border-radius:999px;
+  padding:.45rem 1rem;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  background:#eef5ea;
+  color:#275336;
+  transition:.2s;
+}
+.canvas-tab-btn:hover{transform:translateY(-1px)}
+.canvas-tab-btn.pos.active{background:#2d6e18;color:#fff;box-shadow:0 8px 16px rgba(45,110,24,.25)}
+.canvas-tab-btn.neg.active{background:#c62828;color:#fff;box-shadow:0 8px 16px rgba(198,40,40,.25)}
+
+.canvas-panel{display:none}
+.canvas-panel.active{display:block}
+
+.canvas-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:0 0 .75rem}
+.canvas-metric{background:#fff;border:1px solid #dbead6;border-radius:12px;padding:.62rem .68rem;box-shadow:0 8px 18px rgba(18,64,35,.07)}
+.canvas-metric strong{display:block;font-size:.84rem;color:#174228;line-height:1.2}
+.canvas-metric span{display:block;font-size:.73rem;color:#4d6b55;line-height:1.35;margin-top:.16rem}
+
+.canvas-q-card{background:#fff;border:1px solid #dcead8;border-radius:14px;padding:.72rem .78rem;box-shadow:0 8px 20px rgba(18,64,35,.08);transition:.2s;cursor:pointer;height:100%}
+.canvas-q-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(18,64,35,.12);border-color:#b7d3af}
+.canvas-q-card.neg{border-color:#efcccc;background:#fffafa;box-shadow:0 8px 20px rgba(120,30,30,.08)}
+.canvas-q-card.neg:hover{box-shadow:0 12px 28px rgba(120,30,30,.14);border-color:#deaaaa}
+.canvas-kicker{font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#2d6e18;margin:0 0 .26rem}
+.canvas-q-card.neg .canvas-kicker{color:#b63228}
+.canvas-q-title{font-size:.9rem;font-weight:900;color:#174228;line-height:1.3;margin:0 0 .35rem}
+.canvas-q-card.neg .canvas-q-title{color:#6e201c}
+.canvas-summary{font-size:.79rem;color:#3b5c45;line-height:1.5;margin:0}
+.canvas-q-card.neg .canvas-summary{color:#5a3734}
+.canvas-detail{margin-top:.5rem}
+.canvas-detail ul{margin:0;padding-left:1rem}
+.canvas-detail li{font-size:.77rem;line-height:1.45;color:#33533e;margin:.2rem 0}
+.canvas-q-card.neg .canvas-detail li{color:#613a36}
+.canvas-toggle-label{display:block;margin-top:.5rem;font-size:.72rem;font-weight:800;color:#2d6e18;letter-spacing:.03em}
+.canvas-q-card.neg .canvas-toggle-label{color:#b63228}
 
 /* ── R's ── */
 #circular{background:linear-gradient(135deg,#0a1f05,#1a3d0a,#2d5a15);padding:3.2rem 0}
@@ -2015,76 +2064,222 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <div class="sec-label"><i class="ri-dashboard-3-line"></i>Canvas de Impacto y Circularidad</div>
       <h2 class="sec-title">Impactos de <span>NutriCiclo SCZ</span></h2>
     </div>
-    <ul class="nav nav-pills justify-content-center gap-2 mb-4" data-aos="fade-up">
-      <li class="nav-item"><a class="nav-link pos-tab active" onclick="switchCanvas('pos',this);return false;" href="javascript:void(0)">✅ Impactos Positivos</a></li>
-      <li class="nav-item"><a class="nav-link neg-tab" onclick="switchCanvas('neg',this);return false;" href="javascript:void(0)">⚠️ Impactos Negativos</a></li>
-    </ul>
-    <div id="canvas-pos" data-aos="fade-up">
-      <div class="row g-3">
-        <div class="col-md-6 col-lg-4"><div class="canvas-card card p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Cómo generamos impactos positivos?</div>
-          <h6 class="fw-bold">Transformación de residuos en valor</h6>
-          <div class="collapse-content collapse">Obtenemos residuos de mataderos (sangre, vísceras, huesos) que pueden contaminar el río Piraí y río Grande. Los transformamos con larvas BSF en proteína sostenible y producimos bloques multinutricionales para ganado.</div>
-          <small class="text-success fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6 col-lg-4"><div class="canvas-card card p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Qué productos generan estos impactos?</div>
-          <h6 class="fw-bold">Bloque Multinutricional BSF</h6>
-          <div class="collapse-content collapse"><strong>Producto:</strong> Bloques multinutricionales (mejor peso, más leche, menor costo).<br><br><strong>Procesos:</strong> Recolección, BSF y compostaje.<br><br><strong>Servicios:</strong> Capacitación a ganaderos.</div>
-          <small class="text-success fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6 col-lg-4"><div class="canvas-card card p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿A quiénes beneficia?</div>
-          <h6 class="fw-bold">Beneficiarios directos e indirectos</h6>
-          <div class="collapse-content collapse"><strong>Directos:</strong> Ganaderos Norte Integrado y Chiquitanía, trabajadores de mataderos, familias rurales.<br><br><strong>Indirectos:</strong> Población cercana al río Piraí y río Grande, medio ambiente.</div>
-          <small class="text-success fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6 col-lg-4"><div class="canvas-card card p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Cómo nos relacionamos?</div>
-          <h6 class="fw-bold">Relaciones con actores clave</h6>
-          <div class="collapse-content collapse"><strong>Ganaderos:</strong> Venta directa + capacitación.<br><strong>Mataderos:</strong> Recolección de residuos (Ley 755).<br><strong>Zonas rurales:</strong> Mejora ambiental y productiva.<br><strong>Instituciones:</strong> Alianzas estratégicas.</div>
-          <small class="text-success fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6 col-lg-4"><div class="canvas-card card p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Qué necesidad resolvemos?</div>
-          <h6 class="fw-bold">Alimentación en sequía + residuos</h6>
-          <div class="collapse-content collapse">Alimentación del ganado en sequía, reducción de costos, manejo de residuos de mataderos, menor contaminación de ríos y menor dependencia de insumos importados.</div>
-          <small class="text-success fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6 col-lg-4"><div class="canvas-card card p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Qué nos hace especiales?</div>
-          <h6 class="fw-bold">Único bloque BSF en Bolivia</h6>
-          <div class="collapse-content collapse">Resolvemos 2 problemas a la vez: <strong>limpiamos mataderos</strong> y <strong>salvamos al ganado en sequía</strong>. Es el único bloque en Bolivia a base de sangre y proteína de larvas BSF. 100% local = más accesible.</div>
-          <small class="text-success fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
+    <div class="canvas-shell" data-aos="fade-up" data-aos-delay="80">
+      <div class="canvas-tabbar">
+        <button class="canvas-tab-btn pos active" type="button" onclick="switchCanvas('pos',this)">✅ Impactos Positivos</button>
+        <button class="canvas-tab-btn neg" type="button" onclick="switchCanvas('neg',this)">⚠️ Impactos Negativos</button>
       </div>
-    </div>
-    <div id="canvas-neg" style="display:none" data-aos="fade-up">
-      <div class="row g-3">
-        <div class="col-md-6"><div class="canvas-card card neg p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Cómo generamos impactos negativos?</div>
-          <h6 class="fw-bold">Olor y emisiones en el proceso</h6>
-          <div class="collapse-content collapse">Al procesar sangre se genera vapor con olor fuerte perceptible a 500m durante 8-12h. Calcinación de huesos emite ~15 kg CO₂. Vehículo de recolección consume diésel. Bloque mal formulado puede causar intoxicación por urea.</div>
-          <small class="text-danger fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6"><div class="canvas-card card neg p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿A quiénes afecta?</div>
-          <h6 class="fw-bold">Vecinos, operarios y ganado joven</h6>
-          <div class="collapse-content collapse"><strong>Directos:</strong> Vecinos (olor), operarios con cal sin EPP, ganado con bloques mal formulados, terneros &lt;6 meses.<br><br><strong>Indirectos:</strong> Medio ambiente local y atmósfera.</div>
-          <small class="text-danger fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6"><div class="canvas-card card neg p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Cómo mitigamos cada impacto?</div>
-          <h6 class="fw-bold">Plan de mitigación activo</h6>
-          <div class="collapse-content collapse">🌿 Olor → Deshidratador solar cerrado en zona industrial PI-44.<br>💨 CO₂ → Bagazo excedente (carbono neutro).<br>🚗 Transporte → GPS optimizado -30% km.<br>🐄 Urea → Penetrómetro por lote + etiqueta.<br>👷 Cal → EPP obligatorio.</div>
-          <small class="text-danger fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
-        <div class="col-md-6"><div class="canvas-card card neg p-3" onclick="toggleCollapse(this)">
-          <div class="q-label">¿Grupos vulnerables afectados?</div>
-          <h6 class="fw-bold">Responsabilidad social activa</h6>
-          <div class="collapse-content collapse">Sí: operarios sin formación técnica, terneros &lt;6 meses vulnerables a urea, comunidades periurbanas con menor capacidad de reclamo. Por eso ubicamos la planta en zona industrial PI-44.</div>
-          <small class="text-danger fw-bold mt-2 d-block">▼ Ver más</small>
-        </div></div>
+
+      <div id="canvas-pos" class="canvas-panel active">
+        <div class="canvas-metrics">
+          <div class="canvas-metric"><strong>Impacto en comunidad</strong><span>Reduce contaminación en ríos y mejora productividad ganadera local.</span></div>
+          <div class="canvas-metric"><strong>Valor productivo</strong><span>Integra residuos en bloques, bioproteína BSF y fertilizantes.</span></div>
+          <div class="canvas-metric"><strong>Enfoque social</strong><span>Fortalece empleo local, capacitación técnica y seguridad alimentaria.</span></div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">1.1 Impactos Positivos</div>
+              <h5 class="canvas-q-title">¿Cuáles son todos los impactos positivos en la comunidad?</h5>
+              <p class="canvas-summary">Disminución de contaminación hídrica, valorización de residuos, mejora de productividad pecuaria y generación de empleo local.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Reduce vertidos orgánicos que afectan al río Piraí y río Grande.</li>
+                  <li>Fortalece prácticas sostenibles y seguridad alimentaria regional.</li>
+                  <li>Transforma residuos en insumos de alto valor.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Generación</div>
+              <h5 class="canvas-q-title">¿Cómo los generamos?</h5>
+              <p class="canvas-summary">Recolectamos residuos de mataderos y agroindustrias para producir bloques multinutricionales, proteína BSF y biocompuestos.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Residuos base: sangre, vísceras, huesos y subproductos vegetales.</li>
+                  <li>Conversión biotecnológica con larvas BSF.</li>
+                  <li>Integración total al proceso productivo circular.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Procesos y servicios</div>
+              <h5 class="canvas-q-title">¿Qué productos, procesos y servicios los potencian?</h5>
+              <p class="canvas-summary">Bloques nutricionales, procesamiento de residuos, compostaje y capacitación técnica para productores.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Producto central: bloque multinutricional NutriCiclo.</li>
+                  <li>Procesos: cocción, secado, mezcla, prensado y manejo técnico.</li>
+                  <li>Servicio: asistencia a ganaderos para uso adecuado.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Beneficiarios</div>
+              <h5 class="canvas-q-title">¿A quiénes beneficia?</h5>
+              <p class="canvas-summary">Ganaderos, comunidades cercanas a ríos, consumidores de productos ganaderos y el entorno ambiental regional.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Directos: productores, mataderos y trabajadores vinculados.</li>
+                  <li>Indirectos: población urbana cercana y ecosistemas locales.</li>
+                  <li>Mejora productividad y estabilidad en épocas secas.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Relación con la circularidad</div>
+              <h5 class="canvas-q-title">¿Cómo nos relacionamos con la circularidad y los actores?</h5>
+              <p class="canvas-summary">Con mataderos mediante acuerdos de recolección y con comunidades rurales a través de suministro y asistencia.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Se reduce presión sobre disposición final de residuos.</li>
+                  <li>Se incrementa trazabilidad de cada insumo del bloque.</li>
+                  <li>Se promueve corresponsabilidad ambiental local.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Vulnerabilidad</div>
+              <h5 class="canvas-q-title">¿Qué actores son más vulnerables y por qué?</h5>
+              <p class="canvas-summary">Pequeños productores, trabajadores de matadero y familias rurales con menor acceso a tecnología y capital.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Tienen alta dependencia de costos de alimentación animal.</li>
+                  <li>Presentan menor capacidad de inversión en innovación.</li>
+                  <li>Se prioriza capacitación y acompañamiento técnico continuo.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div id="canvas-neg" class="canvas-panel">
+        <div class="canvas-metrics">
+          <div class="canvas-metric"><strong>Riesgos operativos</strong><span>Olores, emisiones de CO2 y manipulación inadecuada de insumos.</span></div>
+          <div class="canvas-metric"><strong>Población expuesta</strong><span>Operarios, vecinos cercanos, productores y ganado.</span></div>
+          <div class="canvas-metric"><strong>Control requerido</strong><span>Protocolos técnicos, EPP, dosificación y logística eficiente.</span></div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card neg" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">1.2 Impactos Negativos</div>
+              <h5 class="canvas-q-title">¿Cuáles son los impactos negativos que podemos generar?</h5>
+              <p class="canvas-summary">Olores en secado de sangre, emisiones en calcinación y transporte, y riesgos sanitarios por manejo incorrecto.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Emisiones de CO2 en quema de huesos y logística.</li>
+                  <li>Riesgos por manipulación de cal viva y urea.</li>
+                  <li>Posible afectación local si no se aplican controles.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card neg" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Generación del riesgo</div>
+              <h5 class="canvas-q-title">¿Cómo los generamos?</h5>
+              <p class="canvas-summary">Por condiciones no controladas de operación en cocción, secado, transporte y formulación de bloques.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Secado sin control de olores ni ventilación adecuada.</li>
+                  <li>Transporte diésel sin rutas optimizadas.</li>
+                  <li>Error de dosificación de urea en mezcla final.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card neg" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Afectación</div>
+              <h5 class="canvas-q-title">¿A quiénes afecta?</h5>
+              <p class="canvas-summary">Vecinos próximos a planta, operarios de proceso, productores ganaderos y el ganado en alimentación.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Directos: operarios, vecinos y animales en campo.</li>
+                  <li>Indirectos: comunidades cercanas y entorno ambiental.</li>
+                  <li>Mayor impacto cuando faltan protocolos técnicos.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card neg" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Actores vulnerables</div>
+              <h5 class="canvas-q-title">¿Quiénes son más vulnerables?</h5>
+              <p class="canvas-summary">Trabajadores sin formación especializada, residentes cercanos y pequeños productores con menor capacidad de respuesta.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Riesgo ocupacional más alto sin EPP.</li>
+                  <li>Mayor exposición de comunidades adyacentes.</li>
+                  <li>Dependencia económica de una producción estable.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card neg" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Descripción del escenario</div>
+              <h5 class="canvas-q-title">¿Cómo podemos describir estos impactos?</h5>
+              <p class="canvas-summary">Son controlables mediante gestión técnica, mantenimiento, monitoreo y mejora continua del proceso.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>No son permanentes cuando hay protocolos claros.</li>
+                  <li>Se reducen con control de variables de operación.</li>
+                  <li>Exigen evaluación periódica por lote y etapa.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="canvas-q-card neg" onclick="toggleCollapse(this)">
+              <div class="canvas-kicker">Mitigación</div>
+              <h5 class="canvas-q-title">¿Cómo mitigamos cada impacto negativo?</h5>
+              <p class="canvas-summary">Con secado controlado, combustibles alternativos, optimización logística, dosificación segura y uso estricto de EPP.</p>
+              <div class="collapse canvas-detail">
+                <ul>
+                  <li>Secadores cerrados y ventilación técnica para olores.</li>
+                  <li>Rutas optimizadas para reducir consumo de diésel.</li>
+                  <li>Control de urea por lote y capacitación operativa.</li>
+                </ul>
+              </div>
+              <small class="canvas-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+        </div>
       </div>
     </div>
   </div>
