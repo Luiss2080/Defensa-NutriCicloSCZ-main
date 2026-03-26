@@ -784,20 +784,39 @@ body{overflow-x:hidden;background:#f8fdf4}
 .rec-toggle-label{display:block;margin-top:.5rem;font-size:.72rem;font-weight:800;color:#a7e06d;letter-spacing:.03em}
 
 /* ── INNOVACIÓN ── */
-#innovacion{background:linear-gradient(180deg,#f0f8e8,#e8f4de);padding:3.2rem 0}
-.innov-card{border-radius:18px;overflow:hidden;height:100%;transition:.3s;box-shadow:0 4px 20px rgba(0,0,0,.1)}
-.innov-card:hover{transform:translateY(-5px);box-shadow:0 16px 50px rgba(0,0,0,.18)}
-.innov-card .ic-head{padding:2rem;background:linear-gradient(135deg,#1b5e20,#2e7d32);position:relative}
-.innov-card:nth-child(2) .ic-head{background:linear-gradient(135deg,#e65100,#bf360c)}
-.innov-card:nth-child(3) .ic-head{background:linear-gradient(135deg,#0277bd,#01579b)}
-.innov-card:nth-child(4) .ic-head{background:linear-gradient(135deg,#6a1b9a,#4a148c)}
-.innov-card:nth-child(5) .ic-head{background:linear-gradient(135deg,#00695c,#004d40)}
-.innov-card .ic-head .ic-ico{font-size:2.2rem;margin-bottom:.7rem}
-.innov-card .ic-head h4{color:#fff;font-weight:800;font-size:.95rem;margin:0}
-.innov-card .ic-body{padding:1.2rem;background:#fff}
-.innov-card .ic-body p{font-size:.82rem;color:#5a7a4a;line-height:1.6;margin:0}
-.innov-card .ic-extra{font-size:.78rem;color:#888;margin-top:.5rem;display:none}
-.innov-card.open .ic-extra{display:block}
+#innovacion{
+  background:
+    radial-gradient(circle at 10% 8%, rgba(123,193,66,.14), transparent 28%),
+    linear-gradient(180deg,#f2f9ef,#ffffff);
+  padding:3.2rem 0;
+}
+.inn-shell{max-width:1260px;margin:0 auto}
+.inn-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inn-col{background:#fff;border:1px solid #dcead8;border-radius:16px;box-shadow:0 10px 24px rgba(18,64,35,.09);overflow:hidden}
+.inn-col-head{padding:.72rem .9rem;background:linear-gradient(90deg,#f7fcf6,#ecf6e8);border-bottom:1px solid #e3efe0}
+.inn-col-head h4{margin:0;font-size:1.02rem;font-weight:900;color:#174228;letter-spacing:.02em;text-transform:uppercase}
+.inn-col-body{padding:.72rem .78rem .78rem}
+.inn-item{border:1px solid #dcead8;border-radius:12px;background:#f8fcf7;overflow:hidden;margin:0 0 .52rem}
+.inn-item:last-child{margin-bottom:0}
+.inn-q{
+  width:100%;
+  border:none;
+  background:transparent;
+  text-align:left;
+  padding:.62rem .68rem;
+  font-size:.8rem;
+  font-weight:900;
+  color:#1f4d2d;
+  line-height:1.3;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:.55rem;
+}
+.inn-q i{font-size:.95rem;color:#2d6e18;transition:transform .2s ease}
+.inn-q[aria-expanded="true"] i{transform:rotate(180deg)}
+.inn-a{padding:0 .68rem .64rem}
+.inn-a p{margin:0;font-size:.79rem;color:#35583e;line-height:1.45}
 
 /* ── FOOTER ── */
 footer{background:var(--g1);color:rgba(255,255,255,.7);padding:3rem 0 1.5rem}
@@ -851,6 +870,10 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .r-note-card{padding:.78rem .78rem}
   .r-drop-btn{font-size:.8rem;padding:.68rem .72rem}
   .r-drop-body{padding:.56rem .56rem .62rem}
+  .inn-cols{grid-template-columns:1fr}
+  .inn-col-head h4{font-size:.92rem}
+  .inn-q{font-size:.77rem}
+  .inn-a p{font-size:.77rem}
   .rec-tabbar{border-radius:16px;justify-content:flex-start;overflow:auto;white-space:nowrap}
   .rec-metrics{grid-template-columns:1fr}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
@@ -2760,32 +2783,126 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 ══════════════════════════════════ -->
 <section id="innovacion">
   <div class="container">
-    <div class="text-center mb-5" data-aos="fade-up">
+    <div class="sec-head" data-aos="fade-up">
       <div class="sec-label"><i class="ri-lightbulb-flash-line"></i>Innovación</div>
       <h2 class="sec-title">Estrategias de <span>Innovación</span></h2>
-      <p class="sec-desc mx-auto mt-2">Haz clic en cada tarjeta para ver el detalle completo.</p>
+      <p class="sec-desc mx-auto mt-2">Sección actualizada con enfoque intuitivo e interactivo: cada pregunta despliega el desarrollo completo de la propuesta.</p>
     </div>
-    <div class="row g-4" data-aos="fade-up">
-      <div class="col-md-6 col-lg-4"><div class="innov-card" onclick="this.classList.toggle('open')">
-        <div class="ic-head"><div class="ic-ico">⏱️</div><h4>Extensión de Vida Útil</h4></div>
-        <div class="ic-body"><p>Bloque de larga duración y liberación lenta. La cal da consistencia resistente a condiciones climáticas durante toda la temporada de sequía.</p><p class="ic-extra">Al finalizar su función como suplemento, los restos sirven como reintegrador de nutrientes para el suelo. Componentes orgánicos y minerales se reintegran en la tierra de forma natural.</p></div>
-      </div></div>
-      <div class="col-md-6 col-lg-4"><div class="innov-card" onclick="this.classList.toggle('open')">
-        <div class="ic-head"><div class="ic-ico">🔄</div><h4>Residuo Cero</h4></div>
-        <div class="ic-body"><p>Si el bloque se quiebra, se vuelve a prensar o se usa como abono. Nada se desperdicia. Producto 100% local más accesible.</p><p class="ic-extra">Recompensamos a los mataderos facilitándoles el cumplimiento de la Ley 755 (Gestión de Residuos), transformando su problema legal en nuestra materia prima útil.</p></div>
-      </div></div>
-      <div class="col-md-6 col-lg-4"><div class="innov-card" onclick="this.classList.toggle('open')">
-        <div class="ic-head"><div class="ic-ico">📊</div><h4>Mejora Continua</h4></div>
-        <div class="ic-body"><p>Pruebas de dureza con penetrómetro. Medición de aceptación del ganado en campo. Iteración constante de la fórmula.</p><p class="ic-extra">Visión futura: energía solar para deshidratar ingredientes y sensores automatizados IoT (ESP32+DHT22) para controlar humedad en la producción.</p></div>
-      </div></div>
-      <div class="col-md-6 col-lg-4"><div class="innov-card" onclick="this.classList.toggle('open')">
-        <div class="ic-head"><div class="ic-ico">🤝</div><h4>Alianzas Estratégicas</h4></div>
-        <div class="ic-body"><p>Alianzas con municipios para facilitar la recolección de residuos y capacitar a ganaderos en el uso correcto del bloque.</p><p class="ic-extra">Cooperación internacional: Swisscontact y JICA financian proyectos de economía circular en Bolivia. La Ley 755 como palanca con los mataderos.</p></div>
-      </div></div>
-      <div class="col-md-6 col-lg-4"><div class="innov-card" onclick="this.classList.toggle('open')">
-        <div class="ic-head"><div class="ic-ico">🌐</div><h4>Mercado Global BSF</h4></div>
-        <div class="ic-body"><p>Mercado BSF global: $770M (2025) → $9.5B para 2035. Crecimiento 32.4% anual. Primeros en Bolivia.</p><p class="ic-extra">La UE aprobó proteínas de insectos en alimentación animal (2023). Solo Ecuador tiene planta BSF industrial en Sudamérica. Esta brecha tecnológica es nuestra oportunidad central.</p></div>
-      </div></div>
+    <div class="inn-shell" data-aos="fade-up" data-aos-delay="80">
+      <div class="inn-cols">
+        <article class="inn-col">
+          <div class="inn-col-head">
+            <h4>Próximo uso - Extensión de Vida Útil</h4>
+          </div>
+          <div class="inn-col-body" id="innColA">
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innA1" aria-expanded="true" aria-controls="innA1">
+                <span>¿Qué estrategias tenemos para extender la vida útil?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innA1" class="collapse show" data-bs-parent="#innColA">
+                <div class="inn-a">
+                  <p>El bloque multinutricional está diseñado con una consistencia sólida que permite una liberación lenta del alimento. Esto es clave en zonas ganaderas del norte integrado y la Chiquitania, donde las épocas de sequía reducen la disponibilidad de pasto. Su durabilidad permite que el ganado lo consuma progresivamente durante varios días sin desperdicio.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innA2" aria-expanded="false" aria-controls="innA2">
+                <span>¿Puede satisfacer nuevas necesidades al final del ciclo de uso?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innA2" class="collapse" data-bs-parent="#innColA">
+                <div class="inn-a">
+                  <p>Sí. Tras su consumo, los nutrientes se transforman en estiércol que puede ser utilizado en sistemas de compostaje, contribuyendo a la fertilización de suelos agrícolas, especialmente en cultivos de caña, soya y maíz en Santa Cruz.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innA3" aria-expanded="false" aria-controls="innA3">
+                <span>¿Qué sucede al final del uso del producto y sus componentes?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innA3" class="collapse" data-bs-parent="#innColA">
+                <div class="inn-a">
+                  <p>Los componentes orgánicos y minerales del bloque se reintegran completamente al suelo sin generar residuos contaminantes. El frass generado en la producción se usa como fertilizante. En el empaque, se promueve la reutilización mediante incentivos, como devolución con descuento, reduciendo residuos plásticos en zonas rurales.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="inn-col">
+          <div class="inn-col-head">
+            <h4>Estrategias de Innovación</h4>
+          </div>
+          <div class="inn-col-body" id="innColB">
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innB1" aria-expanded="true" aria-controls="innB1">
+                <span>¿Podemos incentivar o recompensar al usuario u otros actores para lograr residuo cero?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innB1" class="collapse show" data-bs-parent="#innColB">
+                <div class="inn-a">
+                  <p>Sí. Se incentiva a mataderos locales con una solución para gestionar residuos en cumplimiento normativo, reduciendo riesgos de sanción. A los ganaderos se les incentiva mediante beneficios económicos por devolución de envases y capacitación en prácticas sostenibles.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innB2" aria-expanded="false" aria-controls="innB2">
+                <span>¿Es posible su reutilización, reparación u otra R? ¿Cómo?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innB2" class="collapse" data-bs-parent="#innColB">
+                <div class="inn-a">
+                  <p>Sí. Si el bloque se fragmenta durante transporte o uso, puede volver a compactarse manualmente o utilizarse como abono directo. Además, el sistema productivo está diseñado para reutilizar constantemente residuos orgánicos como base del proceso.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innB3" aria-expanded="false" aria-controls="innB3">
+                <span>¿Cómo es nuestro proceso de mejora?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innB3" class="collapse" data-bs-parent="#innColB">
+                <div class="inn-a">
+                  <p>Se basa en pruebas continuas en campo con ganaderos de Santa Cruz, evaluando dureza, consumo y aceptación del bloque. Se ajustan formulaciones según resultados. A futuro se proyecta energía solar para secado e implementación de herramientas simples de control de humedad.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innB4" aria-expanded="false" aria-controls="innB4">
+                <span>¿Qué valor único tiene nuestro producto?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innB4" class="collapse" data-bs-parent="#innColB">
+                <div class="inn-a">
+                  <p>Es un suplemento ganadero producido localmente a partir de residuos orgánicos y proteína de insectos, lo que permite reducir costos productivos, mejorar la alimentación del ganado en épocas críticas y disminuir impactos ambientales.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innB5" aria-expanded="false" aria-controls="innB5">
+                <span>¿Qué nos hace especiales?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innB5" class="collapse" data-bs-parent="#innColB">
+                <div class="inn-a">
+                  <p>El emprendimiento integra dos soluciones en una sola propuesta: reduce contaminación por residuos de mataderos en Santa Cruz y mejora la productividad ganadera en contextos de sequía, especialmente en pequeños y medianos productores.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="inn-item">
+              <button class="inn-q" type="button" data-bs-toggle="collapse" data-bs-target="#innB6" aria-expanded="false" aria-controls="innB6">
+                <span>¿Qué actividades ayudan a lograr la propuesta de valor?</span><i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div id="innB6" class="collapse" data-bs-parent="#innColB">
+                <div class="inn-a">
+                  <p>El fortalecimiento de alianzas con mataderos, agroindustrias y municipios, junto con capacitación a ganaderos del norte integrado y la Chiquitania, permite asegurar la recolección de residuos, el uso correcto del producto y la consolidación del modelo de economía circular a nivel local.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
