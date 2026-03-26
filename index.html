@@ -1441,13 +1441,53 @@ window.addEventListener('scroll',()=>{
 // Hero carousel counter
 const heroEl = document.getElementById('hero');
 const heroCounter = document.getElementById('heroCounter');
+const heroQuickNav = document.getElementById('heroQuickNav');
+const heroProgressBar = document.getElementById('heroProgressBar');
 if (heroEl && heroCounter) {
+  const heroInstance = bootstrap.Carousel.getOrCreateInstance(heroEl);
   const total = heroEl.querySelectorAll('.carousel-item').length;
+  const intervalMs = Number(heroEl.getAttribute('data-bs-interval')) || 5200;
   const updateHeroCounter = (idx) => {
     heroCounter.textContent = `${String(idx + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
   };
-  updateHeroCounter(0);
-  heroEl.addEventListener('slid.bs.carousel', (e) => updateHeroCounter(e.to));
+
+  const updateQuickNav = (idx) => {
+    if (!heroQuickNav) return;
+    heroQuickNav.querySelectorAll('.hero-quick-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', i === idx);
+    });
+  };
+
+  const restartHeroProgress = () => {
+    if (!heroProgressBar) return;
+    heroProgressBar.classList.remove('run');
+    heroProgressBar.style.animationDuration = `${intervalMs}ms`;
+    void heroProgressBar.offsetWidth;
+    heroProgressBar.classList.add('run');
+  };
+
+  const activeIndex = Array.from(heroEl.querySelectorAll('.carousel-item')).findIndex((item) => item.classList.contains('active'));
+  const initialIndex = activeIndex >= 0 ? activeIndex : 0;
+
+  updateHeroCounter(initialIndex);
+  updateQuickNav(initialIndex);
+  restartHeroProgress();
+
+  if (heroQuickNav) {
+    heroQuickNav.querySelectorAll('.hero-quick-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const to = Number(btn.dataset.slide);
+        if (Number.isNaN(to)) return;
+        heroInstance.to(to);
+      });
+    });
+  }
+
+  heroEl.addEventListener('slid.bs.carousel', (e) => {
+    updateHeroCounter(e.to);
+    updateQuickNav(e.to);
+    restartHeroProgress();
+  });
 }
 
 // Investigacion previa interactiva
