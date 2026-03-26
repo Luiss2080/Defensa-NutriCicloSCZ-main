@@ -610,12 +610,9 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content" style="border-radius:20px;overflow:hidden;border:none">
       <div class="modal-header" id="empModalHead" style="border-bottom:none;padding:1.5rem 1.8rem 1rem">
-        <div class="d-flex align-items-center gap-3">
-          <div id="empModalIco" style="width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem"></div>
-          <div>
-            <h5 class="modal-title-h mb-0" id="empModalTitle"></h5>
-            <small class="text-muted" id="empModalSub"></small>
-          </div>
+        <div>
+          <h5 class="modal-title-h mb-0" id="empModalTitle"></h5>
+          <small class="text-muted" id="empModalSub"></small>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
@@ -1025,63 +1022,63 @@ window.addEventListener('scroll',()=>{
 
 // Empathy modal data
 const EMP = {
-  piensa:{ico:'🧠',bg:'#e8f5e9',title:'¿Qué piensa y siente?',sub:'Aspiraciones, miedos y preocupaciones del ganadero',
+  piensa:{bg:'#edf5ea',title:'¿Qué piensa y siente?',sub:'Aspiraciones, motivaciones y preocupaciones del cliente sostenible',
     items:[
-      {e:'😰',t:'Se preocupa profundamente por la sequía recurrente que seca sus pastizales y pone en riesgo su ganado cada temporada.'},
-      {e:'💰',t:'Quiere reducir los costos de alimentación del ganado; los suplementos importados son demasiado caros para pequeños productores.'},
-      {e:'🌱',t:'Le importa el bienestar de sus animales y busca soluciones locales, accesibles y confiables que funcionen en campo.'},
-      {e:'🏆',t:'Aspira a mejorar productividad: más peso en sus reses, más leche y menos mortalidad en temporada seca.'},
-      {e:'🤝',t:'Confía en recomendaciones de otros ganaderos y en el respaldo de FEGASACRUZ para adoptar nuevas tecnologías.'}
+      {t:'Expresa preocupación por el crecimiento urbano acelerado y su impacto directo en los espacios naturales de Santa Cruz.'},
+      {t:'Percibe que la responsabilidad ambiental debería ser compartida entre ciudadanía, empresas e instituciones públicas.'},
+      {t:'Busca sostener hábitos de consumo responsable sin comprometer su estabilidad económica y su ritmo de vida.'},
+      {t:'Aspira a ser referente positivo en su entorno cercano, promoviendo prácticas sostenibles con enfoque realista.'},
+      {t:'Valora soluciones concretas y accesibles que le permitan mantener coherencia entre discurso y práctica cotidiana.'}
     ]},
-  ve:{ico:'👁️',bg:'#e3f2fd',title:'¿Qué ve?',sub:'Entorno visual e influencias del ganadero',
+  ve:{bg:'#edf5ea',title:'¿Qué ve?',sub:'Entorno urbano, comercial y digital que influye en su conducta',
     items:[
-      {e:'🌵',t:'Pastizales secos y quemados en la Chiquitanía; el 65% del hato ganadero de SCZ sufre sequías recurrentes.'},
-      {e:'🏭',t:'Mataderos generando +20,000 ton/año de residuos (sangre, vísceras, huesos) sin aprovechar ni tratar correctamente.'},
-      {e:'📈',t:'Precios de harina de soya importada ($380-420/ton) con tendencia alcista constante.'},
-      {e:'🌊',t:'Ríos Piraí y Grande contaminados por efluentes de mataderos que no gestionan sus residuos correctamente.'},
-      {e:'🌍',t:'Tendencia mundial hacia la economía circular y proteínas alternativas; mercado BSF creciendo 32.4% anual.'}
+      {t:'Observa en supermercados y ferias una mayor presencia de productos ecológicos y opciones de consumo consciente.'},
+      {t:'Identifica al mismo tiempo una alta dependencia de envases plásticos en mercados populares y compras rápidas.'},
+      {t:'Percibe crecimiento de emprendimientos locales orientados a reutilización, reciclaje y productos artesanales.'},
+      {t:'Reconoce que el entorno digital amplifica mensajes de sostenibilidad, aunque no siempre transparenta el origen del producto.'},
+      {t:'Advierte una brecha persistente entre la oferta sostenible ideal y la disponibilidad práctica en su rutina diaria.'}
     ]},
-  oye:{ico:'👂',bg:'#fff3e0',title:'¿Qué oye?',sub:'Lo que escucha de su entorno y comunidad',
+  oye:{bg:'#edf5ea',title:'¿Qué oye?',sub:'Mensajes sociales, mediáticos y profesionales que recibe con frecuencia',
     items:[
-      {e:'💬',t:'Recomendaciones de otros ganaderos sobre suplementos tradicionales costosos e importados.'},
-      {e:'📰',t:'Noticias sobre sequías cada vez más severas y su impacto devastador en el sector ganadero boliviano.'},
-      {e:'⚖️',t:'Sobre la Ley 755 de Gestión de Residuos y nuevas obligaciones ambientales para mataderos.'},
-      {e:'🔬',t:'Que proteínas de insectos (BSF) son el futuro de la alimentación animal — la UE las aprobó en 2023.'},
-      {e:'🏦',t:'Sobre el programa gubernamental de Fomento Ganadero (DS 4560) con Bs 443 millones para el sector.'}
+      {t:'Escucha en medios locales reportes sobre incendios, sequías y deterioro ambiental en la región.'},
+      {t:'Recibe recomendaciones de familiares, colegas y amigos para reducir plásticos y priorizar consumo responsable.'},
+      {t:'En espacios de estudio y trabajo oye con frecuencia la necesidad de reciclar y adoptar prácticas más sostenibles.'},
+      {t:'Percibe testimonios de emprendimientos locales que promueven envases reutilizables y producción de bajo impacto.'},
+      {t:'Asimila una presión social moderada por actuar de forma coherente con los valores ambientales que defiende.'}
     ]},
-  dice:{ico:'💬',bg:'#f3e5f5',title:'¿Qué dice y hace?',sub:'Comportamiento y acciones observables',
+  dice:{bg:'#edf5ea',title:'¿Qué dice y hace?',sub:'Discurso público y comportamientos cotidianos observables',
     items:[
-      {e:'🔍',t:'Busca activamente alternativas de alimentación económicas para la época de sequía.'},
-      {e:'🗣️',t:'Habla con otros ganaderos sobre los problemas de la sequía y comparte soluciones en ferias y reuniones de FEGASACRUZ.'},
-      {e:'🛒',t:'Compra suplementos convencionales (sal mineral, melaza) en el mercado tradicional, muchas veces importados.'},
-      {e:'📚',t:'Asiste a capacitaciones técnicas y está dispuesto a adoptar nuevas tecnologías si son económicamente viables.'},
-      {e:'♻️',t:'Muestra interés en sostenibilidad cuando ve resultados concretos en su ganado: más peso, más leche.'}
+      {t:'Declara su compromiso con la sostenibilidad y recomienda a su entorno reducir residuos y consumo de plásticos.'},
+      {t:'Utiliza bolsas reutilizables y procura comprar en ferias o negocios que ofrezcan alternativas más responsables.'},
+      {t:'Participa en acciones puntuales de reciclaje o recolección cuando encuentra canales concretos de participación.'},
+      {t:'En contextos de presión de tiempo, puede priorizar conveniencia y terminar aceptando opciones menos sostenibles.'},
+      {t:'Mantiene una actitud favorable al cambio, siempre que las decisiones sostenibles sean accesibles y funcionales.'}
     ]},
-  esf:{ico:'⚡',bg:'#fffde7',title:'ESFUERZOS (Dolores)',sub:'Obstáculos, frustraciones y desafíos enfrentados',
+  esf:{bg:'#edf5ea',title:'¿Cuáles son los esfuerzos?',sub:'Barreras, costos de esfuerzo y tensiones del comportamiento',
     items:[
-      {e:'🗣️',t:'Promueve el cuidado del medio ambiente y habla con amigos sobre la importancia de reciclar, pero enfrenta resistencia cultural.'},
-      {e:'🚮',t:'Falta de cultura de reciclaje en la ciudad; muchas personas no separan la basura en sus hogares ni en los mataderos.'},
-      {e:'📍',t:'Pocos puntos accesibles para reciclar; no todos los barrios de Santa Cruz tienen centros de acopio cercanos.'},
-      {e:'💸',t:'Productos ecológicos más costosos; algunos productos biodegradables son más caros que los tradicionales importados.'}
+      {t:'Dedica más tiempo a encontrar opciones sostenibles en comparación con alternativas convencionales de compra rápida.'},
+      {t:'Enfrenta limitaciones de infraestructura: puntos de reciclaje dispersos y baja trazabilidad en algunos productos ecológicos.'},
+      {t:'Asume un sobrecosto en ciertos hábitos responsables, especialmente cuando prioriza productos locales y reutilizables.'},
+      {t:'Gestiona presión social cuando su entorno minimiza prácticas sostenibles o las considera poco prácticas.'},
+      {t:'Convive con la tensión entre convicción ambiental y necesidad de resolver su rutina diaria con eficiencia.'}
     ]},
-  res:{ico:'🏆',bg:'#f1f8e9',title:'RESULTADOS (Ganancias)',sub:'Beneficios esperados y logros deseados',
+  res:{bg:'#edf5ea',title:'¿Cuáles son los resultados y beneficios?',sub:'Logros esperados, indicadores de éxito y valor percibido',
     items:[
-      {e:'🌊',t:'Reducir la contaminación en la ciudad; menos basura acumulada en calles, canales y drenajes de Santa Cruz.'},
-      {e:'♻️',t:'Cuidar el medio ambiente; disminuir la cantidad de residuos que llegan a los vertederos y contaminan ríos.'},
-      {e:'🏘️',t:'Mejorar la calidad de vida en Santa Cruz; tener barrios más limpios, saludables y productivos.'},
-      {e:'🌱',t:'Contribuir a un futuro más sostenible; que las próximas generaciones hereden un entorno más limpio y próspero.'}
+      {t:'Reducir de forma tangible sus residuos personales y consolidar hábitos de consumo más consistentes en el tiempo.'},
+      {t:'Mejorar su bienestar al percibir que sus decisiones diarias se alinean con valores ambientales y sociales.'},
+      {t:'Acceder con mayor facilidad a productos sostenibles, naturales y con menor dependencia de empaques de un solo uso.'},
+      {t:'Generar influencia positiva en su círculo cercano al normalizar prácticas de reutilización y consumo local.'},
+      {t:'Contribuir a una cultura urbana más responsable, donde la sostenibilidad sea práctica habitual y no excepción.'}
     ]}
 };
 
 function openEmpModal(key){
   const d=EMP[key];
   document.getElementById('empModalHead').className='modal-header '+key;
-  document.getElementById('empModalIco').textContent=d.ico;
-  document.getElementById('empModalIco').style.background=d.bg;
   document.getElementById('empModalTitle').textContent=d.title;
   document.getElementById('empModalSub').textContent=d.sub;
   document.getElementById('empModalItems').innerHTML=d.items.map(i=>`
-    <div class="modal-item-row"><div class="mit-ico">${i.e}</div><p>${i.t}</p></div>
+    <div class="modal-item-row"><p>${i.t}</p></div>
   `).join('');
   new bootstrap.Modal(document.getElementById('empModal')).show();
 }
