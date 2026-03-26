@@ -551,6 +551,37 @@ body{overflow-x:hidden;background:#f8fdf4}
 .dec-list li{margin:.26rem 0;font-size:.78rem;color:#34573d;line-height:1.4}
 .dec-list li strong{color:#1f4d2d}
 
+/* ── DIAGRAMA VISUAL DECONSTRUIDO ── */
+#diagrama-deconstruido{
+  background:
+    radial-gradient(circle at 90% 10%, rgba(123,193,66,.14), transparent 28%),
+    linear-gradient(180deg,#ffffff,#f4f9f2);
+  padding:3.2rem 0;
+}
+.diag-wrap{max-width:1140px;margin:0 auto}
+.diag-accordion{background:#fff;border:1px solid #d9e8d4;border-radius:14px;box-shadow:0 10px 24px rgba(18,64,35,.09);overflow:hidden}
+.diag-btn{
+  width:100%;
+  border:none;
+  background:linear-gradient(90deg,#f7fcf6,#ecf6e8);
+  color:#174228;
+  font-size:.88rem;
+  font-weight:900;
+  letter-spacing:.02em;
+  text-align:left;
+  padding:.78rem .95rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.diag-btn i{font-size:1rem;color:#2d6e18}
+.diag-btn .diag-arrow{transition:transform .2s ease;color:#2d6e18}
+.diag-btn[aria-expanded="true"] .diag-arrow{transform:rotate(180deg)}
+.diag-body{padding:.75rem .8rem .85rem;background:#fff;border-top:1px solid #e3efe0}
+.diag-note{font-size:.8rem;color:#3d6147;line-height:1.45;margin:0 0 .62rem}
+.diag-img-wrap{background:#f3f8f1;border:1px solid #d8e8d4;border-radius:10px;padding:.4rem}
+.diag-img-wrap img{width:100%;height:auto;display:block;border-radius:8px}
+
 /* ── ACTIVIDAD / INFOGRAFÍAS COMPLEMENTARIAS ── */
 #actividad-complementaria{
   background:linear-gradient(180deg,#ffffff,#f4f9f2);
@@ -690,6 +721,8 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .dt-table{min-width:980px}
   .ev-table{min-width:940px}
   .dec-card-media img{height:170px}
+  .diag-btn{font-size:.82rem;padding:.72rem .82rem}
+  .diag-body{padding:.68rem .62rem .72rem}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
   .stat-item:last-child{border-bottom:none}
 }
@@ -715,6 +748,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         <li class="nav-item"><a class="nav-link" href="#about">Quiénes Somos</a></li>
         <li class="nav-item"><a class="nav-link" href="#empathy">Mapa de Empatía</a></li>
         <li class="nav-item"><a class="nav-link" href="#matriz-innovacion">Idea de Negocio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#diagrama-deconstruido">Diagrama</a></li>
         <li class="nav-item"><a class="nav-link" href="#canvas">Canvas</a></li>
         <li class="nav-item"><a class="nav-link" href="#circular">R's Circular</a></li>
         <li class="nav-item"><a class="nav-link" href="#materiales">Materiales</a></li>
@@ -1795,6 +1829,36 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
               </ul>
             </div>
           </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     DIAGRAMA VISUAL DEL PRODUCTO DECONSTRUIDO
+══════════════════════════════════ -->
+<section id="diagrama-deconstruido">
+  <div class="container">
+    <div class="sec-head" data-aos="fade-up">
+      <div class="sec-label"><i class="ri-mind-map"></i>Nueva Sesión</div>
+      <h2 class="sec-title">Diagrama Visual del <span>Producto Deconstruido</span></h2>
+      <p class="sec-desc mx-auto mt-2">Haz clic en la lista desplegable para visualizar el diagrama completo del BMN + BSF.</p>
+    </div>
+
+    <div class="diag-wrap" data-aos="fade-up" data-aos-delay="80">
+      <div class="diag-accordion">
+        <button class="diag-btn" type="button" data-bs-toggle="collapse" data-bs-target="#diagContenido" aria-expanded="false" aria-controls="diagContenido">
+          <span><i class="ri-arrow-down-s-fill me-1"></i>Lista desplegable: Diagrama del producto deconstruido</span>
+          <i class="ri-arrow-down-s-line diag-arrow"></i>
+        </button>
+        <div id="diagContenido" class="collapse" data-bs-parent="#diagrama-deconstruido">
+          <div class="diag-body">
+            <p class="diag-note">Imagen de referencia del producto deconstruido con sus componentes biológicos y técnicos.</p>
+            <div class="diag-img-wrap">
+              <img src="BloqueDeconstruido.png" alt="Diagrama visual del producto deconstruido BMN más BSF">
+            </div>
+          </div>
         </div>
       </div>
     </div>
