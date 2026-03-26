@@ -143,6 +143,68 @@ body{overflow-x:hidden;background:#f8fdf4}
 .emp-esf{background:linear-gradient(180deg,#ffffff,#f7fbf5)}
 .emp-res{background:linear-gradient(180deg,#ffffff,#f3f8f1)}
 
+/* ── INVESTIGACIÓN PREVIA ── */
+#investigacion-previa{
+  background:
+    radial-gradient(circle at 12% 10%, rgba(123,193,66,.18), transparent 28%),
+    radial-gradient(circle at 85% 18%, rgba(45,110,24,.14), transparent 25%),
+    linear-gradient(180deg,#f4faf1,#ffffff);
+  padding:5rem 0;
+}
+.inv-shell{
+  max-width:1240px;
+  margin:0 auto;
+  border:1px solid #d8e8d4;
+  border-radius:22px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 16px 38px rgba(18,64,35,.1);
+  overflow:hidden;
+}
+.inv-head{
+  padding:1.3rem 1.4rem;
+  border-bottom:1px solid #e2eee0;
+  background:linear-gradient(90deg,#f8fcf7,#edf6ea);
+}
+.inv-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  padding:1rem 1.2rem 0;
+}
+.inv-tab{
+  border:1px solid #cfe1cb;
+  background:#fff;
+  color:#2f5238;
+  font-size:.78rem;
+  font-weight:700;
+  border-radius:999px;
+  padding:.45rem .9rem;
+  transition:.2s;
+}
+.inv-tab:hover{border-color:#8eb582;color:#174228}
+.inv-tab.active{background:#2d6e18;color:#fff;border-color:#2d6e18;box-shadow:0 8px 18px rgba(45,110,24,.24)}
+.inv-panel{padding:1rem 1.2rem 1.3rem}
+.inv-title{font-size:1.05rem;font-weight:900;color:#174228;margin-bottom:.35rem}
+.inv-sub{font-size:.84rem;color:#4f6f57;margin-bottom:.8rem}
+.inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.inv-item{background:#f8fcf7;border:1px solid #dcead8;border-radius:12px;padding:.85rem .9rem}
+.inv-item h6{margin:0 0 .35rem;font-size:.82rem;font-weight:800;color:#1f4d2d}
+.inv-item p{margin:0;font-size:.8rem;line-height:1.55;color:#35583e}
+
+/* ── REFLEXIÓN Y CONCLUSIÓN ── */
+#cierre-reflexion{
+  background:
+    radial-gradient(circle at 88% 10%, rgba(123,193,66,.15), transparent 30%),
+    linear-gradient(180deg,#ffffff,#eef7ea);
+  padding:5rem 0;
+}
+.cierre-wrap{max-width:1200px;margin:0 auto}
+.cierre-card{background:#fff;border:1px solid #d9e8d4;border-radius:16px;box-shadow:0 10px 28px rgba(18,64,35,.08);overflow:hidden;height:100%}
+.cierre-card-head{padding:1rem 1.1rem;background:linear-gradient(90deg,#f7fcf6,#edf6ea);border-bottom:1px solid #e2eee0}
+.cierre-card-head h4{margin:0;font-size:1rem;font-weight:900;color:#174228}
+.cierre-card-body{padding:1rem 1.1rem}
+.cierre-note{background:#f5faf3;border:1px solid #d9e8d4;border-radius:12px;padding:.8rem .9rem;font-size:.82rem;color:#34573d;line-height:1.55}
+
 /* ── ACTIVIDAD / INFOGRAFÍAS COMPLEMENTARIAS ── */
 #actividad-complementaria{
   background:linear-gradient(180deg,#ffffff,#f4f9f2);
@@ -259,6 +321,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 [data-aos]{transition-duration:.7s!important}
 
 @media(max-width:768px){
+  .inv-grid{grid-template-columns:1fr}
   .empathy-stage{padding:1rem .7rem .8rem}
   .emp-profile-band{flex-direction:column;text-align:center;gap:.6rem}
   .emp-map-wrap{grid-template-columns:repeat(6,minmax(220px,1fr));grid-template-rows:1fr;min-height:auto}
@@ -472,6 +535,36 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 </section>
 
 <!-- ══════════════════════════════════
+     RESULTADOS DE LA INVESTIGACIÓN PREVIA
+══════════════════════════════════ -->
+<section id="investigacion-previa">
+  <div class="container-fluid px-4 px-lg-5">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <div class="sec-label">Análisis Previo</div>
+      <h2 class="sec-title">Resultados de la <span>Investigación</span></h2>
+      <p class="sec-desc mx-auto mt-2">Síntesis dinámica de hallazgos previos al mapa de empatía para entender el contexto real del cliente sostenible en Santa Cruz.</p>
+    </div>
+
+    <div class="inv-shell" data-aos="fade-up" data-aos-delay="80">
+      <div class="inv-head">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <h3 style="margin:0;font-size:1.05rem;font-weight:900;color:#174228">3. Resultados de la Investigación</h3>
+          <small style="color:#4f6f57;font-weight:700">Interfaz resumida e interactiva</small>
+        </div>
+      </div>
+
+      <div class="inv-tabs" id="invTabs"></div>
+
+      <div class="inv-panel" id="invPanel">
+        <div class="inv-title" id="invTitle"></div>
+        <div class="inv-sub" id="invSub"></div>
+        <div class="inv-grid" id="invGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
      MAPA DE EMPATÍA
 ══════════════════════════════════ -->
 <section id="empathy">
@@ -615,6 +708,77 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         <div class="info-card">
           <img src="Defensa_01/RESULTADOS Y BENEFICIOS.png" alt="Infografía complementaria de resultados y beneficios">
           <div class="ttl">Resultados y beneficios</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     REFLEXIÓN Y CONCLUSIÓN GRUPAL
+══════════════════════════════════ -->
+<section id="cierre-reflexion">
+  <div class="container">
+    <div class="text-center mb-4" data-aos="fade-up">
+      <div class="sec-label">Cierre Analítico</div>
+      <h2 class="sec-title">Reflexión y <span>Conclusión Grupal</span></h2>
+      <p class="sec-desc mx-auto mt-2">Aprendizajes clave del proceso de investigación y lineamientos estratégicos para el diseño de propuestas de valor sostenibles.</p>
+    </div>
+
+    <div class="row g-4 cierre-wrap" data-aos="fade-up" data-aos-delay="90">
+      <div class="col-lg-6">
+        <div class="cierre-card">
+          <div class="cierre-card-head">
+            <h4>4. Reflexión Individual (síntesis)</h4>
+          </div>
+          <div class="cierre-card-body">
+            <div class="accordion" id="accReflexion">
+              <div class="accordion-item border-0 mb-2">
+                <h2 class="accordion-header" id="refh1">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#refc1" aria-expanded="false" aria-controls="refc1" style="font-size:.86rem;font-weight:800;color:#174228;background:#f5faf3;border-radius:10px">
+                    1. De la idea a la empatía estructural
+                  </button>
+                </h2>
+                <div id="refc1" class="accordion-collapse collapse" aria-labelledby="refh1" data-bs-parent="#accReflexion">
+                  <div class="accordion-body" style="font-size:.82rem;color:#35583e;line-height:1.6">
+                    La investigación evidencia que el cliente ya tiene intención de ser sostenible, pero enfrenta fricciones sistémicas: infraestructura insuficiente, presión de tiempo, sobrecostos y desconfianza. El enfoque emprendedor debe priorizar conveniencia y usabilidad, haciendo que la alternativa sostenible sea más simple que la opción tradicional.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header" id="refh2">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#refc2" aria-expanded="false" aria-controls="refc2" style="font-size:.86rem;font-weight:800;color:#174228;background:#f5faf3;border-radius:10px">
+                    2. Sostenibilidad como núcleo de propuesta de valor
+                  </button>
+                </h2>
+                <div id="refc2" class="accordion-collapse collapse" aria-labelledby="refh2" data-bs-parent="#accReflexion">
+                  <div class="accordion-body" style="font-size:.82rem;color:#35583e;line-height:1.6">
+                    La propuesta sostenible debe ser trazable, transparente y económicamente realista. La ecuación crítica identificada es: impacto ambiental verificable + accesibilidad económica + conveniencia logística. Cuando esa combinación se cumple, el cliente puede sostener hábitos responsables sin sacrificar bienestar personal.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="cierre-card">
+          <div class="cierre-card-head">
+            <h4>5. Conclusión Grupal (síntesis)</h4>
+          </div>
+          <div class="cierre-card-body">
+            <div class="cierre-note mb-3">
+              El cliente sostenible de Santa Cruz no requiere más sensibilización básica: requiere un sistema de consumo donde la opción ecológica sea accesible, transparente y de baja fricción operativa.
+            </div>
+            <div class="cierre-note mb-3">
+              La oportunidad emprendedora está en eliminar el “castigo” del consumo responsable: tiempo extra, costos percibidos altos y dificultad para validar autenticidad de las marcas.
+            </div>
+            <div class="cierre-note">
+              La calidad de cualquier propuesta futura dependerá de su capacidad para integrar conveniencia radical, claridad informativa y trazabilidad real de impacto, convirtiendo al consumidor en agente de cambio sostenible dentro de su propia rutina.
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1035,6 +1199,94 @@ AOS.init({once:true,offset:80});
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);
 });
+
+// Investigacion previa interactiva
+const PREVIA = [
+  {
+    key:'vyo',
+    label:'3.1 ¿Qué ve y oye?',
+    title:'3.1 Entorno perceptivo: estímulos visuales y auditivos',
+    sub:'El cliente sostenible vive una experiencia urbana de contrastes entre señales ecológicas emergentes y hábitos de consumo tradicional.',
+    items:[
+      {h:'Dicotomía comercial',p:'En supermercados modernos identifica productos con narrativa ecológica, pero el plástico sigue siendo dominante; en mercados tradicionales, el uso de bolsas de un solo uso es casi total.'},
+      {h:'Ecosistema informativo',p:'Recibe de forma constante noticias sobre sequías, inundaciones y deforestación en medios como Unitel y El Deber, reforzando su percepción de urgencia ambiental.'},
+      {h:'Burbujas de innovación',p:'Observa prácticas responsables en espacios académicos y marcas emergentes (Innovaplast, Peregrino, Mercadito Eco), aunque aún son señales parciales.'},
+      {h:'Señal central',p:'El contexto combina avances visibles con una infraestructura de consumo que todavía favorece la inmediatez por encima de la sostenibilidad.'}
+    ]
+  },
+  {
+    key:'psy',
+    label:'3.2 ¿Qué piensa y siente?',
+    title:'3.2 Cognición y emoción',
+    sub:'La toma de decisiones del cliente oscila entre conciencia crítica, eco-ansiedad y una expectativa concreta de mejora práctica.',
+    items:[
+      {h:'Responsabilidad sistémica',p:'Considera que la carga ambiental no debe recaer solo en el individuo; exige mayor compromiso de empresas e instituciones públicas.'},
+      {h:'Búsqueda de equilibrio',p:'Aspira a hábitos sostenibles sin sacrificar comodidad, estabilidad financiera ni eficiencia cotidiana.'},
+      {h:'Preocupación urbana',p:'Relaciona la expansión acelerada de la ciudad con pérdida de calidad ambiental y reducción del bienestar colectivo.'},
+      {h:'Orgullo colectivo',p:'Valora positivamente acciones ciudadanas como arborización y limpieza del río Piraí, lo que fortalece su motivación.'}
+    ]
+  },
+  {
+    key:'com',
+    label:'3.3 ¿Qué dice y hace?',
+    title:'3.3 Comportamiento social y hábitos',
+    sub:'Existe una brecha entre el discurso proambiental y la práctica diaria, explicada por conveniencia contextual y presión de rutina.',
+    items:[
+      {h:'Activismo selectivo',p:'Participa en campañas y valida causas ambientales, pero la constancia disminuye ante olvidos o falta de sistemas de apoyo.'},
+      {h:'Adaptación social',p:'Ajusta su comportamiento según el entorno: adopta prácticas sostenibles en espacios afines y reduce intensidad en contextos menos receptivos.'},
+      {h:'Trampa de conveniencia',p:'Cuando predomina el apuro (tráfico, trabajo, compras rápidas), vuelve a opciones tradicionales por facilidad inmediata.'},
+      {h:'Patrón clave',p:'La intención existe; el problema no es ideológico, sino operativo y contextual.'}
+    ]
+  },
+  {
+    key:'bar',
+    label:'3.4 Esfuerzos',
+    title:'3.4 Análisis de barreras y fricciones',
+    sub:'El costo de sostener hábitos responsables es alto en tiempo, dinero y validación social.',
+    items:[
+      {h:'Déficit estructural',p:'La falta de reciclaje formal e integral en Santa Cruz limita la continuidad de prácticas responsables.'},
+      {h:'Costo de oportunidad',p:'Acceder a opciones ecológicas implica desplazamientos y sobreesfuerzo logístico, con impacto directo en tiempo personal.'},
+      {h:'Restricción económica',p:'El cliente no está dispuesto a pagar sobreprecios excesivos si no percibe valor claro, trazabilidad y utilidad real.'},
+      {h:'Desconfianza de marca',p:'El greenwashing y la opacidad sobre origen de insumos generan freno en la adopción sostenida.'}
+    ]
+  },
+  {
+    key:'res',
+    label:'3.5 Resultados',
+    title:'3.5 Expectativas y motivadores',
+    sub:'El objetivo final es una sostenibilidad democratizada: fácil, accesible y medible en la vida diaria.',
+    items:[
+      {h:'Conveniencia radical',p:'Busca puntos de compra con menor empaque y acceso directo, sin fricción operativa ni costos ocultos.'},
+      {h:'Métrica personal',p:'Evalúa su impacto por reducción tangible de residuos en su rutina cotidiana.'},
+      {h:'Validación social',p:'Percibe éxito cuando su entorno cercano adopta prácticas similares, reforzando su rol de agente de cambio.'},
+      {h:'Beneficio central',p:'Obtiene satisfacción moral al sostener coherencia entre valores ambientales y comportamiento práctico.'}
+    ]
+  }
+];
+
+function renderPrevia(key){
+  const data = PREVIA.find(x=>x.key===key) || PREVIA[0];
+  document.getElementById('invTitle').textContent = data.title;
+  document.getElementById('invSub').textContent = data.sub;
+  document.getElementById('invGrid').innerHTML = data.items.map(i=>`
+    <article class="inv-item">
+      <h6>${i.h}</h6>
+      <p>${i.p}</p>
+    </article>
+  `).join('');
+  document.querySelectorAll('.inv-tab').forEach(btn=>btn.classList.toggle('active',btn.dataset.key===data.key));
+}
+
+function initPrevia(){
+  const tabs = document.getElementById('invTabs');
+  if(!tabs) return;
+  tabs.innerHTML = PREVIA.map(x=>`<button class="inv-tab" data-key="${x.key}" type="button">${x.label}</button>`).join('');
+  tabs.querySelectorAll('.inv-tab').forEach(btn=>{
+    btn.addEventListener('click',()=>renderPrevia(btn.dataset.key));
+  });
+  renderPrevia(PREVIA[0].key);
+}
+initPrevia();
 
 // Empathy modal data
 const EMP = {
