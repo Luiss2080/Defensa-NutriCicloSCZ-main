@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actividad 02 · Selección de Idea de Negocio Sostenible</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Unbounded:wght@300;400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050f07;
+  --surface: #0a1a0d;
+  --surface2: #0f2414;
+  --green-neon: #00ff7f;
+  --green-bright: #22c55e;
+  --green-mid: #16a34a;
+  --green-deep: #14532d;
+  --lime: #a3e635;
+  --teal: #2dd4bf;
+  --amber: #f59e0b;
+  --coral: #fb7185;
+  --white: #f0fdf4;
+  --grey: #86efac;
+  --muted: #4ade80;
+  --border: rgba(0,255,127,0.15);
+  --border2: rgba(0,255,127,0.08);
+  --glow: rgba(0,255,127,0.25);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  position: fixed; width: 12px; height: 12px;
+  background: var(--green-neon); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform .1s, width .2s, height .2s, opacity .2s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; width: 36px; height: 36px;
+  border: 1px solid var(--green-neon);
+  border-radius: 50%; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform .12s ease, width .25s, height .25s;
+  opacity: .5;
+}
+body:has(button:hover) .cursor, body:has(a:hover) .cursor { width: 24px; height: 24px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:500;
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(5,15,7,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: .9rem; letter-spacing: -0.5px;
+  color: var(--green-neon);
+  display: flex; align-items: center; gap: .5rem;
+}
+.nav-logo .dot { width: 8px; height: 8px; background: var(--green-neon); border-radius: 50%; animation: blink 2s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.nav-links { display: flex; gap: .2rem; flex-wrap: wrap; }
+.nav-btn {
+  background: none; border: none; cursor: none;
+  font-family: 'Outfit', sans-serif; font-size: .72rem; font-weight: 500;
+  color: rgba(240,253,244,.4); padding: .45rem .9rem; border-radius: 40px;
+  transition: all .25s; letter-spacing: .3px;
+}
+.nav-btn:hover { color: var(--white); background: rgba(0,255,127,.08); }
+.nav-btn.active { color: var(--bg); background: var(--green-neon); font-weight: 600; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-pill {
+  font-family: 'Unbounded', sans-serif; font-size: .58rem;
+  background: var(--green-deep); color: var(--green-neon);
+  border: 1px solid var(--border); padding: .3rem .8rem; border-radius: 20px;
+  letter-spacing: .5px;
+}
+.nav-keys { font-size: .65rem; color: rgba(240,253,244,.3); display: flex; align-items: center; gap: .3rem; }
+.key { background: rgba(0,255,127,.06); border: 1px solid var(--border); border-radius: 4px; padding: .15rem .45rem; font-family: monospace; }
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; padding-top: 72px; }
+.screen.active { display: block; }
+.screen.active.fade-enter { animation: fadeEnter .5s cubic-bezier(.4,0,.2,1) both; }
+@keyframes fadeEnter { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+/* ═══════════════ SCREEN 1 · HERO ═══════════════ */
+#s-hero {
+  background: var(--bg);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+#s-hero.active { display: flex; }
+.hero-bg { position: absolute; inset:0; pointer-events:none; overflow:hidden; }
+.hero-bg-circle { position: absolute; border-radius: 50%; border: 1px solid var(--border); }
+.hero-bg-circle:nth-child(1){ width:700px;height:700px;top:-200px;right:-150px; animation: rotateSlow 30s linear infinite; }
+.hero-bg-circle:nth-child(2){ width:500px;height:500px;top:-100px;right:-50px; border-color:rgba(0,255,127,.06); animation: rotateSlow 20s linear infinite reverse; }
+.hero-bg-circle:nth-child(3){ width:300px;height:300px;top:0px;right:50px; animation: rotateSlow 15s linear infinite; }
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+.hero-glow { position: absolute; width:600px; height:600px; background: radial-gradient(circle,rgba(0,255,127,.12) 0%,transparent 70%); top:-100px; right:-100px; pointer-events:none; }
+.hero-grid {
+  position: absolute; inset:0; pointer-events:none;
+  background-image: linear-gradient(rgba(0,255,127,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,127,.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: calc(100vh - 72px);
+  padding: 5rem 4rem; max-width: 1200px;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: .75rem; margin-bottom: 2rem; animation: fadeEnter .6s ease both; }
+.hero-eyebrow-line { width: 32px; height: 2px; background: var(--green-neon); }
+.hero-eyebrow-text { font-family: 'Outfit', sans-serif; font-size: .78rem; font-weight: 500; color: var(--green-neon); letter-spacing: 2px; text-transform: uppercase; }
+.hero-h1 { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: clamp(3rem,7vw,6.5rem); line-height: .95; letter-spacing: -2px; margin-bottom: 1rem; animation: fadeEnter .7s ease .1s both; }
+.hero-h1 .line1 { color: var(--white); display: block; }
+.hero-h1 .line2 { display: block; background: linear-gradient(135deg, var(--green-neon) 0%, var(--lime) 40%, var(--teal) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-h1 .line3 { color: rgba(240,253,244,.25); display: block; font-size: clamp(1.5rem,3vw,2.8rem); }
+.hero-sub { max-width: 520px; font-size: 1rem; font-weight: 300; line-height: 1.8; color: rgba(240,253,244,.55); margin-bottom: 3rem; animation: fadeEnter .7s ease .2s both; }
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeEnter .7s ease .3s both; }
+.btn-glow { display: flex; align-items: center; gap: .6rem; background: var(--green-neon); color: var(--bg); border: none; cursor: none; font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: .75rem; letter-spacing: .5px; padding: .9rem 1.8rem; border-radius: 60px; transition: all .3s; position: relative; overflow: hidden; }
+.btn-glow::after { content:''; position:absolute; inset:0; background: linear-gradient(135deg,transparent 30%,rgba(255,255,255,.2)); opacity:0; transition: opacity .3s; }
+.btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(0,255,127,.4), 0 16px 40px rgba(0,255,127,.2); }
+.btn-glow:hover::after { opacity:1; }
+.btn-outline { display: flex; align-items: center; gap: .6rem; background: transparent; color: var(--white); border: 1px solid var(--border); cursor: none; font-family: 'Outfit', sans-serif; font-size: .82rem; font-weight: 500; padding: .9rem 1.8rem; border-radius: 60px; transition: all .3s; }
+.btn-outline:hover { background: rgba(0,255,127,.06); border-color: rgba(0,255,127,.4); }
+.hero-stats { display: flex; gap: 0; margin-top: 4rem; border-top: 1px solid var(--border); padding-top: 2rem; animation: fadeEnter .7s ease .5s both; }
+.hero-stat { flex:1; padding: 0 2rem 0 0; border-right: 1px solid var(--border2); }
+.hero-stat:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat-n { font-family: 'Unbounded', sans-serif; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg,var(--green-neon),var(--teal)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; }
+.hero-stat-l { font-size: .7rem; color: rgba(240,253,244,.35); margin-top:.4rem; letter-spacing:.5px; text-transform:uppercase; }
+.hero-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); width: 360px; height: 360px; animation: fadeEnter .8s ease .4s both; }
+.eco-wheel { position: relative; width:100%; height:100%; animation: rotateSlow 25s linear infinite; }
+.eco-wheel-track { position:absolute; inset:0; border-radius:50%; border: 2px solid var(--border); }
+.eco-wheel-track.t2 { inset:50px; border-color:rgba(0,255,127,.1); animation: rotateSlow 15s linear infinite reverse; }
+.eco-wheel-track.t3 { inset:100px; border:1px dashed rgba(0,255,127,.15); }
+.eco-center { position:absolute; inset:120px; border-radius:50%; background: linear-gradient(135deg,var(--green-deep),var(--surface2)); border:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; animation: rotateSlow 25s linear infinite reverse; }
+.eco-center-icon { font-size: 2rem; }
+.eco-center-label { font-family:'Unbounded',sans-serif; font-size:.4rem; font-weight:700; color:var(--green-neon); letter-spacing:1.5px; margin-top:.3rem; }
+.eco-node { position:absolute; width:60px; height:60px; border-radius:50%; background:var(--surface2); border:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 0 20px rgba(0,255,127,.1); }
+.eco-node span { font-size:.4rem; font-family:'Outfit',sans-serif; color:var(--muted); margin-top:.15rem; letter-spacing:.5px; text-transform:uppercase; }
+.eco-node.n0 { top:-30px; left:50%; transform:translateX(-50%); }
+.eco-node.n1 { right:-30px; top:50%; transform:translateY(-50%); }
+.eco-node.n2 { bottom:-30px; left:50%; transform:translateX(-50%); }
+.eco-node.n3 { left:-30px; top:50%; transform:translateY(-50%); }
+.eco-node.n4 { top:20px; right:20px; }
+
+/* ═══ SECTION WRAPPER ═══ */
+.sec-wrap { padding: 4.5rem 4rem; max-width: 1400px; margin: 0 auto; }
+.sec-head { margin-bottom: 3rem; }
+.sec-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(0,255,127,.08); border:1px solid var(--border); color:var(--green-neon); font-size:.68rem; font-weight:600; padding:.3rem .9rem; border-radius:30px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:1.2rem; }
+.sec-badge::before { content:''; width:6px;height:6px;border-radius:50%;background:var(--green-neon); animation:blink 2s infinite; }
+.sec-h2 { font-family:'Unbounded',sans-serif; font-weight:900; font-size: clamp(2rem,3.5vw,3.2rem); line-height:1.05; letter-spacing:-1.5px; }
+.sec-h2 em { font-style:normal; color:var(--green-neon); }
+.sec-sub { margin-top:1rem; font-size:.95rem; color:rgba(240,253,244,.45); font-weight:300; max-width:580px; line-height:1.8; }
+
+/* ═══ SCREEN 2 · BRAINSTORMING ═══ */
+#s-brainstorm { background: var(--bg); }
+.ideas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--border); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); }
+.idea-card { background: var(--surface); padding: 2rem; cursor: none; transition: background .3s; position: relative; overflow: hidden; min-height: 240px; }
+.idea-card:hover { background: var(--surface2); }
+.idea-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--ic-color, var(--green-neon)); transform:scaleX(0); transition:transform .4s cubic-bezier(.4,0,.2,1); transform-origin:left; }
+.idea-card:hover::before, .idea-card.open::before { transform:scaleX(1); }
+.idea-card.open { background: var(--surface2); }
+.idea-num { font-family:'Unbounded',sans-serif; font-size:4rem; font-weight:900; position:absolute; bottom:1rem; right:1.5rem; color:rgba(0,255,127,.04); line-height:1; pointer-events:none; transition:color .3s; }
+.idea-card:hover .idea-num, .idea-card.open .idea-num { color:rgba(0,255,127,.07); }
+.idea-r-badge { display:inline-flex; align-items:center; gap:.4rem; background:rgba(0,255,127,.07); border:1px solid var(--border); color:var(--muted); font-size:.62rem; font-weight:600; padding:.2rem .7rem; border-radius:20px; margin-bottom:.8rem; letter-spacing:.5px; }
+.idea-title { font-family:'Unbounded',sans-serif; font-size:.82rem; font-weight:700; color:var(--white); margin-bottom:.6rem; letter-spacing:-.3px; line-height:1.3; }
+.idea-preview { font-size:.8rem; color:rgba(240,253,244,.45); line-height:1.6; font-weight:300; }
+.idea-toggle { display:inline-flex; align-items:center; gap:.5rem; margin-top:1rem; background:none; border:1px solid var(--border); cursor:none; font-family:'Outfit',sans-serif; font-size:.72rem; font-weight:600; color:var(--green-neon); padding:.35rem .9rem; border-radius:30px; transition:all .25s; }
+.idea-toggle:hover, .idea-card.open .idea-toggle { background:rgba(0,255,127,.1); }
+.idea-toggle .arrow { transition:transform .3s; }
+.idea-card.open .idea-toggle .arrow { transform:rotate(90deg); }
+.idea-drawer { display:none; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--border2); }
+.idea-card.open .idea-drawer { display:block; animation:fadeEnter .3s ease; }
+.idea-item { display:flex; gap:.6rem; align-items:flex-start; padding:.75rem .9rem; border-radius:10px; background:rgba(0,255,127,.03); border:1px solid var(--border2); margin-bottom:.5rem; font-size:.78rem; color:rgba(240,253,244,.6); line-height:1.6; transition:background .2s,border-color .2s; }
+.idea-item:hover { background:rgba(0,255,127,.06); border-color:var(--border); }
+.idea-item-icon { flex-shrink:0; font-size:.85rem; margin-top:.1rem; }
+
+/* ═══ SCREEN 3 · DEFINICIÓN Y FILTRO ═══ */
+#s-filtro { background: var(--bg); }
+.filtro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.2rem; }
+.filtro-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; cursor: none; transition: all .3s; }
+.filtro-card:hover { background: var(--surface2); border-color: rgba(0,255,127,.25); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.3); }
+.filtro-head { padding: 1.5rem 1.8rem 1rem; border-bottom: 1px solid var(--border2); }
+.filtro-head-tag { display:inline-flex; align-items:center; gap:.4rem; background:var(--fc-bg,rgba(0,255,127,.07)); border:1px solid var(--fc-border,var(--border)); color:var(--fc-color,var(--green-neon)); font-size:.6rem; font-weight:700; padding:.2rem .7rem; border-radius:20px; margin-bottom:.8rem; letter-spacing:1px; text-transform:uppercase; }
+.filtro-title { font-family:'Unbounded',sans-serif; font-size:.88rem; font-weight:700; color:var(--white); line-height:1.3; letter-spacing:-.3px; }
+.filtro-body { padding: 1.2rem 1.8rem 1.5rem; }
+.filtro-row { display: flex; gap: .6rem; margin-bottom: .7rem; align-items: flex-start; }
+.filtro-label { font-size:.65rem; font-weight:700; font-family:'Unbounded',sans-serif; text-transform:uppercase; letter-spacing:.8px; color:rgba(240,253,244,.3); min-width:90px; padding-top:.15rem; flex-shrink:0; }
+.filtro-val { font-size:.8rem; color:rgba(240,253,244,.65); line-height:1.55; }
+.filtro-r-pill { display:inline-flex; align-items:center; gap:.4rem; background:rgba(0,255,127,.08); border:1px solid var(--border); color:var(--muted); font-size:.62rem; padding:.2rem .65rem; border-radius:20px; margin-top:.4rem; }
+
+/* ═══ SCREEN 4 · MATRIZ DE INNOVACIÓN ═══ */
+#s-matriz { background: var(--bg); }
+.matriz-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: 24px; overflow: hidden; border: 1px solid var(--border); }
+.mq { background: var(--surface); padding: 2.5rem; min-height: 280px; position: relative; overflow: hidden; cursor: none; transition: background .3s; }
+.mq:hover { background: var(--surface2); }
+.mq::after { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--mq-color,var(--green-neon)); }
+.mq-label { font-family:'Unbounded',sans-serif; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:1.2rem; color:var(--mq-color,var(--green-neon)); display:flex; align-items:center; gap:.6rem; }
+.mq-label::before { content:var(--mq-icon,'●'); font-size:1.1rem; }
+.mq-item { display:flex; gap:.6rem; align-items:flex-start; padding:.65rem .85rem; border-radius:10px; background:rgba(0,255,127,.03); border:1px solid var(--border2); margin-bottom:.5rem; font-size:.78rem; color:rgba(240,253,244,.6); line-height:1.55; transition:all .2s; }
+.mq-item:hover { background:rgba(0,255,127,.07); border-color:var(--border); }
+.mq-item-dot { width:5px;height:5px;border-radius:50%;background:var(--mq-color,var(--green-neon));flex-shrink:0;margin-top:.45rem; }
+.mq-empty { font-size:.8rem; color:rgba(240,253,244,.2); font-style:italic; padding:.5rem; }
+
+/* Inventario completo */
+.inventario-wrap { margin-top: 3rem; }
+.inventario-table { width:100%; border-collapse:collapse; border-radius:20px; overflow:hidden; }
+.inventario-table thead tr { background: var(--green-deep); }
+.inventario-table th { padding:.9rem 1.2rem; text-align:left; font-family:'Unbounded',sans-serif; font-size:.62rem; font-weight:700; color:var(--green-neon); letter-spacing:1px; text-transform:uppercase; border-bottom:1px solid var(--border); }
+.inventario-table tbody tr { background: var(--surface); border-bottom:1px solid var(--border2); transition:background .2s; cursor:none; }
+.inventario-table tbody tr:hover { background: var(--surface2); }
+.inventario-table td { padding:.8rem 1.2rem; font-size:.78rem; color:rgba(240,253,244,.65); line-height:1.5; }
+.inventario-table .td-name { color:var(--white); font-weight:500; }
+.i-pill { display:inline-block; padding:.15rem .55rem; border-radius:12px; font-size:.6rem; font-weight:700; letter-spacing:.5px; text-transform:uppercase; }
+.i-pill.alto { background:rgba(0,255,127,.1); color:var(--green-neon); border:1px solid rgba(0,255,127,.2); }
+.i-pill.medio { background:rgba(245,158,11,.1); color:var(--amber); border:1px solid rgba(245,158,11,.2); }
+.i-pill.bajo { background:rgba(251,113,133,.1); color:var(--coral); border:1px solid rgba(251,113,133,.2); }
+.i-pill.facil { background:rgba(45,212,191,.1); color:var(--teal); border:1px solid rgba(45,212,191,.2); }
+
+/* ═══ SCREEN 5 · DESIGN THINKING + EVALUACIÓN ═══ */
+#s-dt { background: var(--bg); }
+.excel-notice {
+  background: linear-gradient(135deg, var(--green-deep) 0%, #041a0c 100%);
+  border: 1px solid var(--border); border-radius: 24px; padding: 3.5rem 4rem;
+  display: flex; gap: 4rem; align-items: center; position: relative; overflow: hidden; margin-bottom: 3rem;
+}
+.excel-notice::before { content:''; position:absolute; right:-80px; top:-80px; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(0,255,127,.1) 0%,transparent 70%); pointer-events:none; }
+.en-left { flex:1; }
+.en-icon-wrap { width:72px; height:72px; border-radius:20px; background:rgba(0,255,127,.1); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:2rem; margin-bottom:1.5rem; }
+.en-tag { display:inline-block; background:rgba(163,230,53,.1); border:1px solid rgba(163,230,53,.25); color:var(--lime); font-size:.65rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:.3rem .8rem; border-radius:20px; margin-bottom:1rem; }
+.en-title { font-family:'Unbounded',sans-serif; font-weight:900; font-size: clamp(1.5rem,3vw,2.5rem); line-height:1.1; letter-spacing:-1px; color:var(--white); margin-bottom:1rem; }
+.en-title em { color:var(--green-neon); font-style:normal; }
+.en-desc { font-size:.88rem; color:rgba(240,253,244,.5); line-height:1.8; max-width:480px; }
+.en-stages { display:flex; flex-direction:column; gap:1rem; min-width:300px; }
+.en-stage { display:flex; gap:1rem; align-items:center; background:rgba(0,255,127,.04); border:1px solid var(--border2); border-radius:16px; padding:1.1rem 1.4rem; transition:all .3s; cursor:none; }
+.en-stage:hover { background:rgba(0,255,127,.08); border-color:var(--border); }
+.en-stage-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.en-stage-info { }
+.en-stage-name { font-family:'Unbounded',sans-serif; font-size:.72rem; font-weight:700; color:var(--white); }
+.en-stage-desc { font-size:.72rem; color:rgba(240,253,244,.4); margin-top:.2rem; }
+.en-stage-badge { display:inline-block; margin-top:.4rem; font-size:.6rem; font-weight:700; padding:.15rem .55rem; border-radius:12px; }
+.dt-cards { display:grid; grid-template-columns: repeat(5, 1fr); gap:1px; background:var(--border); border-radius:24px; overflow:hidden; border:1px solid var(--border); }
+.dt-card { background:var(--surface); padding:2rem 1.5rem; text-align:center; cursor:none; transition:background .3s; position:relative; overflow:hidden; }
+.dt-card:hover { background:var(--surface2); }
+.dt-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--dtc-color,var(--green-neon)); }
+.dt-card-icon { font-size:2.2rem; margin-bottom:1rem; }
+.dt-card-phase { font-family:'Unbounded',sans-serif; font-size:.55rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--dtc-color,var(--green-neon)); margin-bottom:.5rem; }
+.dt-card-title { font-family:'Unbounded',sans-serif; font-size:.72rem; font-weight:700; color:var(--white); letter-spacing:-.3px; }
+.dt-card-desc { font-size:.72rem; color:rgba(240,253,244,.4); margin-top:.5rem; line-height:1.55; }
+
+/* ═══ SCREEN 6 · CONCLUSIONES ═══ */
+#s-conclusiones { background: var(--bg); }
+.conclusiones-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+.concl-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:2rem 2.2rem; cursor:none; transition:all .3s; position:relative; overflow:hidden; }
+.concl-card:hover { background:var(--surface2); border-color:rgba(0,255,127,.25); transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,.3); }
+.concl-card::before { content:var(--cn-num); position:absolute; bottom:1rem; right:1.5rem; font-family:'Unbounded',sans-serif; font-size:5rem; font-weight:900; color:rgba(0,255,127,.04); line-height:1; pointer-events:none; }
+.concl-icon { font-size:1.8rem; margin-bottom:1rem; }
+.concl-title { font-family:'Unbounded',sans-serif; font-size:.85rem; font-weight:700; color:var(--white); margin-bottom:.7rem; letter-spacing:-.3px; }
+.concl-text { font-size:.82rem; color:rgba(240,253,244,.55); line-height:1.75; }
+
+/* ═══ PROGRESS BAR ═══ */
+.progress-dock {
+  position:fixed; bottom:0; left:0; right:0; z-index:400;
+  background:rgba(5,15,7,.92); backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; gap:1.5rem;
+  padding:.85rem 3rem; height:54px;
+}
+.prog-label { font-family:'Unbounded',sans-serif; font-size:.62rem; font-weight:700; color:var(--green-neon); white-space:nowrap; min-width:160px; }
+.prog-track { flex:1; height:3px; background:rgba(0,255,127,.1); border-radius:2px; overflow:hidden; }
+.prog-fill { height:100%; background:linear-gradient(90deg,var(--green-neon),var(--teal)); transition:width .5s cubic-bezier(.4,0,.2,1); border-radius:2px; }
+.prog-steps { display:flex; gap:.5rem; }
+.prog-step { width:7px; height:7px; border-radius:50%; cursor:none; background:rgba(0,255,127,.15); border:1px solid var(--border); transition:all .25s; }
+.prog-step.done { background:var(--green-neon); border-color:var(--green-neon); }
+.prog-team { font-size:.62rem; color:rgba(240,253,244,.25); white-space:nowrap; }
+
+/* NOISE OVERLAY */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:1000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+
+/* Divider helper */
+.sec-divider { height:1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 3rem 0; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><div class="dot"></div>ECO·ACT2</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="nav('hero',0,this)">Inicio</button>
+    <button class="nav-btn" onclick="nav('brainstorm',1,this)">Brainstorming</button>
+    <button class="nav-btn" onclick="nav('filtro',2,this)">Filtro</button>
+    <button class="nav-btn" onclick="nav('matriz',3,this)">Matriz</button>
+    <button class="nav-btn" onclick="nav('dt',4,this)">DT + Evaluación</button>
+    <button class="nav-btn" onclick="nav('conclusiones',5,this)">Conclusiones</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-pill">UPDS · 2026</div>
+    <div class="nav-keys"><span class="key">←</span><span class="key">→</span> navegar</div>
+  </div>
+</nav>
+
+<!-- ══════ S1: HERO ══════ -->
+<section id="s-hero" class="screen active">
+  <div class="hero-bg">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Emprendedurismo · Actividad 02 · Luis Mario Rocha Vela · Marzo 2026</div>
+    </div>
+    <h1 class="hero-h1">
+      <span class="line1">SELECCIÓN DE</span>
+      <span class="line2">IDEA DE NEGOCIO</span>
+      <span class="line3">SOSTENIBLE</span>
+    </h1>
+    <p class="hero-sub">
+      Proceso metodológico de análisis para identificar oportunidades de negocio con enfoque innovador y sostenible en Santa Cruz de la Sierra, Bolivia, a partir del aprovechamiento de residuos industriales.
+    </p>
+    <div class="hero-ctas">
+      <button class="btn-glow" onclick="nav('brainstorm',1)">VER BRAINSTORMING <span>→</span></button>
+      <button class="btn-outline" onclick="nav('matriz',3)">Matriz de Innovación</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-n">10</div>
+        <div class="hero-stat-l">Ideas generadas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">6</div>
+        <div class="hero-stat-l">Ideas filtradas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">5</div>
+        <div class="hero-stat-l">Etapas del proceso</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">SCZ</div>
+        <div class="hero-stat-l">Contexto local</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="eco-wheel">
+      <div class="eco-wheel-track"></div>
+      <div class="eco-wheel-track t2"></div>
+      <div class="eco-wheel-track t3"></div>
+      <div class="eco-center">
+        <div class="eco-center-icon">♻️</div>
+        <div class="eco-center-label">ECONOMÍA<br>CIRCULAR</div>
+      </div>
+      <div class="eco-node n0">🌿<span>Ideas</span></div>
+      <div class="eco-node n1">🔍<span>Filtro</span></div>
+      <div class="eco-node n2">📊<span>Matriz</span></div>
+      <div class="eco-node n3">💡<span>DT</span></div>
+      <div class="eco-node n4">✅<span>Selección</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ S2: BRAINSTORMING ══════ -->
+<section id="s-brainstorm" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Etapa 1 · Lluvia de Ideas</div>
+    <h2 class="sec-h2">10 Propuestas de<br><em>Emprendimiento Circular</em></h2>
+    <p class="sec-sub">Ideas basadas en el aprovechamiento de residuos generados por empresas cruceñas como Delizia, Guabirá, Maní King y Juan Valdez. Haz clic en cada tarjeta para explorar el detalle.</p>
+  </div>
+
+  <div class="ideas-grid">
+
+    <!-- 2.1 -->
+    <div class="idea-card" style="--ic-color:#2dd4bf;" onclick="toggleIdea(this)">
+      <div class="idea-num">01</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Biocuero a partir de Residuos de Frutas Tropicales</div>
+      <div class="idea-preview">Cáscaras y pulpas de Delizia transformadas en material alternativo al cuero para bolsos, calzado y accesorios.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Reutiliza desechos orgánicos de empresas cruceñas, implementa economía circular.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Material con alto valor en moda sostenible. Materia prima de bajo costo procedente de residuos locales.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;No existe producción estructurada de biocuero en Bolivia. Alineado con tendencias internacionales.</div>
+      </div>
+    </div>
+
+    <!-- 2.2 -->
+    <div class="idea-card" style="--ic-color:#a3e635;" onclick="toggleIdea(this)">
+      <div class="idea-num">02</div>
+      <div class="idea-r-badge">🔽 Reducir</div>
+      <div class="idea-title">Bioespuma Biodegradable de Bagazo de Caña</div>
+      <div class="idea-preview">Residuo de Ingenio Azucarero Guabirá convertido en alternativa al plastoformo para envases y embalaje.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Reduce plásticos de un solo uso y dependencia de derivados del petróleo.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Bagazo de bajo costo. Demanda creciente de empaques sostenibles en negocios gastronómicos.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;No existe producción industrial de bioespuma de caña en Bolivia. Responde a necesidad de sustituir materiales contaminantes.</div>
+      </div>
+    </div>
+
+    <!-- 2.3 -->
+    <div class="idea-card" style="--ic-color:#00ff7f;" onclick="toggleIdea(this)">
+      <div class="idea-num">03</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Bolsas Reutilizables Térmicas de Tetra Pak</div>
+      <div class="idea-preview">Envases Tetra Pak descartados de Delizia/Hipermaxi convertidos en bolsas térmicas para alimentos y delivery.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Prolonga la vida útil de residuos complejos. Reduce desechos en botaderos.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Materia prima gratuita. Proceso sencillo, bajos costos. Demanda en delivery, estudiantes y trabajadores.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Aprovecha propiedad térmica del aluminio interno. Sin oferta consolidada en Santa Cruz.</div>
+      </div>
+    </div>
+
+    <!-- 2.4 -->
+    <div class="idea-card" style="--ic-color:#f59e0b;" onclick="toggleIdea(this)">
+      <div class="idea-num">04</div>
+      <div class="idea-r-badge">🔽 Reducir</div>
+      <div class="idea-title">Envases Biodegradables de Almidón de Yuca</div>
+      <div class="idea-preview">Subproductos de Guabirá —almidón de yuca y restos de fruta— para envases ecológicos de snacks y postres.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Sustituye plásticos convencionales. Reduce acumulación de residuos orgánicos industriales.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Materia prima local de bajo costo. Mercado en restaurantes, cafeterías y delivery.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Sin producción estructurada en Bolivia. Alineada con reducción global de plásticos.</div>
+      </div>
+    </div>
+
+    <!-- 2.5 -->
+    <div class="idea-card" style="--ic-color:#fb7185;" onclick="toggleIdea(this)">
+      <div class="idea-num">05</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Desodorizantes Naturales para Calzado de Cítricos</div>
+      <div class="idea-preview">Cáscaras de naranja y limón de Delizia secadas y acondicionadas como desodorizantes sin químicos artificiales.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Reincorpora residuo orgánico sin procesos industriales complejos. Economía circular directa.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Materia prima de costo nulo. Proceso de bajo costo. Demanda por soluciones naturales de uso personal.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Sin oferta consolidada en SCZ de desodorizantes de cáscaras cítricas. Alternativa a productos químicos.</div>
+      </div>
+    </div>
+
+    <!-- 2.6 -->
+    <div class="idea-card" style="--ic-color:#2dd4bf;" onclick="toggleIdea(this)">
+      <div class="idea-num">06</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Indicadores de Maduración de Cáscaras de Plátano</div>
+      <div class="idea-preview">Residuos de Hipermaxi procesados como tiras que cambian de color según la maduración de frutas almacenadas.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Transforma residuo orgánico en producto funcional. Contribuye a reducir desperdicio alimentario.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Costo de materia prima nulo. Mercado en hogares, mercados y fruterías.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Sin componentes electrónicos ni químicos artificiales. Sin oferta comercial en Bolivia.</div>
+      </div>
+    </div>
+
+    <!-- 2.7 -->
+    <div class="idea-card" style="--ic-color:#a3e635;" onclick="toggleIdea(this)">
+      <div class="idea-num">07</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Bloques Cultivables de Hongos de Borra de Café</div>
+      <div class="idea-preview">Borra de Juan Valdez Café Bolivia como base nutritiva para kits domésticos de cultivo de hongos comestibles.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Transforma residuo orgánico diario en recurso productivo. Evita disposición como desecho.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Materia prima gratuita con disponibilidad constante. Kits con alto valor agregado en ferias ecológicas.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Sin oferta consolidada en SCZ. Combina sostenibilidad, producción de alimentos y reciclaje.</div>
+      </div>
+    </div>
+
+    <!-- 2.8 -->
+    <div class="idea-card" style="--ic-color:#f59e0b;" onclick="toggleIdea(this)">
+      <div class="idea-num">08</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Tintes Naturales de Residuos de Frutas y Vegetales</div>
+      <div class="idea-preview">Cáscaras y semillas de Fidalga procesadas para tintes ecológicos aplicables en textiles, papel y artesanías.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Reduce desechos orgánicos y promueve economía circular basada en pigmentos naturales.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Costos mínimos. Mercado creciente en moda sostenible, manualidades y diseño ecológico.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Sin producción estructurada en Bolivia de tintes naturales desde residuos empresariales.</div>
+      </div>
+    </div>
+
+    <!-- 2.9 -->
+    <div class="idea-card" style="--ic-color:#00ff7f;" onclick="toggleIdea(this)">
+      <div class="idea-num">09</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Protectores de Impacto de Cáscaras de Maní</div>
+      <div class="idea-preview">Cáscaras de Maní King limpiadas y acondicionadas como relleno protector ecológico para embalaje de envíos.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Reemplaza tecnopor y plástico de burbuja. Residuo orgánico con propiedades de amortiguación.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Costo bajo o nulo. Demanda creciente de embalaje sostenible en emprendimientos y e-commerce.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Sin oferta específica en Bolivia. Posicionamiento en sector logístico y comercial sostenible.</div>
+      </div>
+    </div>
+
+    <!-- 2.10 -->
+    <div class="idea-card" style="--ic-color:#fb7185;" onclick="toggleIdea(this)">
+      <div class="idea-num">10</div>
+      <div class="idea-r-badge">♻️ Reutilizar</div>
+      <div class="idea-title">Material Antideslizante de Cámaras de Llantas</div>
+      <div class="idea-preview">Cámaras de Vulcanizadora El Cambódromo cortadas y adaptadas para recubrimientos antideslizantes en herramientas.</div>
+      <button class="idea-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="idea-drawer">
+        <div class="idea-item"><div class="idea-item-icon">🌱</div><strong>Sostenibilidad:</strong>&nbsp;Aprovecha caucho flexible reutilizable. Prolonga vida útil de residuo industrial sin procesos complejos.</div>
+        <div class="idea-item"><div class="idea-item-icon">💰</div><strong>Rentabilidad:</strong>&nbsp;Sin maquinaria especializada. Comercializable en ferreterías y tiendas de herramientas.</div>
+        <div class="idea-item"><div class="idea-item-icon">💡</div><strong>Innovación:</strong>&nbsp;Sin oferta específica de antideslizante de cámaras en SCZ. Enfoque en propiedad de adherencia del caucho.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════ S3: DEFINICIÓN Y FILTRO ══════ -->
+<section id="s-filtro" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Etapa 2 · Definición y Filtro</div>
+    <h2 class="sec-h2">6 Ideas con mayor<br><em>Potencial de Desarrollo</em></h2>
+    <p class="sec-sub">Se seleccionaron las propuestas más relevantes en el contexto de Santa Cruz, describiendo producto, necesidad y propuesta de valor para cada una. Pasa el cursor para explorar.</p>
+  </div>
+
+  <div class="filtro-grid">
+
+    <div class="filtro-card" style="--fc-bg:rgba(0,255,127,.07);--fc-border:rgba(0,255,127,.2);--fc-color:var(--green-neon);">
+      <div class="filtro-head">
+        <div class="filtro-head-tag">🛍️ Idea 01</div>
+        <div class="filtro-title">Bolsas Reutilizables Térmicas de Tetra Pak</div>
+      </div>
+      <div class="filtro-body">
+        <div class="filtro-row"><div class="filtro-label">Producto</div><div class="filtro-val">Bolsas térmicas reutilizables que conservan temperatura de alimentos y bebidas</div></div>
+        <div class="filtro-row"><div class="filtro-label">Necesidad</div><div class="filtro-val">Demanda de productos que mantengan temperatura en delivery y reduzcan materiales contaminantes</div></div>
+        <div class="filtro-row"><div class="filtro-label">Valor</div><div class="filtro-val">Combina conservación térmica y sostenibilidad reutilizando residuo difícil de reciclar</div></div>
+        <div class="filtro-row"><div class="filtro-label">Cliente</div><div class="filtro-val">Delivery, hogares, negocios de comida y consumidores urbanos</div></div>
+        <div class="filtro-row"><div class="filtro-label">Fuente</div><div class="filtro-val">Hipermaxi, supermercados</div></div>
+        <div class="filtro-r-pill">♻️ Reutilizar</div>
+      </div>
+    </div>
+
+    <div class="filtro-card" style="--fc-bg:rgba(163,230,53,.07);--fc-border:rgba(163,230,53,.2);--fc-color:var(--lime);">
+      <div class="filtro-head">
+        <div class="filtro-head-tag">📦 Idea 02</div>
+        <div class="filtro-title">Envases Biodegradables de Almidón de Yuca</div>
+      </div>
+      <div class="filtro-body">
+        <div class="filtro-row"><div class="filtro-label">Producto</div><div class="filtro-val">Envases ecológicos mediante transformación de subproductos orgánicos de la industria alimenticia</div></div>
+        <div class="filtro-row"><div class="filtro-label">Necesidad</div><div class="filtro-val">El uso excesivo de plásticos genera contaminación. Los negocios buscan alternativas sostenibles</div></div>
+        <div class="filtro-row"><div class="filtro-label">Valor</div><div class="filtro-val">Empaques biodegradables de materia prima local de bajo costo, reduciendo impacto ambiental</div></div>
+        <div class="filtro-row"><div class="filtro-label">Cliente</div><div class="filtro-val">Restaurantes, cafeterías, negocios de comida rápida y delivery</div></div>
+        <div class="filtro-row"><div class="filtro-label">Fuente</div><div class="filtro-val">Delizia y empresas alimenticias</div></div>
+        <div class="filtro-r-pill">🔽 Reducir</div>
+      </div>
+    </div>
+
+    <div class="filtro-card" style="--fc-bg:rgba(251,113,133,.07);--fc-border:rgba(251,113,133,.2);--fc-color:var(--coral);">
+      <div class="filtro-head">
+        <div class="filtro-head-tag">👟 Idea 03</div>
+        <div class="filtro-title">Desodorizantes Naturales para Calzado</div>
+      </div>
+      <div class="filtro-body">
+        <div class="filtro-row"><div class="filtro-label">Producto</div><div class="filtro-val">Bolsitas o insertos desodorizantes con cáscaras de naranja y limón descartadas</div></div>
+        <div class="filtro-row"><div class="filtro-label">Necesidad</div><div class="filtro-val">Los malos olores en calzado son un problema común y los productos existentes contienen químicos</div></div>
+        <div class="filtro-row"><div class="filtro-label">Valor</div><div class="filtro-val">Alternativa natural, ecológica y libre de químicos para eliminar olores</div></div>
+        <div class="filtro-row"><div class="filtro-label">Cliente</div><div class="filtro-val">Hogares, deportistas, estudiantes y tiendas de calzado</div></div>
+        <div class="filtro-row"><div class="filtro-label">Fuente</div><div class="filtro-val">Juguerías, restaurantes, Hipermaxi</div></div>
+        <div class="filtro-r-pill">♻️ Reutilizar</div>
+      </div>
+    </div>
+
+    <div class="filtro-card" style="--fc-bg:rgba(245,158,11,.07);--fc-border:rgba(245,158,11,.2);--fc-color:var(--amber);">
+      <div class="filtro-head">
+        <div class="filtro-head-tag">🍄 Idea 04</div>
+        <div class="filtro-title">Bloques Cultivables para Hongos Comestibles</div>
+      </div>
+      <div class="filtro-body">
+        <div class="filtro-row"><div class="filtro-label">Producto</div><div class="filtro-val">Bloques listos para el cultivo de hongos usando residuos orgánicos como base nutritiva</div></div>
+        <div class="filtro-row"><div class="filtro-label">Necesidad</div><div class="filtro-val">Interés en producción de alimentos sostenibles en espacios pequeños con procesos simples</div></div>
+        <div class="filtro-row"><div class="filtro-label">Valor</div><div class="filtro-val">Permite cultivar alimentos en casa de forma fácil usando residuos reutilizados</div></div>
+        <div class="filtro-row"><div class="filtro-label">Cliente</div><div class="filtro-val">Hogares, emprendedores urbanos, estudiantes y negocios ecológicos</div></div>
+        <div class="filtro-row"><div class="filtro-label">Fuente</div><div class="filtro-val">Juan Valdez Café Bolivia</div></div>
+        <div class="filtro-r-pill">♻️ Reutilizar</div>
+      </div>
+    </div>
+
+    <div class="filtro-card" style="--fc-bg:rgba(0,255,127,.07);--fc-border:rgba(0,255,127,.2);--fc-color:var(--green-neon);">
+      <div class="filtro-head">
+        <div class="filtro-head-tag">📬 Idea 05</div>
+        <div class="filtro-title">Protectores de Impacto de Cáscaras de Maní</div>
+      </div>
+      <div class="filtro-body">
+        <div class="filtro-row"><div class="filtro-label">Producto</div><div class="filtro-val">Material de relleno protector para envíos usando cáscaras de maní acondicionadas</div></div>
+        <div class="filtro-row"><div class="filtro-label">Necesidad</div><div class="filtro-val">Materiales tradicionales de embalaje son contaminantes. Necesidad de alternativas ecológicas</div></div>
+        <div class="filtro-row"><div class="filtro-label">Valor</div><div class="filtro-val">Sustituye materiales sintéticos por opción biodegradable y de bajo costo</div></div>
+        <div class="filtro-row"><div class="filtro-label">Cliente</div><div class="filtro-val">Tiendas online, negocios de envíos, emprendedores y empresas logísticas</div></div>
+        <div class="filtro-row"><div class="filtro-label">Fuente</div><div class="filtro-val">Maní King</div></div>
+        <div class="filtro-r-pill">♻️ Reutilizar</div>
+      </div>
+    </div>
+
+    <div class="filtro-card" style="--fc-bg:rgba(45,212,191,.07);--fc-border:rgba(45,212,191,.2);--fc-color:var(--teal);">
+      <div class="filtro-head">
+        <div class="filtro-head-tag">🎨 Idea 06</div>
+        <div class="filtro-title">Tintes Naturales de Frutas y Vegetales</div>
+      </div>
+      <div class="filtro-body">
+        <div class="filtro-row"><div class="filtro-label">Producto</div><div class="filtro-val">Tintes ecológicos usando cáscaras y restos orgánicos descartados de supermercados</div></div>
+        <div class="filtro-row"><div class="filtro-label">Necesidad</div><div class="filtro-val">Los tintes industriales contaminan. Existe interés por alternativas naturales en el sector textil</div></div>
+        <div class="filtro-row"><div class="filtro-label">Valor</div><div class="filtro-val">Opción ecológica para teñido textil y artístico con residuos orgánicos locales</div></div>
+        <div class="filtro-row"><div class="filtro-label">Cliente</div><div class="filtro-val">Artesanos, diseñadores, estudiantes y emprendimientos textiles</div></div>
+        <div class="filtro-row"><div class="filtro-label">Fuente</div><div class="filtro-val">Mercados y Hipermaxi</div></div>
+        <div class="filtro-r-pill">♻️ Reutilizar</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════ S4: MATRIZ DE INNOVACIÓN ══════ -->
+<section id="s-matriz" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Etapa 3 · Matriz de Innovación</div>
+    <h2 class="sec-h2">Clasificación por <em>Impacto</em><br>y Facilidad de Implementación</h2>
+    <p class="sec-sub">Las ideas se posicionan según su potencial de impacto en el mercado/sociedad y la facilidad de implementación considerando recursos, tecnología y complejidad operativa.</p>
+  </div>
+
+  <div style="margin-bottom:.6rem; display:flex; gap:1rem; flex-wrap:wrap;">
+    <span style="font-size:.7rem;color:rgba(240,253,244,.3);font-family:'Unbounded',sans-serif;letter-spacing:.5px;">EJE Y → IMPACTO</span>
+    <span style="font-size:.7rem;color:rgba(240,253,244,.3);font-family:'Unbounded',sans-serif;letter-spacing:.5px;">EJE X → IMPLEMENTACIÓN</span>
+  </div>
+
+  <div class="matriz-wrap">
+    <!-- Cuadrante 1: Alto impacto + Fácil -->
+    <div class="mq" style="--mq-color:var(--green-neon);--mq-icon:'🟢';">
+      <div class="mq-label">Alto Impacto · Fácil Implementación</div>
+      <div class="mq-item"><div class="mq-item-dot"></div>Bolsas reutilizables térmicas (Tetra Pak)</div>
+      <div class="mq-item"><div class="mq-item-dot"></div>Desodorizantes naturales para calzado (cítricos)</div>
+      <div class="mq-item"><div class="mq-item-dot"></div>Protectores de impacto para embalaje (maní)</div>
+    </div>
+    <!-- Cuadrante 2: Alto impacto + Difícil -->
+    <div class="mq" style="--mq-color:var(--amber);--mq-icon:'🟡';">
+      <div class="mq-label">Alto Impacto · Difícil Implementación</div>
+      <div class="mq-item"><div class="mq-item-dot"></div>Envases biodegradables (almidón de yuca + fruta)</div>
+      <div class="mq-item"><div class="mq-item-dot"></div>Bloques cultivables para hongos (borra de café)</div>
+    </div>
+    <!-- Cuadrante 3: Bajo impacto + Fácil -->
+    <div class="mq" style="--mq-color:var(--teal);--mq-icon:'🔵';">
+      <div class="mq-label">Bajo Impacto · Fácil Implementación</div>
+      <div class="mq-item"><div class="mq-item-dot"></div>Tintes naturales (residuos de frutas y vegetales)</div>
+    </div>
+    <!-- Cuadrante 4: Bajo impacto + Difícil -->
+    <div class="mq" style="--mq-color:var(--coral);--mq-icon:'🔴';">
+      <div class="mq-label">Bajo Impacto · Difícil Implementación</div>
+      <div class="mq-empty">No hay ideas en este cuadrante</div>
+    </div>
+  </div>
+
+  <div class="inventario-wrap">
+    <div class="sec-head" style="margin-top:3.5rem; margin-bottom:1.5rem;">
+      <div class="sec-badge">Inventario Grupal · Taller Economía Circular SCZ</div>
+      <h2 class="sec-h2" style="font-size:clamp(1.5rem,2.5vw,2.2rem);">Ideas del Grupo —<br><em>Cuadrantes Consolidados</em></h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-bottom:2rem;">
+      <div style="background:var(--surface);padding:2rem;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green-neon);margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem;">🟢 Alto Impacto · Fácil</div>
+        <div class="mq-item"><div class="mq-item-dot"></div>BioKraft – Papel de bagazo (Leonardo Peña)</div>
+        <div class="mq-item"><div class="mq-item-dot"></div>Paneles aislantes acústicos (fibras coco/aserrín) (Joel Miranda)</div>
+        <div class="mq-item"><div class="mq-item-dot"></div>Macetas con botellas plásticas (María Ortiz)</div>
+        <div class="mq-item"><div class="mq-item-dot"></div>Cuadernos con papel reciclado (María Ortiz)</div>
+        <div class="mq-item" style="border-color:rgba(0,255,127,.2);background:rgba(0,255,127,.05);"><div class="mq-item-dot"></div><strong style="color:var(--white)">Bolsas térmicas Tetra Pak (Luis Rocha) ✓</strong></div>
+        <div class="mq-item" style="border-color:rgba(0,255,127,.2);background:rgba(0,255,127,.05);"><div class="mq-item-dot"></div><strong style="color:var(--white)">Desodorizantes cítricos calzado (Luis Rocha) ✓</strong></div>
+        <div class="mq-item" style="border-color:rgba(0,255,127,.2);background:rgba(0,255,127,.05);"><div class="mq-item-dot"></div><strong style="color:var(--white)">Protectores embalaje maní (Luis Rocha) ✓</strong></div>
+        <div class="mq-item"><div class="mq-item-dot"></div>NutriCiclo: valorización residuos orgánicos (Douglas Flor)</div>
+        <div class="mq-item"><div class="mq-item-dot"></div>Lápices plantables (María Ortiz)</div>
+      </div>
+      <div style="background:var(--surface);padding:2rem;">
+        <div style="font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--teal);margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem;">🔵 Bajo Impacto · Fácil</div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--teal);"></div>Cuadernos papel reciclado (Joel Miranda)</div>
+        <div class="mq-item" style="border-color:rgba(45,212,191,.2);background:rgba(45,212,191,.04);"><div class="mq-item-dot" style="background:var(--teal);"></div><strong style="color:var(--white)">Tintes naturales frutas/vegetales (Luis Rocha) ✓</strong></div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--teal);"></div>Fertilizante cachaza + estiércol (Douglas Flor)</div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--teal);"></div>Harina de hueso calcinado (Douglas Flor)</div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--teal);"></div>Pet food premium mascotas (Douglas Flor)</div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--teal);"></div>Jabones de aceite reciclado (María Ortiz)</div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--teal);"></div>Tote bags de jeans reciclados (María Ortiz)</div>
+        <div style="margin-top:1.5rem;font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--amber);margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem;">🟡 Alto Impacto · Difícil</div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--amber);"></div><strong style="color:var(--white)">Envases biodegradables yuca (Luis Rocha) ✓</strong></div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--amber);"></div><strong style="color:var(--white)">Bloques hongos borra café (Luis Rocha) ✓</strong></div>
+        <div class="mq-item"><div class="mq-item-dot" style="background:var(--amber);"></div>Desodorizantes cítricos — difícil escala (Luis Rocha)</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S5: DESIGN THINKING + EVALUACIÓN CUANTITATIVA ══════ -->
+<section id="s-dt" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Etapas 4 y 5 · Complemento Excel</div>
+    <h2 class="sec-h2">Design Thinking &<br><em>Evaluación Cuantitativa</em></h2>
+    <p class="sec-sub">Estas etapas se desarrollan en el archivo Excel complementario externo que acompaña esta defensa.</p>
+  </div>
+
+  <div class="excel-notice">
+    <div class="en-left">
+      <div class="en-icon-wrap">📊</div>
+      <div class="en-tag">⚠ Archivo Complementario Externo</div>
+      <h3 class="en-title">Etapa 4 y Etapa 5<br><em>disponibles en Excel</em></h3>
+      <p class="en-desc">
+        El análisis de Design Thinking (mapa de empatía profundo, ideación y prototipado) y la Evaluación Cuantitativa (ponderación numérica de criterios) se encuentran desarrollados en el archivo <strong style="color:var(--green-neon);">Excel complementario</strong> adjunto a esta defensa. Solicítalo al evaluador si no lo tienes.
+      </p>
+    </div>
+    <div class="en-stages">
+      <div class="en-stage">
+        <div class="en-stage-icon" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);">🎯</div>
+        <div class="en-stage-info">
+          <div class="en-stage-name">Etapa 4 · Design Thinking</div>
+          <div class="en-stage-desc">Empatizar, Definir, Idear, Prototipar, Testear</div>
+          <span class="en-stage-badge" style="background:rgba(45,212,191,.1);color:var(--teal);border:1px solid rgba(45,212,191,.2);">Ver en Excel externo</span>
+        </div>
+      </div>
+      <div class="en-stage">
+        <div class="en-stage-icon" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);">📈</div>
+        <div class="en-stage-info">
+          <div class="en-stage-name">Etapa 5 · Evaluación Cuantitativa</div>
+          <div class="en-stage-desc">Ponderación de criterios: impacto, viabilidad, rentabilidad</div>
+          <span class="en-stage-badge" style="background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);">Ver en Excel externo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-head" style="margin-top:1rem;">
+    <h2 class="sec-h2" style="font-size:clamp(1.6rem,2.5vw,2.5rem);">Las 5 Fases del<br><em>Design Thinking</em></h2>
+    <p class="sec-sub">Marco metodológico aplicado para profundizar en la idea seleccionada (desarrollado en Excel adjunto).</p>
+  </div>
+
+  <div class="dt-cards">
+    <div class="dt-card" style="--dtc-color:#2dd4bf;">
+      <div class="dt-card-icon">❤️</div>
+      <div class="dt-card-phase">Fase 1</div>
+      <div class="dt-card-title">Empatizar</div>
+      <div class="dt-card-desc">Investigar al usuario, entender sus necesidades, dolores y contexto real en SCZ.</div>
+    </div>
+    <div class="dt-card" style="--dtc-color:#00ff7f;">
+      <div class="dt-card-icon">🔍</div>
+      <div class="dt-card-phase">Fase 2</div>
+      <div class="dt-card-title">Definir</div>
+      <div class="dt-card-desc">Identificar el problema central y formular el desafío de diseño con precisión.</div>
+    </div>
+    <div class="dt-card" style="--dtc-color:#a3e635;">
+      <div class="dt-card-icon">💡</div>
+      <div class="dt-card-phase">Fase 3</div>
+      <div class="dt-card-title">Idear</div>
+      <div class="dt-card-desc">Generar soluciones creativas e innovadoras para el problema definido.</div>
+    </div>
+    <div class="dt-card" style="--dtc-color:#f59e0b;">
+      <div class="dt-card-icon">🛠️</div>
+      <div class="dt-card-phase">Fase 4</div>
+      <div class="dt-card-title">Prototipar</div>
+      <div class="dt-card-desc">Crear representaciones tangibles de las ideas más prometedoras.</div>
+    </div>
+    <div class="dt-card" style="--dtc-color:#fb7185;">
+      <div class="dt-card-icon">✅</div>
+      <div class="dt-card-phase">Fase 5</div>
+      <div class="dt-card-title">Testear</div>
+      <div class="dt-card-desc">Validar prototipos con usuarios reales y ajustar según retroalimentación.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S6: CONCLUSIONES ══════ -->
+<section id="s-conclusiones" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Cierre · Reflexiones finales</div>
+    <h2 class="sec-h2">Conclusiones del<br><em>Proceso de Selección</em></h2>
+    <p class="sec-sub">Aprendizajes y hallazgos tras aplicar brainstorming, filtro, matriz de innovación, Design Thinking y evaluación cuantitativa para seleccionar la mejor idea de negocio sostenible.</p>
+  </div>
+
+  <div class="conclusiones-grid">
+    <div class="concl-card" style="--cn-num:'01';">
+      <div class="concl-icon">🌍</div>
+      <div class="concl-title">Gran potencial de residuos en SCZ</div>
+      <div class="concl-text">En el contexto local existe una gran cantidad de desechos provenientes de sectores como la industria alimenticia, gastronómica y comercial, que pueden aprovecharse como materia prima para nuevos productos, demostrando el potencial de la economía circular en la región.</div>
+    </div>
+    <div class="concl-card" style="--cn-num:'02';">
+      <div class="concl-icon">📈</div>
+      <div class="concl-title">Tendencias de mercado alineadas</div>
+      <div class="concl-text">Las ideas seleccionadas no solo contribuyen a la reducción del impacto ambiental, sino que también responden a tendencias actuales donde los consumidores valoran cada vez más los productos ecológicos y sostenibles, incrementando las probabilidades de éxito comercial.</div>
+    </div>
+    <div class="concl-card" style="--cn-num:'03';">
+      <div class="concl-icon">💰</div>
+      <div class="concl-title">Viabilidad económica por bajo costo</div>
+      <div class="concl-text">El uso de residuos como insumo principal permite reducir costos de producción, mejorando la viabilidad económica. Combinado con la diferenciación por sostenibilidad, representa una ventaja competitiva real frente a productos tradicionales del mercado boliviano.</div>
+    </div>
+    <div class="concl-card" style="--cn-num:'04';">
+      <div class="concl-icon">🎯</div>
+      <div class="concl-title">Análisis estratégico, no solo creativo</div>
+      <div class="concl-text">El proceso desarrollado permitió comprender la importancia de analizar las ideas de negocio no solo desde una perspectiva creativa, sino también estratégica, considerando impacto, viabilidad y aporte al entorno. Las propuestas seleccionadas constituyen una base sólida para emprendimientos innovadores.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:3rem 3.5rem;">
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;">
+      <div style="width:48px;height:48px;border-radius:14px;background:rgba(0,255,127,.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">📚</div>
+      <div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);">Referencias Bibliográficas</div>
+        <div style="font-family:'Unbounded',sans-serif;font-size:.88rem;font-weight:700;color:var(--white);">Fuentes del trabajo</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.6rem;">
+      <div style="font-size:.75rem;color:rgba(240,253,244,.4);line-height:1.7;padding:.6rem .9rem;border-radius:10px;border-left:2px solid var(--border);background:rgba(0,255,127,.02);">Gabriela, P.-G., Moreno-Hurtado, G., & Moreno-Hurtado, C. (2023). <em>Economic Complexity for Sustainability: From the linear economy to the Circular Economy.</em> 2023 18th Iberian Conference on CISTI.</div>
+      <div style="font-size:.75rem;color:rgba(240,253,244,.4);line-height:1.7;padding:.6rem .9rem;border-radius:10px;border-left:2px solid var(--border);background:rgba(0,255,127,.02);">Parise, M., Romano, D., & Antonini, G. (2022). Loop Impedance of Single-Turn Circular Coils. <em>IEEE Transactions on Electromagnetic Compatibility, 64(2),</em> 580–584.</div>
+      <div style="font-size:.75rem;color:rgba(240,253,244,.4);line-height:1.7;padding:.6rem .9rem;border-radius:10px;border-left:2px solid var(--border);background:rgba(0,255,127,.02);">Silva, N. A. S. da, et al. (2025). Turning Disaster into Opportunity: Economic Gains from Construction Waste Recycling. <em>2025 16th IEEE International Conference on Industry Applications (INDUSCON).</em></div>
+      <div style="font-size:.75rem;color:rgba(240,253,244,.4);line-height:1.7;padding:.6rem .9rem;border-radius:10px;border-left:2px solid var(--border);background:rgba(0,255,127,.02);">Thamara, M.-O., et al. (2022). Circular Economy and New Technologies in Latin America as a Contribution to Sustainable Development. <em>2022 17th Iberian Conference on CISTI.</em></div>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem;text-align:center;padding:2rem 0;border-top:1px solid var(--border2);">
+    <div style="font-family:'Unbounded',sans-serif;font-size:.65rem;font-weight:700;color:rgba(240,253,244,.2);letter-spacing:2px;text-transform:uppercase;">Universidad Privada Domingo Savio · Docente: Sarzuri Cerrogrande Mary Cruz · Marzo 2026</div>
+    <div style="font-family:'Unbounded',sans-serif;font-size:.85rem;font-weight:900;color:var(--green-neon);margin-top:.5rem;">Luis Mario Rocha Vela</div>
+  </div>
+</div>
+</section>
+
+<!-- PROGRESS DOCK -->
+<div class="progress-dock">
+  <div class="prog-label" id="prog-label">INICIO</div>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:16.6%"></div></div>
+  <div class="prog-steps">
+    <div class="prog-step done" onclick="nav('hero',0)" title="Inicio"></div>
+    <div class="prog-step" onclick="nav('brainstorm',1)" title="Brainstorming"></div>
+    <div class="prog-step" onclick="nav('filtro',2)" title="Filtro"></div>
+    <div class="prog-step" onclick="nav('matriz',3)" title="Matriz"></div>
+    <div class="prog-step" onclick="nav('dt',4)" title="DT + Evaluación"></div>
+    <div class="prog-step" onclick="nav('conclusiones',5)" title="Conclusiones"></div>
+  </div>
+  <div class="prog-team">Luis Mario Rocha Vela · UPDS · 2026</div>
+</div>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cur'), curR = document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function animCursor(){
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  curR.style.left=rx+'px'; curR.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+
+/* ── SCREENS ── */
+const SCREENS = ['hero','brainstorm','filtro','matriz','dt','conclusiones'];
+const LABELS = ['INICIO','ETAPA 1 · BRAINSTORMING','ETAPA 2 · FILTRO','ETAPA 3 · MATRIZ','ETAPA 4 & 5','CONCLUSIONES'];
+let cur_idx = 0;
+
+function nav(id, idx, btn) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','fade-enter'));
+  const el = document.getElementById('s-'+id);
+  el.classList.add('active');
+  requestAnimationFrame(()=>el.classList.add('fade-enter'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  cur_idx = idx;
+  document.getElementById('prog-fill').style.width = ((idx+1)/SCREENS.length*100)+'%';
+  document.getElementById('prog-label').textContent = LABELS[idx];
+  document.querySelectorAll('.prog-step').forEach((s,i)=>{ s.classList.toggle('done', i<=idx); });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight' && cur_idx<SCREENS.length-1) nav(SCREENS[cur_idx+1], cur_idx+1);
+  if(e.key==='ArrowLeft' && cur_idx>0) nav(SCREENS[cur_idx-1], cur_idx-1);
+});
+
+/* ── IDEA TOGGLES ── */
+function toggleIdea(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.idea-card').forEach(c=>c.classList.remove('open'));
+  if(!isOpen) card.classList.add('open');
+}
+</script>
+</body>
+</html>
