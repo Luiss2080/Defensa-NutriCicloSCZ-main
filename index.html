@@ -62,15 +62,59 @@ body{overflow-x:hidden;background:#f8fdf4}
 .sec-desc{color:#5a7a4a;font-size:.92rem;line-height:1.55;max-width:600px}
 
 /* ── ABOUT ── */
-#about{background:#fff;padding:3.2rem 0}
-.about-img-wrap{border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15);position:relative}
-.about-img-wrap img{width:100%;height:360px;object-fit:cover}
-.about-feature{display:flex;gap:1rem;margin-bottom:1.3rem;align-items:flex-start}
-.about-icon{width:44px;height:44px;border-radius:12px;background:#eef6e7;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.about-feature h5{font-size:.9rem;font-weight:800;color:var(--g1);margin-bottom:.2rem}
-.about-feature p{font-size:.82rem;color:#5a7a4a;margin:0}
-.team-pill{display:inline-flex;align-items:center;gap:.5rem;background:#eef6e7;border-radius:30px;padding:.4rem 1rem .4rem .5rem;font-size:.8rem;font-weight:600;color:var(--g2);margin:.2rem}
-.team-avatar{width:28px;height:28px;border-radius:50%;background:var(--g3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-weight:800}
+#about{
+  background:
+    radial-gradient(circle at 14% 15%, rgba(123,193,66,.12), transparent 28%),
+    linear-gradient(180deg,#ffffff,#f7fbf5);
+  padding:3rem 0;
+}
+.about-brand-card{
+  height:100%;
+  background:#fff;
+  border:1px solid #dcead8;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(18,64,35,.08);
+  overflow:hidden;
+}
+.about-logo-wrap{
+  padding:1rem;
+  border-bottom:1px solid #e5f0e1;
+  background:linear-gradient(180deg,#f7fcf6,#eef7ea);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:220px;
+}
+.about-logo-wrap img{width:100%;max-width:300px;height:auto;object-fit:contain}
+.about-kpis{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.5rem;
+  padding:.8rem;
+}
+.about-kpi{
+  border:1px solid #dcead8;
+  border-radius:10px;
+  background:#f8fcf7;
+  text-align:center;
+  padding:.55rem .4rem;
+}
+.about-kpi strong{display:block;font-size:1rem;color:#174228;line-height:1.1}
+.about-kpi span{display:block;font-size:.68rem;color:#4b6a53;font-weight:700;line-height:1.2;margin-top:.2rem}
+
+.about-copy{height:100%;background:#fff;border:1px solid #dcead8;border-radius:16px;box-shadow:0 10px 25px rgba(18,64,35,.08);padding:1rem 1rem .9rem}
+.about-intro{font-size:.84rem;color:#4b6a53;line-height:1.5;margin-bottom:.8rem}
+.about-feature-grid{display:grid;grid-template-columns:1fr;gap:.5rem}
+.about-feature-card{border:1px solid #dcead8;border-radius:10px;background:#f8fcf7;padding:.6rem .7rem;transition:.2s}
+.about-feature-card:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(18,64,35,.1);border-color:#b9d2b1}
+.about-feature-card h5{font-size:.84rem;font-weight:800;color:#1a4428;margin:0 0 .2rem}
+.about-feature-card p{font-size:.78rem;color:#436048;line-height:1.45;margin:0}
+
+.about-team-title{font-size:.73rem;color:#58765e;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin:.85rem 0 .45rem}
+.about-team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem}
+.about-member{border:1px solid #dcead8;border-radius:10px;background:#ffffff;padding:.45rem .55rem}
+.about-member strong{display:block;font-size:.76rem;color:#174228;line-height:1.2}
+.about-member span{display:block;font-size:.68rem;color:#5c7a63;line-height:1.2;margin-top:.12rem}
 
 /* ── EMPATHY MAP ── */
 #empathy{
@@ -321,6 +365,8 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 
 @media(max-width:768px){
   .inv-grid{grid-template-columns:1fr}
+  .about-team-grid{grid-template-columns:1fr}
+  .about-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
   .empathy-stage{padding:.8rem .55rem .65rem}
   .emp-profile-band{flex-direction:column;text-align:center;gap:.6rem}
   .emp-map-wrap{grid-template-columns:repeat(6,minmax(220px,1fr));grid-template-rows:1fr;min-height:auto}
@@ -498,35 +544,57 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 ══════════════════════════════════ -->
 <section id="about">
   <div class="container">
-    <div class="row align-items-center g-5">
+    <div class="row g-3 align-items-stretch">
       <div class="col-lg-5" data-aos="fade-right">
-        <div class="about-img-wrap" style="background:#f7f3ec;display:flex;align-items:center;justify-content:center;height:380px">
-          <img src="logo y slogan.png" alt="NutriCiclo Logo y Slogan" style="width:100%;height:100%;object-fit:contain;padding:1.5rem">
+        <div class="about-brand-card">
+          <div class="about-logo-wrap">
+            <img src="logo y slogan.png" alt="NutriCiclo Logo y Slogan">
+          </div>
+          <div class="about-kpis">
+            <div class="about-kpi">
+              <strong>74%</strong>
+              <span>Origen circular</span>
+            </div>
+            <div class="about-kpi">
+              <strong>100%</strong>
+              <span>Biodegradable</span>
+            </div>
+            <div class="about-kpi">
+              <strong>+20K</strong>
+              <span>Ton/año evitadas</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-lg-7" data-aos="fade-left">
-        <div class="sec-label">Quiénes Somos</div>
-        <h2 class="sec-title mb-3">NutriCiclo <span>SCZ</span></h2>
-        <p class="sec-desc mb-4">Somos un emprendimiento de economía circular que transforma residuos de mataderos en bloques multinutricionales para el ganado usando la mosca soldado negra (BSF), cerrando el ciclo biológico en Santa Cruz de la Sierra.</p>
-        <div class="about-feature">
-          <div class="about-icon">🌊</div>
-          <div><h5>Protegemos los ríos</h5><p>Evitamos que sangre, vísceras y huesos contaminen el río Piraí y río Grande.</p></div>
-        </div>
-        <div class="about-feature">
-          <div class="about-icon">🐄</div>
-          <div><h5>Salvamos el ganado en sequía</h5><p>Nuestros bloques alimentan las 4.4M cabezas bovinas de SCZ cuando no hay pasto.</p></div>
-        </div>
-        <div class="about-feature">
-          <div class="about-icon">🐛</div>
-          <div><h5>Innovación con larvas BSF</h5><p>Hermetia illucens transforma vísceras en proteína premium de 42-50% — únicos en Bolivia.</p></div>
-        </div>
-        <div class="mt-4">
-          <p style="font-size:.8rem;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem">Equipo</p>
-          <span class="team-pill"><span class="team-avatar">MO</span>Maria Ortiz</span>
-          <span class="team-pill"><span class="team-avatar">DF</span>Douglas Flor</span>
-          <span class="team-pill"><span class="team-avatar">LP</span>Leonardo Peña</span>
-          <span class="team-pill"><span class="team-avatar">LR</span>Luis Rocha</span>
-          <span class="team-pill"><span class="team-avatar">JM</span>Joel Miranda</span>
+        <div class="about-copy">
+          <div class="sec-label">Quiénes Somos</div>
+          <h2 class="sec-title mb-2">NutriCiclo <span>SCZ</span></h2>
+          <p class="about-intro">Somos una propuesta de economía circular enfocada en transformar residuos orgánicos de mataderos en bloques multinutricionales para ganado mediante biotecnología con larvas BSF. Nuestro modelo integra impacto ambiental, eficiencia productiva y viabilidad económica para el contexto cruceño.</p>
+
+          <div class="about-feature-grid">
+            <article class="about-feature-card">
+              <h5>Gestión ambiental aplicada</h5>
+              <p>Reducimos la descarga de residuos orgánicos en cuerpos de agua y fortalecemos un esquema de aprovechamiento responsable.</p>
+            </article>
+            <article class="about-feature-card">
+              <h5>Valor productivo para el sector ganadero</h5>
+              <p>Entregamos una alternativa nutricional local para épocas de escasez forrajera, mejorando continuidad operativa en campo.</p>
+            </article>
+            <article class="about-feature-card">
+              <h5>Innovación biotecnológica con trazabilidad</h5>
+              <p>Implementamos un proceso técnico verificable que convierte desecho en insumo funcional dentro de un ciclo regenerativo.</p>
+            </article>
+          </div>
+
+          <p class="about-team-title">Equipo del proyecto</p>
+          <div class="about-team-grid">
+            <div class="about-member"><strong>Maria Ortiz</strong><span>Investigación y análisis</span></div>
+            <div class="about-member"><strong>Douglas Flor Hernández</strong><span>Modelo de negocio</span></div>
+            <div class="about-member"><strong>Leonardo Peña</strong><span>Diseño de propuesta</span></div>
+            <div class="about-member"><strong>Luis Rocha</strong><span>Estructura técnica</span></div>
+            <div class="about-member"><strong>Joel Miranda</strong><span>Validación y síntesis</span></div>
+          </div>
         </div>
       </div>
     </div>
