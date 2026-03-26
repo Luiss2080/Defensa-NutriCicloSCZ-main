@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriCiclo SCZ · Actividad 04 · Canvas de Circularidad e Impacto</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Unbounded:wght@300;400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050f07;
+  --surface: #0a1a0d;
+  --surface2: #0f2414;
+  --green-neon: #00ff7f;
+  --green-bright: #22c55e;
+  --green-mid: #16a34a;
+  --green-deep: #14532d;
+  --lime: #a3e635;
+  --teal: #2dd4bf;
+  --amber: #f59e0b;
+  --coral: #fb7185;
+  --purple: #a78bfa;
+  --white: #f0fdf4;
+  --muted: #4ade80;
+  --border: rgba(0,255,127,0.15);
+  --border2: rgba(0,255,127,0.08);
+  --glow: rgba(0,255,127,0.25);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+.cursor {
+  position: fixed; width: 12px; height: 12px;
+  background: var(--green-neon); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform .1s, width .2s, height .2s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; width: 36px; height: 36px;
+  border: 1px solid var(--green-neon);
+  border-radius: 50%; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform .12s ease, width .25s, height .25s;
+  opacity: .5;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:500;
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(5,15,7,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: .9rem; letter-spacing: -0.5px;
+  color: var(--green-neon);
+  display: flex; align-items: center; gap: .5rem;
+}
+.nav-logo .dot { width: 8px; height: 8px; background: var(--green-neon); border-radius: 50%; animation: blink 2s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.nav-links { display: flex; gap: .25rem; }
+.nav-btn {
+  background: none; border: none; cursor: none;
+  font-family: 'Outfit', sans-serif; font-size: .75rem; font-weight: 500;
+  color: rgba(240,253,244,.4); padding: .5rem .95rem; border-radius: 40px;
+  transition: all .25s; letter-spacing: .3px;
+}
+.nav-btn:hover { color: var(--white); background: rgba(0,255,127,.08); }
+.nav-btn.active { color: var(--bg); background: var(--green-neon); font-weight: 600; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-pill {
+  font-family: 'Unbounded', sans-serif; font-size: .6rem;
+  background: var(--green-deep); color: var(--green-neon);
+  border: 1px solid var(--border); padding: .35rem .85rem; border-radius: 20px;
+  letter-spacing: .5px;
+}
+.nav-keys { font-size: .65rem; color: rgba(240,253,244,.3); display: flex; align-items: center; gap: .3rem; }
+.key { background: rgba(0,255,127,.06); border: 1px solid var(--border); border-radius: 4px; padding: .15rem .45rem; font-family: monospace; }
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; padding-top: 72px; }
+.screen.active { display: block; }
+.screen.active.fade-enter { animation: fadeEnter .5s cubic-bezier(.4,0,.2,1) both; }
+@keyframes fadeEnter {
+  from { opacity:0; transform:translateY(16px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ═══════════ HERO ═══════════ */
+#s-hero {
+  background: var(--bg);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+#s-hero.active { display: flex; }
+
+.hero-bg { position: absolute; inset:0; pointer-events:none; overflow:hidden; }
+.hero-bg-circle {
+  position: absolute; border-radius: 50%; border: 1px solid var(--border);
+}
+.hero-bg-circle:nth-child(1){ width:700px;height:700px;top:-200px;right:-150px; animation: rotateSlow 30s linear infinite; }
+.hero-bg-circle:nth-child(2){ width:500px;height:500px;top:-100px;right:-50px; border-color: rgba(0,255,127,.06); animation: rotateSlow 20s linear infinite reverse; }
+.hero-bg-circle:nth-child(3){ width:300px;height:300px;top:0px;right:50px; animation: rotateSlow 15s linear infinite; }
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+.hero-glow {
+  position: absolute; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,255,127,.12) 0%, transparent 70%);
+  top: -100px; right: -100px; pointer-events:none;
+}
+.hero-grid {
+  position: absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,127,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,127,.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: calc(100vh - 72px);
+  padding: 5rem 4rem; max-width: 1200px;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: .75rem; margin-bottom: 2rem; animation: fadeEnter .6s ease both; }
+.hero-eyebrow-line { width: 32px; height: 2px; background: var(--green-neon); }
+.hero-eyebrow-text { font-family: 'Outfit', sans-serif; font-size: .78rem; font-weight: 500; color: var(--green-neon); letter-spacing: 2px; text-transform: uppercase; }
+.hero-h1 {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: clamp(2.8rem, 6.5vw, 6rem);
+  line-height: .95; letter-spacing: -2px;
+  margin-bottom: 1rem; animation: fadeEnter .7s ease .1s both;
+}
+.hero-h1 .line1 { color: var(--white); display: block; }
+.hero-h1 .line2 {
+  display: block;
+  background: linear-gradient(135deg, var(--green-neon) 0%, var(--lime) 40%, var(--teal) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-h1 .line3 { color: rgba(240,253,244,.2); display: block; }
+.hero-sub {
+  max-width: 520px; font-size: 1.05rem; font-weight: 300; line-height: 1.8;
+  color: rgba(240,253,244,.55); margin-bottom: 3rem;
+  animation: fadeEnter .7s ease .2s both;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeEnter .7s ease .3s both; }
+.btn-glow {
+  display: flex; align-items: center; gap: .6rem;
+  background: var(--green-neon); color: var(--bg);
+  border: none; cursor: none; font-family: 'Unbounded', sans-serif;
+  font-weight: 700; font-size: .78rem; letter-spacing: .5px;
+  padding: 1rem 2rem; border-radius: 60px; transition: all .3s;
+}
+.btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(0,255,127,.4), 0 16px 40px rgba(0,255,127,.2); }
+.btn-outline {
+  display: flex; align-items: center; gap: .6rem;
+  background: transparent; color: var(--white);
+  border: 1px solid var(--border); cursor: none;
+  font-family: 'Outfit', sans-serif; font-size: .85rem; font-weight: 500;
+  padding: 1rem 2rem; border-radius: 60px; transition: all .3s;
+}
+.btn-outline:hover { background: rgba(0,255,127,.06); border-color: rgba(0,255,127,.4); }
+.hero-stats { display: flex; gap: 0; margin-top: 5rem; border-top: 1px solid var(--border); padding-top: 2rem; animation: fadeEnter .7s ease .5s both; }
+.hero-stat { flex:1; padding: 0 2rem 0 0; border-right: 1px solid var(--border2); }
+.hero-stat:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat-n {
+  font-family: 'Unbounded', sans-serif; font-size: 2.2rem; font-weight: 900;
+  background: linear-gradient(135deg,var(--green-neon),var(--teal));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1;
+}
+.hero-stat-l { font-size: .72rem; color: rgba(240,253,244,.35); margin-top:.4rem; letter-spacing:.5px; text-transform:uppercase; }
+.hero-right {
+  position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
+  width: 380px; height: 380px; animation: fadeEnter .8s ease .4s both;
+}
+.eco-wheel { position: relative; width:100%; height:100%; animation: rotateSlow 25s linear infinite; }
+.eco-wheel-track { position:absolute; inset:0; border-radius:50%; border: 2px solid var(--border); }
+.eco-wheel-track.t2 { inset: 50px; border-color: rgba(0,255,127,.1); animation: rotateSlow 15s linear infinite reverse; }
+.eco-wheel-track.t3 { inset: 100px; border: 1px dashed rgba(0,255,127,.15); }
+.eco-center {
+  position:absolute; inset:130px; border-radius:50%;
+  background: linear-gradient(135deg, var(--green-deep), var(--surface2));
+  border: 1px solid var(--border);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  animation: rotateSlow 25s linear infinite reverse;
+}
+.eco-center-icon { font-size: 2.2rem; }
+.eco-center-label { font-family:'Unbounded',sans-serif; font-size:.45rem; font-weight:700; color:var(--green-neon); letter-spacing:1.5px; margin-top:.3rem; }
+.eco-node {
+  position:absolute; width:64px; height:64px; border-radius:50%;
+  background: var(--surface2); border: 1px solid var(--border);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-size:1.4rem; box-shadow: 0 0 20px rgba(0,255,127,.1);
+}
+.eco-node span { font-size:.45rem; font-family:'Outfit',sans-serif; color:var(--muted); margin-top:.15rem; letter-spacing:.5px; text-transform:uppercase; }
+.eco-node.n0 { top:-32px; left:50%; transform:translateX(-50%); }
+.eco-node.n1 { right:-32px; top:50%; transform:translateY(-50%); }
+.eco-node.n2 { bottom:-32px; left:50%; transform:translateX(-50%); }
+.eco-node.n3 { left:-32px; top:50%; transform:translateY(-50%); }
+.eco-node.n4 { top:25px; right:25px; }
+
+/* ═══════════ SECTION WRAPPER ═══════════ */
+.sec-wrap { padding: 5rem 4rem; max-width: 1400px; margin: 0 auto; }
+.sec-head { margin-bottom: 3.5rem; }
+.sec-badge {
+  display:inline-flex; align-items:center; gap:.5rem;
+  background: rgba(0,255,127,.08); border: 1px solid var(--border);
+  color: var(--green-neon); font-size:.7rem; font-weight:600;
+  padding:.35rem 1rem; border-radius:30px; letter-spacing:1.5px; text-transform:uppercase;
+  margin-bottom:1.2rem;
+}
+.sec-badge::before { content:''; width:6px;height:6px;border-radius:50%;background:var(--green-neon); animation: blink 2s infinite; }
+.sec-h2 { font-family:'Unbounded',sans-serif; font-weight:900; font-size: clamp(2rem,4vw,3.5rem); line-height:1; letter-spacing:-1.5px; }
+.sec-h2 em { font-style:normal; color:var(--green-neon); }
+.sec-sub { margin-top:1rem; font-size:1rem; color:rgba(240,253,244,.45); font-weight:300; max-width:560px; line-height:1.8; }
+
+/* ═══════════ SCREEN 2 · IMPACTOS ═══════════ */
+#s-impactos { background: var(--bg); }
+
+.impactos-layout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.5px; background: var(--border);
+  border-radius: 24px; overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 80px rgba(0,255,127,.05);
+  margin-bottom: 2rem;
+}
+.iq {
+  background: var(--surface); padding: 2.5rem;
+  cursor: none; transition: background .3s;
+  position: relative; overflow: hidden; min-height: 300px;
+}
+.iq::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background: var(--accent-color, var(--green-neon));
+  transform: scaleX(0); transition: transform .4s cubic-bezier(.4,0,.2,1);
+  transform-origin: left;
+}
+.iq:hover::before, .iq.open::before { transform: scaleX(1); }
+.iq:hover { background: var(--surface2); }
+.iq.open { background: var(--surface2); }
+.iq-num {
+  font-family:'Unbounded',sans-serif; font-size:4.5rem; font-weight:900;
+  position:absolute; bottom:1.5rem; right:2rem;
+  color: rgba(0,255,127,.04); line-height:1; pointer-events:none; transition: color .3s;
+}
+.iq:hover .iq-num, .iq.open .iq-num { color: rgba(0,255,127,.07); }
+.iq-icon {
+  width: 52px; height:52px; border-radius:16px;
+  background: var(--icon-bg, rgba(0,255,127,.1));
+  border: 1px solid var(--icon-border, rgba(0,255,127,.2));
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:1.2rem;
+  transition: transform .3s, box-shadow .3s;
+}
+.iq:hover .iq-icon { transform: scale(1.08); box-shadow: 0 0 24px var(--glow); }
+.iq-q { font-family:'Unbounded',sans-serif; font-size:1rem; font-weight:700; color: var(--white); margin-bottom:.5rem; letter-spacing:-.5px; }
+.iq-preview { font-size:.85rem; color:rgba(240,253,244,.5); line-height:1.65; font-weight:300; }
+.iq-toggle {
+  display:inline-flex; align-items:center; gap:.5rem; margin-top:1.2rem;
+  background:none; border:1px solid var(--border); cursor:none;
+  font-family:'Outfit',sans-serif; font-size:.75rem; font-weight:600;
+  color: var(--green-neon); padding:.4rem 1rem; border-radius:30px;
+  transition: all .25s; letter-spacing:.5px;
+}
+.iq-toggle:hover, .iq.open .iq-toggle { background:rgba(0,255,127,.1); }
+.iq-toggle .arrow { transition: transform .3s; }
+.iq.open .iq-toggle .arrow { transform: rotate(90deg); }
+.iq-drawer { display:none; margin-top:1.5rem; padding-top:1.5rem; border-top:1px solid var(--border2); }
+.iq.open .iq-drawer { display:block; animation: fadeEnter .3s ease; }
+.iq-item {
+  display:flex; gap:.75rem; align-items:flex-start;
+  padding:.85rem 1rem; border-radius:12px;
+  background: rgba(0,255,127,.03); border: 1px solid var(--border2);
+  margin-bottom:.6rem; font-size:.82rem; color:rgba(240,253,244,.65); line-height:1.65;
+  transition: background .2s;
+}
+.iq-item:hover { background: rgba(0,255,127,.06); }
+.iq-item-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:.45rem; }
+
+/* Tabla de impactos */
+.impact-table-wrap {
+  border:1px solid var(--border); border-radius:20px; overflow:hidden;
+  box-shadow: 0 0 60px rgba(0,255,127,.05); overflow-x:auto;
+}
+table { width:100%; border-collapse:collapse; min-width:640px; }
+thead th {
+  background:var(--surface2); color:var(--green-neon);
+  font-family:'Unbounded',sans-serif; font-weight:700; font-size:.67rem;
+  letter-spacing:1px; text-transform:uppercase; padding:1rem 1.2rem;
+  text-align:left; border-bottom:1px solid var(--border);
+}
+tbody tr { border-bottom:1px solid var(--border2); cursor:none; transition: background .2s; }
+tbody tr:hover { background: var(--surface2); }
+tbody td { padding:.85rem 1.2rem; font-size:.8rem; color:rgba(240,253,244,.6); line-height:1.5; vertical-align:top; }
+tbody td:first-child { font-family:'Unbounded',sans-serif; font-size:.72rem; font-weight:700; color:var(--white); }
+.badge {
+  display:inline-block; font-size:.62rem; font-weight:700;
+  padding:.2rem .6rem; border-radius:10px; letter-spacing:.5px; text-transform:uppercase;
+}
+.badge-pos { background:rgba(0,255,127,.1); color:var(--green-neon); border:1px solid rgba(0,255,127,.2); }
+.badge-neg { background:rgba(251,113,133,.1); color:var(--coral); border:1px solid rgba(251,113,133,.2); }
+
+/* ═══════════ SCREEN 3 · MATERIA PRIMA ═══════════ */
+#s-materia { background: var(--bg); }
+
+.recursos-grid {
+  display:grid; grid-template-columns: repeat(2,1fr); gap:1.5px;
+  background:var(--border); border-radius:24px; overflow:hidden; border:1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.rcard {
+  background:var(--surface); padding:2.5rem;
+  cursor:none; transition: background .3s; position:relative; overflow:hidden; min-height:280px;
+}
+.rcard:hover { background:var(--surface2); }
+.rcard::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background: var(--rc-color, var(--green-neon));
+  transform: scaleX(0); transition: transform .4s cubic-bezier(.4,0,.2,1); transform-origin: left;
+}
+.rcard:hover::before { transform: scaleX(1); }
+.rcard-icon {
+  width:52px; height:52px; border-radius:16px;
+  display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+  margin-bottom:1.2rem; transition: transform .3s;
+}
+.rcard:hover .rcard-icon { transform: scale(1.08); }
+.rcard-title { font-family:'Unbounded',sans-serif; font-size:1rem; font-weight:700; color:var(--white); margin-bottom:.6rem; letter-spacing:-.4px; }
+.rcard-sub { font-size:.82rem; color:rgba(240,253,244,.5); line-height:1.65; margin-bottom:1.2rem; }
+.rcard-items { display:flex; flex-direction:column; gap:.5rem; }
+.rcard-item {
+  display:flex; gap:.7rem; align-items:flex-start;
+  padding:.7rem .9rem; border-radius:10px;
+  background: rgba(0,255,127,.03); border: 1px solid var(--border2);
+  font-size:.79rem; color:rgba(240,253,244,.55); line-height:1.55;
+}
+.rcard-item-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:.45rem; }
+.rcard-num {
+  font-family:'Unbounded',sans-serif; font-size:4.5rem; font-weight:900;
+  position:absolute; bottom:1.5rem; right:2rem;
+  color: rgba(0,255,127,.04); line-height:1; pointer-events:none;
+}
+
+/* ═══════════ SCREEN 4 · CANVAS VISUAL ═══════════ */
+#s-canvas { background: var(--bg); }
+
+.canvas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 1.5px;
+  background: var(--border);
+  border-radius: 24px; overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 80px rgba(0,255,127,.05);
+  margin-bottom: 2rem;
+}
+.cv {
+  background: var(--surface); padding: 2rem;
+  cursor: none; transition: background .3s;
+  position: relative; overflow: hidden;
+  min-height: 220px;
+}
+.cv:hover { background: var(--surface2); }
+.cv::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background: var(--cv-color, var(--green-neon));
+  transform: scaleX(0); transition: transform .4s cubic-bezier(.4,0,.2,1); transform-origin: left;
+}
+.cv:hover::before { transform: scaleX(1); }
+.cv.span2 { grid-column: span 2; }
+.cv.span3 { grid-column: span 3; }
+.cv-label {
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family:'Unbounded',sans-serif; font-size:.6rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:1.5px; margin-bottom:1rem;
+  color: var(--cv-color, var(--green-neon));
+}
+.cv-label .licon { font-size:1rem; }
+.cv-title { font-family:'Unbounded',sans-serif; font-size:.9rem; font-weight:700; color:var(--white); margin-bottom:.7rem; letter-spacing:-.3px; }
+.cv-items { display:flex; flex-direction:column; gap:.5rem; }
+.cv-item {
+  display:flex; gap:.65rem; align-items:flex-start;
+  padding:.65rem .85rem; border-radius:10px;
+  background: rgba(255,255,255,.02); border-left: 2px solid var(--cv-color, var(--green-neon));
+  font-size:.78rem; color:rgba(240,253,244,.55); line-height:1.55;
+}
+.cv-num {
+  font-family:'Unbounded',sans-serif; font-size:3.5rem; font-weight:900;
+  position:absolute; bottom:1rem; right:1.5rem;
+  color: rgba(0,255,127,.04); line-height:1; pointer-events:none;
+}
+
+/* ═══════════ SCREEN 5 · 10 R's ═══════════ */
+#s-modelo { background: var(--bg); }
+
+.rs-grid {
+  display:grid; grid-template-columns: repeat(3,1fr); gap:1.5px;
+  background:var(--border); border-radius:24px; overflow:hidden; border:1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.rsbx {
+  background:var(--surface); padding:2rem;
+  cursor:none; transition: background .3s; position:relative; overflow:hidden;
+}
+.rsbx:hover { background:var(--surface2); }
+.rsbx-accent {
+  width:44px; height:44px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+  margin-bottom:1rem; transition: transform .3s;
+}
+.rsbx:hover .rsbx-accent { transform: scale(1.1) rotate(-5deg); }
+.rsbx-r { font-family:'Unbounded',sans-serif; font-size:1.6rem; font-weight:900; margin-bottom:.2rem; }
+.rsbx-name { font-family:'Unbounded',sans-serif; font-size:.78rem; font-weight:700; color:var(--white); margin-bottom:.5rem; }
+.rsbx-desc { font-size:.76rem; color:rgba(240,253,244,.45); line-height:1.65; }
+.rsbx-tag { display:inline-block; margin-top:.9rem; font-size:.65rem; font-weight:600; padding:.2rem .65rem; border-radius:20px; letter-spacing:.5px; }
+
+/* Vida útil band */
+.vida-band {
+  background: linear-gradient(135deg, var(--green-deep) 0%, #0a2e18 50%, #041a0c 100%);
+  border: 1px solid var(--border); border-radius: 28px; padding: 3rem 4rem;
+  display: flex; gap: 3rem; align-items: center; flex-wrap: wrap;
+  position:relative; overflow:hidden; margin-bottom: 2rem;
+}
+.vida-band::before {
+  content:''; position:absolute; right:-100px; top:-100px;
+  width:400px; height:400px; border-radius:50%;
+  background: radial-gradient(circle,rgba(0,255,127,.1) 0%,transparent 70%);
+}
+.vida-text { flex:1; min-width: 280px; }
+.vida-tag {
+  display:inline-block; background:rgba(163,230,53,.15); border:1px solid rgba(163,230,53,.3);
+  color:var(--lime); font-size:.7rem; font-weight:600; letter-spacing:1.5px;
+  text-transform:uppercase; padding:.35rem .9rem; border-radius:20px; margin-bottom:1.5rem;
+}
+.vida-title { font-family:'Unbounded',sans-serif; font-weight:900; font-size: clamp(1.6rem,3vw,2.5rem); line-height:1.1; color:var(--white); margin-bottom:1rem; letter-spacing:-1px; }
+.vida-title em { color:var(--green-neon); font-style:normal; }
+.vida-p { font-size:.88rem; color:rgba(240,253,244,.55); line-height:1.8; }
+.vida-items { flex:1; min-width:280px; display:flex; flex-direction:column; gap:.8rem; }
+.vida-item {
+  display:flex; gap:.8rem; align-items:flex-start;
+  background:rgba(0,255,127,.05); border:1px solid var(--border);
+  border-radius:12px; padding:1rem 1.2rem;
+  font-size:.82rem; color:rgba(240,253,244,.65); line-height:1.6;
+}
+.vida-item::before { content:'♻'; color:var(--green-neon); flex-shrink:0; font-size:1rem; }
+
+/* ═══════════ SCREEN 6 · PITCH ═══════════ */
+#s-pitch { background: var(--bg); }
+
+.pitch-layout { display:grid; grid-template-columns: 340px 1fr; gap:2rem; margin-bottom:3rem; }
+
+.pitch-card {
+  background: linear-gradient(160deg, var(--green-deep) 0%, #041a0c 100%);
+  border:1px solid var(--border); border-radius:24px; padding:2.5rem;
+  position:sticky; top:88px; height:fit-content;
+  box-shadow: 0 0 60px rgba(0,255,127,.07);
+}
+.pc-icon {
+  width:80px; height:80px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(0,255,127,.2),rgba(45,212,191,.2));
+  border:2px solid var(--border); font-size:2.2rem;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:1.5rem;
+  box-shadow: 0 0 40px rgba(0,255,127,.15);
+}
+.pc-name { font-family:'Unbounded',sans-serif; font-size:1.1rem; font-weight:900; color:var(--white); margin-bottom:.3rem; }
+.pc-role { font-size:.78rem; color:var(--muted); margin-bottom:1.5rem; font-weight:300; }
+.pc-divider { height:1px; background:var(--border); margin:1.5rem 0; }
+.pc-msg-block { margin-bottom:1.2rem; }
+.pc-msg-label { font-family:'Unbounded',sans-serif; font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:.5rem; }
+.pc-msg-text { font-size:.8rem; color:rgba(240,253,244,.55); line-height:1.65; }
+.pc-meter { margin-bottom:.9rem; }
+.pc-meter-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem; }
+.pc-meter-label { font-size:.72rem; color:rgba(240,253,244,.45); }
+.pc-meter-val { font-family:'Unbounded',sans-serif; font-size:.72rem; font-weight:700; color:var(--green-neon); }
+.pc-bar { height:5px; background:rgba(0,255,127,.1); border-radius:3px; overflow:hidden; }
+.pc-bar-fill { height:100%; border-radius:3px; transition: width 1.4s cubic-bezier(.4,0,.2,1) .3s; }
+
+.pitch-sections { display:flex; flex-direction:column; gap:1.2rem; }
+.ps {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:20px; padding:2rem; overflow:hidden; position:relative;
+  cursor:none; transition: background .3s, border-color .3s;
+}
+.ps:hover { background:var(--surface2); border-color:rgba(0,255,127,.2); }
+.ps-type { display:flex; align-items:center; gap:.6rem; margin-bottom:.9rem; }
+.ps-pip { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.ps-type-label { font-family:'Unbounded',sans-serif; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; }
+.ps-title { font-family:'Unbounded',sans-serif; font-size:.95rem; font-weight:700; color:var(--white); margin-bottom:.6rem; letter-spacing:-.3px; }
+.ps-body { font-size:.82rem; color:rgba(240,253,244,.5); line-height:1.7; }
+
+/* ═══════════ PROGRESS DOCK ═══════════ */
+.progress-dock {
+  position:fixed; bottom:0; left:0; right:0; z-index:400;
+  background:rgba(5,15,7,.92); backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; gap:1.5rem;
+  padding:.85rem 3rem; height:54px;
+}
+.prog-label { font-family:'Unbounded',sans-serif; font-size:.65rem; font-weight:700; color:var(--green-neon); white-space:nowrap; min-width:170px; }
+.prog-track { flex:1; height:3px; background:rgba(0,255,127,.1); border-radius:2px; overflow:hidden; }
+.prog-fill { height:100%; background:linear-gradient(90deg,var(--green-neon),var(--teal)); transition: width .5s cubic-bezier(.4,0,.2,1); border-radius:2px; }
+.prog-steps { display:flex; gap:.5rem; }
+.prog-step { width:7px; height:7px; border-radius:50%; cursor:none; background:rgba(0,255,127,.15); border:1px solid var(--border); transition: all .25s; }
+.prog-step.done { background:var(--green-neon); border-color:var(--green-neon); }
+.prog-team { font-size:.65rem; color:rgba(240,253,244,.25); white-space:nowrap; }
+
+/* NOISE */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:1000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><div class="dot"></div>NUTRI·CICLO</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="nav('hero',0,this)">Inicio</button>
+    <button class="nav-btn" onclick="nav('impactos',1,this)">Impactos</button>
+    <button class="nav-btn" onclick="nav('materia',2,this)">Materia Prima</button>
+    <button class="nav-btn" onclick="nav('canvas',3,this)">Canvas</button>
+    <button class="nav-btn" onclick="nav('modelo',4,this)">Modelo · 10R's</button>
+    <button class="nav-btn" onclick="nav('pitch',5,this)">Pitch</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-pill">UPDS · 2026</div>
+    <div class="nav-keys"><span class="key">←</span><span class="key">→</span> navegar</div>
+  </div>
+</nav>
+
+<!-- ══════ S1: HERO ══════ -->
+<section id="s-hero" class="screen active">
+  <div class="hero-bg">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Emprendedurismo · Actividad 04 · Marzo 2026</div>
+    </div>
+    <h1 class="hero-h1">
+      <span class="line1">CANVAS DE</span>
+      <span class="line2">CIRCULARIDAD</span>
+      <span class="line3">E IMPACTO</span>
+    </h1>
+    <p class="hero-sub">
+      Diseño del Canvas de Impacto y Circularidad para NutriCiclo SCZ — análisis integral de valor económico, social y ambiental del emprendimiento.
+    </p>
+    <div class="hero-ctas">
+      <button class="btn-glow" onclick="nav('impactos',1)">VER IMPACTOS <span>→</span></button>
+      <button class="btn-outline" onclick="nav('canvas',3)">Ver Canvas Visual</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-n">4</div>
+        <div class="hero-stat-l">Impactos positivos</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">4</div>
+        <div class="hero-stat-l">Impactos negativos</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">3R</div>
+        <div class="hero-stat-l">10R's aplicadas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">SCZ</div>
+        <div class="hero-stat-l">Impacto local</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">2'</div>
+        <div class="hero-stat-l">Video pitch</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="eco-wheel">
+      <div class="eco-wheel-track"></div>
+      <div class="eco-wheel-track t2"></div>
+      <div class="eco-wheel-track t3"></div>
+      <div class="eco-center">
+        <div class="eco-center-icon">♻️</div>
+        <div class="eco-center-label">CIRCULAR</div>
+      </div>
+      <div class="eco-node n0">✅<span>Impacto</span></div>
+      <div class="eco-node n1">🏭<span>Modelo</span></div>
+      <div class="eco-node n2">🌱<span>Recursos</span></div>
+      <div class="eco-node n3">🎯<span>Canvas</span></div>
+      <div class="eco-node n4">📣<span>Pitch</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ S2: IMPACTOS ══════ -->
+<section id="s-impactos" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Paso 1 · Impactos de producción/servicio</div>
+    <h2 class="sec-h2">Impactos<br><em>Positivos y Negativos</em></h2>
+    <p class="sec-sub">Haz clic en cada cuadrante para explorar los impactos identificados. Abajo encontrarás la tabla resumen completa.</p>
+  </div>
+
+  <div class="impactos-layout">
+    <!-- IMPACTOS POSITIVOS -->
+    <div class="iq" style="--accent-color:#00ff7f;--icon-bg:rgba(0,255,127,.1);--icon-border:rgba(0,255,127,.2);" onclick="toggleIQ(this)">
+      <div class="iq-num">01</div>
+      <div class="iq-icon">✅</div>
+      <div class="iq-q">IMPACTOS POSITIVOS</div>
+      <div class="iq-preview">Reducción de contaminación en ríos, disminución de residuos orgánicos, mejora en alimentación ganadera y generación de fertilizante.</div>
+      <button class="iq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="iq-drawer">
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--green-neon)"></div><strong>Reducción de contaminación en ríos:</strong> Los residuos de mataderos como sangre, huesos y vísceras dejan de llegar al Piraí y río Grande. Beneficia a comunidades ribereñas y fauna acuática.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--green-neon)"></div><strong>Disminución de residuos orgánicos:</strong> El uso de BSF convierte desechos orgánicos en proteína. Beneficia a mataderos del Parque Industrial que reducen costos de disposición.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--green-neon)"></div><strong>Mejora en alimentación ganadera:</strong> Los bloques multinutricionales mejoran el peso y producción de leche, especialmente en épocas de sequía. Beneficia directamente a ganaderos del oriente boliviano.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--green-neon)"></div><strong>Generación de fertilizante:</strong> El frass de la producción BSF se reutiliza como abono orgánico, beneficiando a productores agrícolas locales y regenerando suelos.</div>
+      </div>
+    </div>
+
+    <!-- IMPACTOS NEGATIVOS -->
+    <div class="iq" style="--accent-color:#fb7185;--icon-bg:rgba(251,113,133,.1);--icon-border:rgba(251,113,133,.25);" onclick="toggleIQ(this)">
+      <div class="iq-num">02</div>
+      <div class="iq-icon">⚠️</div>
+      <div class="iq-q">IMPACTOS NEGATIVOS</div>
+      <div class="iq-preview">Olores durante secado de sangre, emisiones CO₂ por calcinación y transporte, riesgo por urea y riesgo operario con cal viva.</div>
+      <button class="iq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="iq-drawer">
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--coral)"></div><strong>Olores en procesamiento:</strong> El secado de sangre genera olores que pueden afectar a poblaciones cercanas. Mitigación: deshidratadores solares cerrados y ubicación en zona industrial de SCZ.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--coral)"></div><strong>Emisiones de CO₂:</strong> La calcinación de huesos y el transporte generan emisiones. Mitigación: uso de biomasa local (bagazo de caña) y optimización de rutas de recolección.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--coral)"></div><strong>Riesgo por urea:</strong> Mala dosificación puede intoxicar al ganado, especialmente terneros. Mitigación: verificación de dureza por lote, etiquetado preventivo y capacitación a ganaderos.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--coral)"></div><strong>Riesgo operario con cal viva:</strong> Puede causar irritaciones o quemaduras. Mitigación: EPP obligatorio (guantes, gafas, mascarilla) y capacitación básica en seguridad industrial.</div>
+      </div>
+    </div>
+
+    <!-- QUIÉNES SOMOS -->
+    <div class="iq" style="--accent-color:#2dd4bf;--icon-bg:rgba(45,212,191,.1);--icon-border:rgba(45,212,191,.25);" onclick="toggleIQ(this)">
+      <div class="iq-num">03</div>
+      <div class="iq-icon">🏢</div>
+      <div class="iq-q">¿QUIÉNES SOMOS?</div>
+      <div class="iq-preview">Emprendimiento circular que transforma residuos agroindustriales de Santa Cruz en bloques multinutricionales para ganado bovino.</div>
+      <button class="iq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="iq-drawer">
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--teal)"></div>Somos un emprendimiento de economía circular basado en Santa Cruz de la Sierra, enfocado en transformar residuos agropecuarios en insumos productivos.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--teal)"></div>Integramos mataderos, ganaderos y productores agrícolas del norte integrado en una cadena de valor circular y local.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--teal)"></div>Nos relacionamos con la circularidad al dar valor a residuos que normalmente generan contaminación, reincorporándolos al ciclo productivo.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--teal)"></div>Reducimos la dependencia de insumos externos y minimizamos desperdicios: casi todos los materiales se incorporan completamente al producto final.</div>
+      </div>
+    </div>
+
+    <!-- GRUPOS BENEFICIADOS -->
+    <div class="iq" style="--accent-color:#a3e635;--icon-bg:rgba(163,230,53,.1);--icon-border:rgba(163,230,53,.25);" onclick="toggleIQ(this)">
+      <div class="iq-num">04</div>
+      <div class="iq-icon">🤝</div>
+      <div class="iq-q">GRUPOS BENEFICIADOS</div>
+      <div class="iq-preview">Ganaderos del oriente, mataderos locales, productores agrícolas, comunidades ribereñas y el ecosistema del Piraí.</div>
+      <button class="iq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="iq-drawer">
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--lime)"></div><strong>Ganaderos del oriente boliviano:</strong> Acceden a suplemento accesible que mejora productividad en épocas de sequía y reduce costos de alimentación.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--lime)"></div><strong>Mataderos del Parque Industrial y Cotoca:</strong> Reducen costos de disposición de residuos como sangre, huesos y vísceras que antes contaminaban.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--lime)"></div><strong>Productores agrícolas locales:</strong> Acceden al frass como fertilizante orgánico, mejorando suelos sin costo elevado.</div>
+        <div class="iq-item"><div class="iq-item-dot" style="background:var(--lime)"></div><strong>Comunidades ribereñas:</strong> Se reduce la contaminación de ríos como el Piraí y el río Grande, mejorando calidad del agua y salud ambiental.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla resumen de impactos -->
+  <h3 style="font-family:'Unbounded',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:1.5rem;letter-spacing:-.3px;">Tabla Resumen de Impactos</h3>
+  <div class="impact-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Causa principal</th>
+          <th>Acción de mejora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="badge badge-pos">Positivo</span></td><td>Reducción de contaminación en ríos</td><td>Residuos de mataderos aprovechados</td><td>Ampliar recolección a más mataderos</td></tr>
+        <tr><td><span class="badge badge-pos">Positivo</span></td><td>Disminución de residuos orgánicos</td><td>Uso de BSF para transformar desechos</td><td>Escalar producción BSF</td></tr>
+        <tr><td><span class="badge badge-pos">Positivo</span></td><td>Mejora en alimentación ganadera</td><td>Bloques multinutricionales</td><td>Capacitación a ganaderos en uso</td></tr>
+        <tr><td><span class="badge badge-pos">Positivo</span></td><td>Generación de fertilizante orgánico</td><td>Compostaje y frass BSF</td><td>Promover uso agrícola del frass</td></tr>
+        <tr><td><span class="badge badge-neg">Negativo</span></td><td>Olores en procesamiento de sangre</td><td>Secado de sangre sin sistema cerrado</td><td>Deshidratador solar cerrado; zona industrial</td></tr>
+        <tr><td><span class="badge badge-neg">Negativo</span></td><td>Emisiones CO₂ por calcinación</td><td>Calcinación y transporte</td><td>Biomasa local + rutas optimizadas</td></tr>
+        <tr><td><span class="badge badge-neg">Negativo</span></td><td>Riesgo por mala dosificación de urea</td><td>Medición imprecisa por lote</td><td>Control de dureza + capacitación</td></tr>
+        <tr><td><span class="badge badge-neg">Negativo</span></td><td>Riesgo operario con cal viva</td><td>Manipulación sin protección</td><td>EPP obligatorio + capacitación</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S3: MATERIA PRIMA ══════ -->
+<section id="s-materia" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Paso 2 · Materia prima e identificación</div>
+    <h2 class="sec-h2">Recursos del<br><em>Sistema Productivo</em></h2>
+    <p class="sec-sub">Clasificación de los recursos involucrados en NutriCiclo SCZ: materiales, técnicos, energéticos y naturales/biológicos.</p>
+  </div>
+
+  <div class="recursos-grid">
+    <!-- Materiales e insumos -->
+    <div class="rcard" style="--rc-color:#00ff7f;">
+      <div class="rcard-num">01</div>
+      <div class="rcard-icon" style="background:rgba(0,255,127,.1);border:1px solid rgba(0,255,127,.2);">📦</div>
+      <div class="rcard-title">Materiales e Insumos</div>
+      <div class="rcard-sub">Base material del emprendimiento. Principalmente residuos locales de Santa Cruz transformados en componentes del bloque.</div>
+      <div class="rcard-items">
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--green-neon)"></div>Melaza de caña (energético) — Ingenios Montero y Warnes</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--green-neon)"></div>Harina de sangre (proteico) — Mataderos Parque Industrial</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--green-neon)"></div>Cascarilla de arroz (fibra) — Arroceras Mineros y Okinawa</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--green-neon)"></div>Afrecho de soya (proteína) — Industrias aceiteras SCZ</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--green-neon)"></div>Harina de hueso (mineral), Harina BSF (proteína diferenciadora)</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--green-neon)"></div>Urea, cal viva, sal mineralizada, azufre (complementos técnicos)</div>
+      </div>
+    </div>
+
+    <!-- Recursos técnicos -->
+    <div class="rcard" style="--rc-color:#f59e0b;">
+      <div class="rcard-num">02</div>
+      <div class="rcard-icon" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);">⚙️</div>
+      <div class="rcard-title">Recursos Técnicos</div>
+      <div class="rcard-sub">Herramientas y procesos necesarios para transformar los insumos en el bloque multinutricional final.</div>
+      <div class="rcard-items">
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--amber)"></div>Mezcladora básica o pala para integración de insumos por lote</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--amber)"></div>Molino artesanal para triturar cascarilla y moler harina de hueso</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--amber)"></div>Horno artesanal o tambor adaptado para calcinación de huesos</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--amber)"></div>Cajas y bandejas para cría de larvas BSF en la biofábrica</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--amber)"></div>Baldes y turriles para almacenamiento y dilución de melaza y urea</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--amber)"></div>Empaques de polipropileno para almacenaje y transporte del bloque</div>
+      </div>
+    </div>
+
+    <!-- Recursos energéticos -->
+    <div class="rcard" style="--rc-color:#fb7185;">
+      <div class="rcard-num">03</div>
+      <div class="rcard-icon" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);">⚡</div>
+      <div class="rcard-title">Recursos Energéticos</div>
+      <div class="rcard-sub">El proceso productivo tiene baja intensidad energética, aprovechando principalmente fuentes naturales y residuos como combustible.</div>
+      <div class="rcard-items">
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--coral)"></div>Energía solar: secado natural de sangre, harina de hueso y larvas BSF — clima cálido de SCZ reduce combustible</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--coral)"></div>Biomasa (bagazo de caña, cascarilla) como combustible para calcinación de huesos — alternativa propuesta a leña y gas</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--coral)"></div>Combustible diésel para transporte de recolección. Mitigación: optimización de rutas para reducir consumo</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--coral)"></div>Consumo eléctrico mínimo: solo para molino y eventual secador solar cerrado</div>
+      </div>
+    </div>
+
+    <!-- Recursos naturales/biológicos -->
+    <div class="rcard" style="--rc-color:#a3e635;">
+      <div class="rcard-num">04</div>
+      <div class="rcard-icon" style="background:rgba(163,230,53,.1);border:1px solid rgba(163,230,53,.2);">🌿</div>
+      <div class="rcard-title">Recursos Naturales / Biológicos</div>
+      <div class="rcard-sub">Recursos de origen natural o biológico cuyo uso contribuye a la sostenibilidad y puede reintegrarse al ambiente sin impacto negativo.</div>
+      <div class="rcard-items">
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--lime)"></div>Larvas de mosca soldado negra (BSF): sistema biológico que convierte desechos orgánicos en proteína sostenible</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--lime)"></div>Frass: residuo orgánico de larvas que regenera suelos. Uso compatible con principios de economía circular</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--lime)"></div>Todos los componentes biológicos (melaza, sangre, cascarilla, afrecho) provienen de ciclos naturales o agroindustriales locales</div>
+        <div class="rcard-item"><div class="rcard-item-dot" style="background:var(--lime)"></div>No se consume agua en cantidades significativas. No hay extracción de recursos naturales vírgenes en el proceso</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S4: CANVAS VISUAL ══════ -->
+<section id="s-canvas" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Paso 4 · Representación visual del canvas</div>
+    <h2 class="sec-h2">Canvas de<br><em>Impacto y Circularidad</em></h2>
+    <p class="sec-sub">Síntesis visual del emprendimiento: quiénes somos, qué recursos usamos, qué impactos generamos y cómo cerramos el ciclo.</p>
+  </div>
+
+  <div class="canvas-grid">
+    <!-- Fila 1 -->
+    <div class="cv" style="--cv-color:#00ff7f;">
+      <div class="cv-num">A</div>
+      <div class="cv-label"><span class="licon">🏢</span> Identidad</div>
+      <div class="cv-title">¿Quiénes somos?</div>
+      <div class="cv-items">
+        <div class="cv-item">NutriCiclo SCZ — emprendimiento circular de SCZ</div>
+        <div class="cv-item">Producimos bloques multinutricionales para ganado bovino</div>
+        <div class="cv-item">Transformamos residuos agroindustriales locales en valor</div>
+      </div>
+    </div>
+    <div class="cv" style="--cv-color:#a3e635;">
+      <div class="cv-num">B</div>
+      <div class="cv-label"><span class="licon">✅</span> Impactos positivos</div>
+      <div class="cv-title">Beneficios generados</div>
+      <div class="cv-items">
+        <div class="cv-item">Reducción de contaminación en ríos Piraí y Grande</div>
+        <div class="cv-item">Disminución de residuos orgánicos de mataderos</div>
+        <div class="cv-item">Mejora en alimentación y productividad del ganado</div>
+        <div class="cv-item">Fertilizante orgánico (frass) para suelos agrícolas</div>
+      </div>
+    </div>
+    <div class="cv" style="--cv-color:#fb7185;">
+      <div class="cv-num">C</div>
+      <div class="cv-label"><span class="licon">⚠️</span> Impactos negativos</div>
+      <div class="cv-title">Efectos adversos</div>
+      <div class="cv-items">
+        <div class="cv-item">Olores durante secado de sangre</div>
+        <div class="cv-item">Emisiones CO₂ en calcinación y transporte</div>
+        <div class="cv-item">Riesgo por urea mal dosificada</div>
+        <div class="cv-item">Riesgo operario con cal viva</div>
+      </div>
+    </div>
+
+    <!-- Fila 2 -->
+    <div class="cv" style="--cv-color:#f59e0b;">
+      <div class="cv-num">D</div>
+      <div class="cv-label"><span class="licon">📦</span> Materiales</div>
+      <div class="cv-title">Insumos y recursos</div>
+      <div class="cv-items">
+        <div class="cv-item">Biológicos: melaza, sangre, cascarilla, afrecho, BSF</div>
+        <div class="cv-item">Técnicos: urea, cal viva, sal, azufre, empaque</div>
+        <div class="cv-item">Todos de proveedores locales de Santa Cruz</div>
+      </div>
+    </div>
+    <div class="cv span2" style="--cv-color:#2dd4bf;">
+      <div class="cv-num">E</div>
+      <div class="cv-label"><span class="licon">🏭</span> Modelo de negocio circular</div>
+      <div class="cv-title">¿Cómo generamos valor?</div>
+      <div class="cv-items">
+        <div class="cv-item">Recolectamos residuos de mataderos del Parque Industrial → reducimos contaminación y costos de disposición</div>
+        <div class="cv-item">Producimos bloques con procesos artesanales accesibles → vendemos a ganaderos del oriente boliviano</div>
+        <div class="cv-item">Comercializamos frass como fertilizante → segunda fuente de ingresos y circularidad completa</div>
+        <div class="cv-item">Modelo: residuos → producto → subproducto → regeneración → sin desperdicios</div>
+      </div>
+    </div>
+
+    <!-- Fila 3 -->
+    <div class="cv" style="--cv-color:#a78bfa;">
+      <div class="cv-num">F</div>
+      <div class="cv-label"><span class="licon">♻️</span> 10 R's aplicadas</div>
+      <div class="cv-title">Estrategias circulares</div>
+      <div class="cv-items">
+        <div class="cv-item">Reducir: menos combustible con secado solar</div>
+        <div class="cv-item">Reutilizar: sacos devueltos por ganaderos</div>
+        <div class="cv-item">Reciclar: frass como fertilizante orgánico</div>
+      </div>
+    </div>
+    <div class="cv" style="--cv-color:#00ff7f;">
+      <div class="cv-num">G</div>
+      <div class="cv-label"><span class="licon">📈</span> Extensión de vida útil</div>
+      <div class="cv-title">Ciclo de materiales</div>
+      <div class="cv-items">
+        <div class="cv-item">Residuos → bloque → consumo gradual por lamido</div>
+        <div class="cv-item">Empaque → devolución → reutilización</div>
+        <div class="cv-item">Frass → fertilizante → regeneración de suelos</div>
+      </div>
+    </div>
+    <div class="cv" style="--cv-color:#a3e635;">
+      <div class="cv-num">H</div>
+      <div class="cv-label"><span class="licon">🚀</span> Innovación</div>
+      <div class="cv-title">Diferenciación</div>
+      <div class="cv-items">
+        <div class="cv-item">Único bloque con harina BSF en SCZ</div>
+        <div class="cv-item">Sistema de devolución de sacos</div>
+        <div class="cv-item">Biofábrica de larvas con residuos locales</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S5: MODELO / 10 R's ══════ -->
+<section id="s-modelo" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Paso 3 · Modelo de negocio y circularidad</div>
+    <h2 class="sec-h2">Las 10 R's y<br><em>Extensión de Vida Útil</em></h2>
+    <p class="sec-sub">Estrategias de economía circular que aplica NutriCiclo SCZ y acciones que prolongan el uso de materiales y productos.</p>
+  </div>
+
+  <div class="rs-grid">
+    <div class="rsbx">
+      <div class="rsbx-accent" style="background:rgba(0,255,127,.1);border:1px solid rgba(0,255,127,.2);">♻️</div>
+      <div class="rsbx-r" style="background:linear-gradient(135deg,var(--green-neon),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">R1</div>
+      <div class="rsbx-name">Reducir</div>
+      <div class="rsbx-desc">Minimizar el consumo energético priorizando secado solar antes de la calcinación. Usar exactamente las cantidades necesarias de urea y azufre para evitar pérdidas.</div>
+      <div class="rsbx-tag" style="background:rgba(0,255,127,.08);color:var(--green-neon);border:1px solid rgba(0,255,127,.2);">Energía y recursos</div>
+    </div>
+    <div class="rsbx">
+      <div class="rsbx-accent" style="background:rgba(163,230,53,.1);border:1px solid rgba(163,230,53,.2);">🔄</div>
+      <div class="rsbx-r" style="background:linear-gradient(135deg,var(--lime),var(--green-neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">R2</div>
+      <div class="rsbx-name">Reutilizar</div>
+      <div class="rsbx-desc">Sistema de devolución de sacos con ganaderos clientes. Los empaques de polipropileno retornan a la planta para ser reutilizados en nuevos lotes, reduciendo residuos plásticos.</div>
+      <div class="rsbx-tag" style="background:rgba(163,230,53,.08);color:var(--lime);border:1px solid rgba(163,230,53,.2);">Empaques y envases</div>
+    </div>
+    <div class="rsbx">
+      <div class="rsbx-accent" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);">🌱</div>
+      <div class="rsbx-r" style="background:linear-gradient(135deg,var(--teal),#7dd3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">R3</div>
+      <div class="rsbx-name">Reciclar</div>
+      <div class="rsbx-desc">El frass generado en la producción de larvas BSF se transforma en fertilizante orgánico. Los residuos orgánicos del proceso se reincorporan como abono, cerrando el ciclo productivo.</div>
+      <div class="rsbx-tag" style="background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.2);">Frass como abono</div>
+    </div>
+    <div class="rsbx">
+      <div class="rsbx-accent" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);">🔁</div>
+      <div class="rsbx-r" style="background:linear-gradient(135deg,var(--amber),#fde68a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">R4</div>
+      <div class="rsbx-name">Remanufactura</div>
+      <div class="rsbx-desc">Transformación de residuos que serían desechados (sangre, huesos, vísceras) en un producto completamente nuevo con valor comercial: el bloque multinutricional.</div>
+      <div class="rsbx-tag" style="background:rgba(245,158,11,.08);color:var(--amber);border:1px solid rgba(245,158,11,.2);">Residuos → producto</div>
+    </div>
+    <div class="rsbx">
+      <div class="rsbx-accent" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);">🔧</div>
+      <div class="rsbx-r" style="background:linear-gradient(135deg,var(--coral),#fda4af);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">R5</div>
+      <div class="rsbx-name">Reemplazar</div>
+      <div class="rsbx-desc">Sustitución de combustibles tradicionales (gas, leña) por residuos agrícolas locales como el bagazo de caña y la cascarilla de arroz para la calcinación de huesos.</div>
+      <div class="rsbx-tag" style="background:rgba(251,113,133,.08);color:var(--coral);border:1px solid rgba(251,113,133,.2);">Combustibles fósiles</div>
+    </div>
+    <div class="rsbx">
+      <div class="rsbx-accent" style="background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);">🤝</div>
+      <div class="rsbx-r" style="background:linear-gradient(135deg,var(--purple),#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">R6</div>
+      <div class="rsbx-name">Rediseño</div>
+      <div class="rsbx-desc">El producto se diseñó desde cero para incorporar BSF y residuos locales como componentes centrales, no como sustitutos secundarios. La circularidad está integrada al diseño original.</div>
+      <div class="rsbx-tag" style="background:rgba(167,139,250,.08);color:var(--purple);border:1px solid rgba(167,139,250,.2);">Circular by design</div>
+    </div>
+  </div>
+
+  <!-- Extensión de vida útil -->
+  <div class="vida-band">
+    <div class="vida-text">
+      <div class="vida-tag">♻ Circularidad total</div>
+      <h3 class="vida-title">Extensión de<br><em>Vida Útil</em></h3>
+      <p class="vida-p">NutriCiclo SCZ aplica una lógica de continuidad en todos sus materiales: ningún componente termina como basura. Cada elemento del sistema tiene una segunda vida dentro del ciclo productivo local.</p>
+    </div>
+    <div class="vida-items">
+      <div class="vida-item">El bloque multinutricional se consume gradualmente mediante lamido, maximizando el aprovechamiento y controlando la ingesta del ganado.</div>
+      <div class="vida-item">El empaque puede ser devuelto por los ganaderos e incentivado con descuento, reingresando al ciclo de producción como envase reutilizado.</div>
+      <div class="vida-item">El frass de la producción BSF se vende o usa como fertilizante orgánico, regenerando suelos agrícolas del entorno.</div>
+      <div class="vida-item">Los residuos orgánicos mínimos del proceso de mezcla se reincorporan como abono, eliminando desperdicios del sistema.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S6: PITCH ══════ -->
+<section id="s-pitch" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Soporte · Video Pitch 2 minutos</div>
+    <h2 class="sec-h2">Mensaje Clave<br><em>del Pitch</em></h2>
+    <p class="sec-sub">Guion estructurado en problema → solución → impacto para el video pitch de NutriCiclo SCZ.</p>
+  </div>
+
+  <div class="pitch-layout">
+    <div class="pitch-card">
+      <div class="pc-icon">🎬</div>
+      <div class="pc-name">Video Pitch</div>
+      <div class="pc-role">NutriCiclo SCZ · 2 minutos</div>
+      <div class="pc-divider"></div>
+      <div class="pc-msg-block">
+        <div class="pc-msg-label" style="color:var(--coral)">El Problema</div>
+        <div class="pc-msg-text">Miles de toneladas de residuos de mataderos contaminan el Piraí y el río Grande, mientras ganaderos enfrentan escasez de alimento en sequías.</div>
+      </div>
+      <div class="pc-msg-block">
+        <div class="pc-msg-label" style="color:var(--green-neon)">La Solución</div>
+        <div class="pc-msg-text">Transformamos esos residuos en bloques multinutricionales con harina BSF mediante procesos accesibles y economía circular.</div>
+      </div>
+      <div class="pc-msg-block">
+        <div class="pc-msg-label" style="color:var(--teal)">El Impacto</div>
+        <div class="pc-msg-text">Menos contaminación, mayor productividad ganadera, generación de valor a partir de residuos locales de Santa Cruz.</div>
+      </div>
+      <div class="pc-divider"></div>
+      <div class="pc-meter">
+        <div class="pc-meter-row"><span class="pc-meter-label">Claridad del mensaje</span><span class="pc-meter-val">Alta</span></div>
+        <div class="pc-bar"><div class="pc-bar-fill" data-w="92%" style="width:0;background:linear-gradient(90deg,var(--green-neon),var(--teal))"></div></div>
+      </div>
+      <div class="pc-meter">
+        <div class="pc-meter-row"><span class="pc-meter-label">Propuesta de valor circular</span><span class="pc-meter-val">Sólida</span></div>
+        <div class="pc-bar"><div class="pc-bar-fill" data-w="88%" style="width:0;background:linear-gradient(90deg,var(--lime),var(--green-neon))"></div></div>
+      </div>
+      <div class="pc-meter">
+        <div class="pc-meter-row"><span class="pc-meter-label">Diferenciación BSF</span><span class="pc-meter-val">Única</span></div>
+        <div class="pc-bar"><div class="pc-bar-fill" data-w="95%" style="width:0;background:linear-gradient(90deg,var(--teal),#7dd3fc))"></div></div>
+      </div>
+    </div>
+
+    <div class="pitch-sections">
+      <div class="ps">
+        <div class="ps-type">
+          <div class="ps-pip" style="background:var(--coral)"></div>
+          <div class="ps-type-label" style="color:var(--coral)">Problema · Contexto</div>
+        </div>
+        <div class="ps-title">La crisis de residuos y el ganadero en apuros</div>
+        <div class="ps-body">En Santa Cruz de la Sierra, miles de toneladas de residuos de mataderos — sangre, vísceras y huesos — terminan contaminando ríos como el Piraí y el río Grande, generando malos olores, enfermedades y daños ambientales. Al mismo tiempo, los ganaderos enfrentan escasez de alimento para su ganado en épocas de sequía, lo que reduce su productividad y aumenta sus costos.</div>
+      </div>
+
+      <div class="ps">
+        <div class="ps-type">
+          <div class="ps-pip" style="background:var(--green-neon)"></div>
+          <div class="ps-type-label" style="color:var(--green-neon)">Solución · Propuesta</div>
+        </div>
+        <div class="ps-title">NutriCiclo SCZ: de residuo a recurso</div>
+        <div class="ps-body">Nace NutriCiclo SCZ, un emprendimiento de economía circular que transforma estos residuos en una solución productiva. A través del uso de larvas de mosca soldado negra (BSF) y procesos simples y accesibles, convertimos desechos orgánicos en proteína sostenible y elaboramos bloques multinutricionales para ganado bovino con insumos 100% locales de Santa Cruz.</div>
+      </div>
+
+      <div class="ps">
+        <div class="ps-type">
+          <div class="ps-pip" style="background:var(--amber)"></div>
+          <div class="ps-type-label" style="color:var(--amber)">Beneficio · Ganadero</div>
+        </div>
+        <div class="ps-title">Más productividad, menos costos</div>
+        <div class="ps-body">Nuestro producto permite mejorar el peso y la producción de leche del ganado, reducir costos en alimentación y disminuir la dependencia de insumos externos. Además, evitamos que residuos contaminantes lleguen a fuentes de agua y los reincorporamos al ciclo productivo, generando también fertilizante orgánico (frass) como subproducto valioso.</div>
+      </div>
+
+      <div class="ps">
+        <div class="ps-type">
+          <div class="ps-pip" style="background:var(--teal)"></div>
+          <div class="ps-type-label" style="color:var(--teal)">Impacto · Cierre</div>
+        </div>
+        <div class="ps-title">Menos contaminación, más valor circular</div>
+        <div class="ps-body">El impacto es claro: menos contaminación ambiental, mayor productividad ganadera y generación de valor a partir de residuos. NutriCiclo no solo alimenta al ganado, sino que transforma un problema ambiental en una oportunidad sostenible para Santa Cruz. Demostramos que pasar de un modelo de desecho a uno de aprovechamiento es posible, rentable y necesario.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PROGRESS DOCK -->
+<div class="progress-dock">
+  <div class="prog-label" id="prog-label">INICIO</div>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:16.6%"></div></div>
+  <div class="prog-steps">
+    <div class="prog-step done" onclick="nav('hero',0)" title="Inicio"></div>
+    <div class="prog-step" onclick="nav('impactos',1)" title="Impactos"></div>
+    <div class="prog-step" onclick="nav('materia',2)" title="Materia Prima"></div>
+    <div class="prog-step" onclick="nav('canvas',3)" title="Canvas"></div>
+    <div class="prog-step" onclick="nav('modelo',4)" title="Modelo"></div>
+    <div class="prog-step" onclick="nav('pitch',5)" title="Pitch"></div>
+  </div>
+  <div class="prog-team">Luis Mario Rocha Vela · UPDS · 2026</div>
+</div>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cur'), curR = document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function animCursor(){
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  curR.style.left=rx+'px'; curR.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+
+/* ── SCREENS ── */
+const SCREENS = ['hero','impactos','materia','canvas','modelo','pitch'];
+const LABELS  = ['INICIO','IMPACTOS','MATERIA PRIMA','CANVAS VISUAL','MODELO · 10R\'S','PITCH'];
+let cur_idx = 0;
+
+function nav(id, idx, btn) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','fade-enter'));
+  const el = document.getElementById('s-'+id);
+  el.classList.add('active');
+  requestAnimationFrame(()=>el.classList.add('fade-enter'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  cur_idx = idx;
+  document.getElementById('prog-fill').style.width = ((idx+1)/SCREENS.length*100)+'%';
+  document.getElementById('prog-label').textContent = LABELS[idx];
+  document.querySelectorAll('.prog-step').forEach((s,i)=>s.classList.toggle('done', i<=idx));
+  if(id==='pitch') setTimeout(animateBars, 300);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight' && cur_idx<SCREENS.length-1) nav(SCREENS[cur_idx+1], cur_idx+1);
+  if(e.key==='ArrowLeft' && cur_idx>0) nav(SCREENS[cur_idx-1], cur_idx-1);
+});
+
+/* ── IMPACTO TOGGLES ── */
+function toggleIQ(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.iq').forEach(c=>c.classList.remove('open'));
+  if(!isOpen) card.classList.add('open');
+}
+
+/* ── ANIMATE BARS ── */
+function animateBars() {
+  document.querySelectorAll('.pc-bar-fill').forEach(b=>{
+    b.style.width = b.dataset.w;
+  });
+}
+</script>
+</body>
+</html>
