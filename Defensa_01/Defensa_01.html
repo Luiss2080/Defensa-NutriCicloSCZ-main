@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa de Empatía · Cliente Sostenible</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Unbounded:wght@300;400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050f07;
+  --surface: #0a1a0d;
+  --surface2: #0f2414;
+  --green-neon: #00ff7f;
+  --green-bright: #22c55e;
+  --green-mid: #16a34a;
+  --green-deep: #14532d;
+  --lime: #a3e635;
+  --teal: #2dd4bf;
+  --amber: #f59e0b;
+  --coral: #fb7185;
+  --white: #f0fdf4;
+  --grey: #86efac;
+  --muted: #4ade80;
+  --border: rgba(0,255,127,0.15);
+  --border2: rgba(0,255,127,0.08);
+  --glow: rgba(0,255,127,0.25);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  position: fixed; width: 12px; height: 12px;
+  background: var(--green-neon); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform .1s, width .2s, height .2s, opacity .2s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; width: 36px; height: 36px;
+  border: 1px solid var(--green-neon);
+  border-radius: 50%; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform .12s ease, width .25s, height .25s;
+  opacity: .5;
+}
+body:has(button:hover) .cursor, body:has(a:hover) .cursor { width: 24px; height: 24px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:500;
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(5,15,7,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: .9rem; letter-spacing: -0.5px;
+  color: var(--green-neon);
+  display: flex; align-items: center; gap: .5rem;
+}
+.nav-logo .dot { width: 8px; height: 8px; background: var(--green-neon); border-radius: 50%; animation: blink 2s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.nav-links { display: flex; gap: .25rem; }
+.nav-btn {
+  background: none; border: none; cursor: none;
+  font-family: 'Outfit', sans-serif; font-size: .78rem; font-weight: 500;
+  color: rgba(240,253,244,.4); padding: .5rem 1.1rem; border-radius: 40px;
+  transition: all .25s; letter-spacing: .3px;
+}
+.nav-btn:hover { color: var(--white); background: rgba(0,255,127,.08); }
+.nav-btn.active { color: var(--bg); background: var(--green-neon); font-weight: 600; }
+.nav-right {
+  display: flex; align-items: center; gap: 1rem;
+}
+.nav-pill {
+  font-family: 'Unbounded', sans-serif; font-size: .6rem;
+  background: var(--green-deep); color: var(--green-neon);
+  border: 1px solid var(--border); padding: .35rem .85rem; border-radius: 20px;
+  letter-spacing: .5px;
+}
+.nav-keys {
+  font-size: .65rem; color: rgba(240,253,244,.3);
+  display: flex; align-items: center; gap: .3rem;
+}
+.key {
+  background: rgba(0,255,127,.06); border: 1px solid var(--border);
+  border-radius: 4px; padding: .15rem .45rem; font-family: monospace;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; padding-top: 72px; }
+.screen.active { display: block; }
+.screen.active.fade-enter { animation: fadeEnter .5s cubic-bezier(.4,0,.2,1) both; }
+@keyframes fadeEnter {
+  from { opacity:0; transform:translateY(16px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 1 · HERO
+═══════════════════════════════════════ */
+#s-hero {
+  background: var(--bg);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+#s-hero.active { display: flex; }
+
+.hero-bg {
+  position: absolute; inset:0; pointer-events:none; overflow:hidden;
+}
+.hero-bg-circle {
+  position: absolute; border-radius: 50%;
+  border: 1px solid var(--border);
+}
+.hero-bg-circle:nth-child(1){ width:700px;height:700px;top:-200px;right:-150px; animation: rotateSlow 30s linear infinite; }
+.hero-bg-circle:nth-child(2){ width:500px;height:500px;top:-100px;right:-50px; border-color: rgba(0,255,127,.06); animation: rotateSlow 20s linear infinite reverse; }
+.hero-bg-circle:nth-child(3){ width:300px;height:300px;top:0px;right:50px; animation: rotateSlow 15s linear infinite; }
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+.hero-glow {
+  position: absolute; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,255,127,.12) 0%, transparent 70%);
+  top: -100px; right: -100px; pointer-events:none;
+}
+.hero-grid {
+  position: absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,127,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,127,.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: calc(100vh - 72px);
+  padding: 5rem 4rem;
+  max-width: 1200px;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: .75rem; margin-bottom: 2rem;
+  animation: fadeEnter .6s ease both;
+}
+.hero-eyebrow-line { width: 32px; height: 2px; background: var(--green-neon); }
+.hero-eyebrow-text {
+  font-family: 'Outfit', sans-serif; font-size: .78rem; font-weight: 500;
+  color: var(--green-neon); letter-spacing: 2px; text-transform: uppercase;
+}
+
+.hero-h1 {
+  font-family: 'Unbounded', sans-serif; font-weight: 900;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: .95; letter-spacing: -2px;
+  margin-bottom: 1rem;
+  animation: fadeEnter .7s ease .1s both;
+}
+.hero-h1 .line1 { color: var(--white); display: block; }
+.hero-h1 .line2 {
+  display: block;
+  background: linear-gradient(135deg, var(--green-neon) 0%, var(--lime) 40%, var(--teal) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-h1 .line3 { color: rgba(240,253,244,.25); display: block; }
+
+.hero-sub {
+  max-width: 520px; font-size: 1.05rem; font-weight: 300; line-height: 1.8;
+  color: rgba(240,253,244,.55); margin-bottom: 3rem;
+  animation: fadeEnter .7s ease .2s both;
+}
+
+.hero-ctas {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeEnter .7s ease .3s both;
+}
+.btn-glow {
+  display: flex; align-items: center; gap: .6rem;
+  background: var(--green-neon); color: var(--bg);
+  border: none; cursor: none; font-family: 'Unbounded', sans-serif;
+  font-weight: 700; font-size: .78rem; letter-spacing: .5px;
+  padding: 1rem 2rem; border-radius: 60px;
+  transition: all .3s; position: relative; overflow: hidden;
+}
+.btn-glow::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg,transparent 30%,rgba(255,255,255,.2));
+  opacity:0; transition: opacity .3s;
+}
+.btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(0,255,127,.4), 0 16px 40px rgba(0,255,127,.2); }
+.btn-glow:hover::after { opacity:1; }
+.btn-outline {
+  display: flex; align-items: center; gap: .6rem;
+  background: transparent; color: var(--white);
+  border: 1px solid var(--border); cursor: none;
+  font-family: 'Outfit', sans-serif; font-size: .85rem; font-weight: 500;
+  padding: 1rem 2rem; border-radius: 60px; transition: all .3s;
+}
+.btn-outline:hover { background: rgba(0,255,127,.06); border-color: rgba(0,255,127,.4); }
+
+/* Hero stats row */
+.hero-stats {
+  display: flex; gap: 0; margin-top: 5rem;
+  border-top: 1px solid var(--border); padding-top: 2rem;
+  animation: fadeEnter .7s ease .5s both;
+}
+.hero-stat {
+  flex:1; padding: 0 2rem 0 0;
+  border-right: 1px solid var(--border2);
+}
+.hero-stat:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat-n {
+  font-family: 'Unbounded', sans-serif; font-size: 2.2rem; font-weight: 900;
+  background: linear-gradient(135deg,var(--green-neon),var(--teal));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  line-height:1;
+}
+.hero-stat-l { font-size: .72rem; color: rgba(240,253,244,.35); margin-top:.4rem; letter-spacing:.5px; text-transform:uppercase; }
+
+/* Hero right decoration */
+.hero-right {
+  position: absolute; right: 4rem; top: 50%; transform: translateY(-50%);
+  width: 380px; height: 380px;
+  animation: fadeEnter .8s ease .4s both;
+}
+.eco-wheel {
+  position: relative; width:100%; height:100%;
+  animation: rotateSlow 25s linear infinite;
+}
+.eco-wheel-track {
+  position:absolute; inset:0; border-radius:50%;
+  border: 2px solid var(--border);
+}
+.eco-wheel-track.t2 { inset: 50px; border-color: rgba(0,255,127,.1); animation: rotateSlow 15s linear infinite reverse; }
+.eco-wheel-track.t3 { inset: 100px; border: 1px dashed rgba(0,255,127,.15); }
+.eco-center {
+  position:absolute; inset:130px; border-radius:50%;
+  background: linear-gradient(135deg, var(--green-deep), var(--surface2));
+  border: 1px solid var(--border);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  animation: rotateSlow 25s linear infinite reverse;
+}
+.eco-center-icon { font-size: 2.2rem; }
+.eco-center-label {
+  font-family:'Unbounded',sans-serif; font-size:.45rem; font-weight:700;
+  color:var(--green-neon); letter-spacing:1.5px; margin-top:.3rem;
+}
+.eco-node {
+  position:absolute; width:64px; height:64px; border-radius:50%;
+  background: var(--surface2); border: 1px solid var(--border);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-size:1.4rem;
+  box-shadow: 0 0 20px rgba(0,255,127,.1);
+}
+.eco-node span { font-size:.45rem; font-family:'Outfit',sans-serif; color:var(--muted); margin-top:.15rem; letter-spacing:.5px; text-transform:uppercase; }
+/* top */ .eco-node.n0 { top:-32px; left:50%; transform:translateX(-50%) rotate(0deg); }
+/* right */ .eco-node.n1 { right:-32px; top:50%; transform:translateY(-50%) rotate(-0deg); }
+/* bottom */ .eco-node.n2 { bottom:-32px; left:50%; transform:translateX(-50%); }
+/* left */ .eco-node.n3 { left:-32px; top:50%; transform:translateY(-50%); }
+/* top-right */ .eco-node.n4 { top:25px; right:25px; }
+
+/* ═══════════════════════════════════════
+   SECTION WRAPPER
+═══════════════════════════════════════ */
+.sec-wrap { padding: 5rem 4rem; max-width: 1400px; margin: 0 auto; }
+.sec-head { margin-bottom: 3.5rem; }
+.sec-badge {
+  display:inline-flex; align-items:center; gap:.5rem;
+  background: rgba(0,255,127,.08); border: 1px solid var(--border);
+  color: var(--green-neon); font-size:.7rem; font-weight:600;
+  padding:.35rem 1rem; border-radius:30px; letter-spacing:1.5px; text-transform:uppercase;
+  margin-bottom:1.2rem;
+}
+.sec-badge::before { content:''; width:6px;height:6px;border-radius:50%;background:var(--green-neon); animation: blink 2s infinite; }
+.sec-h2 {
+  font-family:'Unbounded',sans-serif; font-weight:900;
+  font-size: clamp(2rem,4vw,3.5rem); line-height:1;
+  letter-spacing:-1.5px;
+}
+.sec-h2 em { font-style:normal; color:var(--green-neon); }
+.sec-sub { margin-top:1rem; font-size:1rem; color:rgba(240,253,244,.45); font-weight:300; max-width:560px; line-height:1.8; }
+
+/* ═══════════════════════════════════════
+   SCREEN 2 · MAPA DE EMPATÍA
+═══════════════════════════════════════ */
+#s-mapa { background: var(--bg); }
+
+.empathy-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5px;
+  background: var(--border);
+  border-radius: 24px; overflow:hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 80px rgba(0,255,127,.05);
+}
+
+.eq {
+  background: var(--surface); padding: 2.5rem;
+  cursor: none; transition: background .3s;
+  position: relative; overflow: hidden; min-height: 320px;
+}
+.eq::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background: var(--accent-color, var(--green-neon));
+  transform: scaleX(0); transition: transform .4s cubic-bezier(.4,0,.2,1);
+  transform-origin: left;
+}
+.eq:hover::before, .eq.open::before { transform: scaleX(1); }
+.eq:hover { background: var(--surface2); }
+.eq.open { background: var(--surface2); }
+
+.eq-num {
+  font-family:'Unbounded',sans-serif; font-size:4.5rem; font-weight:900;
+  position:absolute; bottom:1.5rem; right:2rem;
+  color: rgba(0,255,127,.04); line-height:1; pointer-events:none;
+  transition: color .3s;
+}
+.eq:hover .eq-num, .eq.open .eq-num { color: rgba(0,255,127,.07); }
+
+.eq-icon {
+  width: 52px; height:52px; border-radius:16px;
+  background: var(--icon-bg, rgba(0,255,127,.1));
+  border: 1px solid var(--icon-border, rgba(0,255,127,.2));
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:1.2rem;
+  transition: transform .3s, box-shadow .3s;
+}
+.eq:hover .eq-icon { transform: scale(1.08); box-shadow: 0 0 24px var(--glow); }
+
+.eq-q {
+  font-family:'Unbounded',sans-serif; font-size:1rem; font-weight:700;
+  color: var(--white); margin-bottom:.5rem; letter-spacing:-.5px;
+}
+.eq-preview { font-size:.85rem; color:rgba(240,253,244,.5); line-height:1.65; font-weight:300; }
+
+.eq-toggle {
+  display:inline-flex; align-items:center; gap:.5rem; margin-top:1.2rem;
+  background:none; border:1px solid var(--border); cursor:none;
+  font-family:'Outfit',sans-serif; font-size:.75rem; font-weight:600;
+  color: var(--green-neon); padding:.4rem 1rem; border-radius:30px;
+  transition: all .25s; letter-spacing:.5px;
+}
+.eq-toggle:hover, .eq.open .eq-toggle { background:rgba(0,255,127,.1); }
+.eq-toggle .arrow { transition: transform .3s; }
+.eq.open .eq-toggle .arrow { transform: rotate(90deg); }
+
+/* Detail drawer */
+.eq-drawer {
+  display:none; margin-top:1.5rem;
+  padding-top:1.5rem; border-top:1px solid var(--border2);
+}
+.eq.open .eq-drawer { display:block; animation: fadeEnter .3s ease; }
+.eq-item {
+  display:flex; gap:.75rem; align-items:flex-start;
+  padding:.85rem 1rem; border-radius:12px;
+  background: rgba(0,255,127,.03); border: 1px solid var(--border2);
+  margin-bottom:.6rem; font-size:.82rem; color:rgba(240,253,244,.65); line-height:1.65;
+  transition: background .2s, border-color .2s;
+}
+.eq-item:hover { background: rgba(0,255,127,.06); border-color: var(--border); }
+.eq-item-dot { width:6px; height:6px; border-radius:50%; background:var(--green-neon); flex-shrink:0; margin-top:.45rem; }
+
+/* Bottom cards: Esfuerzos + Resultados */
+.bottom-duo {
+  display:grid; grid-template-columns:1fr 1fr; gap:1.5px;
+  background: var(--border);
+  border-radius:24px; overflow:hidden;
+  border: 1px solid var(--border);
+  margin-top: 1.5px;
+  box-shadow: 0 0 80px rgba(0,255,127,.03);
+}
+.bcard {
+  background: var(--surface); padding:2.5rem;
+  cursor:none; transition: background .3s; position:relative; overflow:hidden; min-height:260px;
+}
+.bcard:hover { background: var(--surface2); }
+.bcard::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background: var(--bot-color, var(--coral));
+}
+.bcard-label {
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family:'Unbounded',sans-serif; font-size:.65rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:1.5px; margin-bottom:1.5rem;
+  color: var(--bot-color, var(--coral));
+}
+.bcard-label .licon { font-size:1rem; }
+.bcard-list { display:flex; flex-direction:column; gap:.6rem; }
+.bcard-item {
+  display:flex; gap:.75rem; align-items:flex-start;
+  padding:.7rem .9rem; border-radius:10px;
+  background: rgba(255,255,255,.02); border-left: 2px solid var(--bot-color, var(--coral));
+  font-size:.8rem; color:rgba(240,253,244,.55); line-height:1.6;
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 3 · ECONOMÍA CIRCULAR
+═══════════════════════════════════════ */
+#s-circular { background: var(--bg); }
+
+.circular-hero-band {
+  background: linear-gradient(135deg, var(--green-deep) 0%, #0a2e18 50%, #041a0c 100%);
+  border: 1px solid var(--border);
+  border-radius: 28px; padding: 4rem;
+  display: flex; gap: 5rem; align-items: center;
+  position:relative; overflow:hidden;
+  margin-bottom: 3rem;
+}
+.circular-hero-band::before {
+  content:''; position:absolute; right:-100px; top:-100px;
+  width:400px; height:400px; border-radius:50%;
+  background: radial-gradient(circle,rgba(0,255,127,.1) 0%,transparent 70%);
+}
+.chb-text { flex:1; }
+.chb-tag {
+  display:inline-block; background:rgba(163,230,53,.15); border:1px solid rgba(163,230,53,.3);
+  color:var(--lime); font-size:.7rem; font-weight:600; letter-spacing:1.5px;
+  text-transform:uppercase; padding:.35rem .9rem; border-radius:20px; margin-bottom:1.5rem;
+}
+.chb-title {
+  font-family:'Unbounded',sans-serif; font-weight:900;
+  font-size: clamp(1.8rem,3.5vw,3rem); line-height:1.05; letter-spacing:-1px;
+  color:var(--white); margin-bottom:1rem;
+}
+.chb-title em { color:var(--green-neon); font-style:normal; }
+.chb-p { font-size:.9rem; color:rgba(240,253,244,.55); line-height:1.8; max-width:480px; }
+
+/* Big circular diagram */
+.circular-canvas {
+  width: 320px; height: 320px; flex-shrink:0; position:relative;
+}
+.cc-ring {
+  position:absolute; border-radius:50%;
+  border: 2px solid var(--border);
+  animation: rotateSlow 30s linear infinite;
+}
+.cc-ring.r2 { inset:40px; border-width:1px; border-color:rgba(0,255,127,.1); animation-duration:20s; animation-direction:reverse; }
+.cc-ring.r3 { inset:80px; border:1px dashed rgba(0,255,127,.12); animation-duration:15s; }
+.cc-center {
+  position:absolute; inset:110px; border-radius:50%;
+  background: linear-gradient(135deg,#0a2e18,#041a0c);
+  border:1px solid var(--border);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+}
+.cc-center-icon { font-size: 2rem; }
+.cc-center-txt { font-family:'Unbounded',sans-serif; font-size:.4rem; color:var(--green-neon); letter-spacing:1px; margin-top:.3rem; font-weight:700; }
+.cc-point {
+  position:absolute; width:56px; height:56px; border-radius:50%;
+  background:var(--surface2); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+  cursor:none; transition: all .3s;
+  box-shadow: 0 0 0 0 transparent;
+}
+.cc-point:hover { border-color:var(--green-neon); box-shadow: 0 0 24px rgba(0,255,127,.3); transform:scale(1.12); }
+.cc-point.p0 { top:-28px; left:50%; transform:translateX(-50%); }
+.cc-point.p1 { top:50%; right:-28px; transform:translateY(-50%); }
+.cc-point.p2 { bottom:-28px; left:50%; transform:translateX(-50%); }
+.cc-point.p3 { top:50%; left:-28px; transform:translateY(-50%); }
+.cc-point.p4 { top:30px; right:30px; }
+.cc-point.p5 { bottom:30px; right:30px; }
+.cc-point:hover { transform:scale(1.15) !important; }
+.cc-point.p0:hover { transform:translateX(-50%) scale(1.15) !important; }
+.cc-point.p1:hover { transform:translateY(-50%) scale(1.15) !important; }
+.cc-point.p2:hover { transform:translateX(-50%) scale(1.15) !important; }
+.cc-point.p3:hover { transform:translateY(-50%) scale(1.15) !important; }
+
+/* Areas 3-col grid */
+.areas-grid {
+  display:grid; grid-template-columns: repeat(3,1fr); gap:1.5px;
+  background:var(--border); border-radius:20px; overflow:hidden; border:1px solid var(--border);
+}
+.acard {
+  background:var(--surface); padding:2rem;
+  cursor:none; transition: background .3s; position:relative; overflow:hidden;
+}
+.acard:hover { background:var(--surface2); }
+.acard-accent {
+  width:40px; height:40px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+  margin-bottom:1rem; transition: transform .3s;
+}
+.acard:hover .acard-accent { transform: scale(1.1) rotate(-5deg); }
+.acard-t {
+  font-family:'Unbounded',sans-serif; font-size:.8rem; font-weight:700;
+  color:var(--white); margin-bottom:.5rem; letter-spacing:-.3px;
+}
+.acard-d { font-size:.78rem; color:rgba(240,253,244,.45); line-height:1.65; }
+.acard-tag {
+  display:inline-block; margin-top:.9rem; font-size:.65rem; font-weight:600;
+  padding:.2rem .65rem; border-radius:20px; letter-spacing:.5px;
+}
+
+/* ═══════════════════════════════════════
+   SCREEN 4 · PERFIL & TENSIONES
+═══════════════════════════════════════ */
+#s-perfil { background: var(--bg); }
+
+.perfil-grid {
+  display:grid; grid-template-columns: 340px 1fr; gap:2rem;
+}
+
+/* Profile card */
+.profile-card {
+  background: linear-gradient(160deg, var(--green-deep) 0%, #041a0c 100%);
+  border:1px solid var(--border); border-radius:24px; padding:2.5rem;
+  position:sticky; top:88px; height:fit-content;
+  box-shadow: 0 0 60px rgba(0,255,127,.07);
+}
+.pc-avatar {
+  width:90px; height:90px; border-radius:50%;
+  background:linear-gradient(135deg,rgba(0,255,127,.2),rgba(45,212,191,.2));
+  border:2px solid var(--border); font-size:2.5rem;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:1.5rem;
+  box-shadow: 0 0 40px rgba(0,255,127,.15);
+}
+.pc-name { font-family:'Unbounded',sans-serif; font-size:1.1rem; font-weight:900; color:var(--white); margin-bottom:.3rem; }
+.pc-role { font-size:.78rem; color:var(--muted); margin-bottom:1.5rem; font-weight:300; }
+.pc-chips { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.8rem; }
+.pc-chip {
+  background:rgba(0,255,127,.07); border:1px solid var(--border);
+  color:var(--muted); font-size:.65rem; padding:.25rem .7rem; border-radius:20px;
+  letter-spacing:.3px;
+}
+.pc-divider { height:1px; background:var(--border); margin:1.5rem 0; }
+.pc-metric { margin-bottom:.9rem; }
+.pc-metric-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem; }
+.pc-metric-label { font-size:.72rem; color:rgba(240,253,244,.45); }
+.pc-metric-val { font-family:'Unbounded',sans-serif; font-size:.72rem; font-weight:700; color:var(--green-neon); }
+.pc-bar { height:5px; background:rgba(0,255,127,.1); border-radius:3px; overflow:hidden; }
+.pc-bar-fill { height:100%; border-radius:3px; transition: width 1.4s cubic-bezier(.4,0,.2,1) .3s; }
+
+/* Tensions */
+.tensions { display:flex; flex-direction:column; gap:1.2rem; }
+.tension {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:20px; padding:2rem; overflow:hidden; position:relative;
+  cursor:none; transition: background .3s, border-color .3s;
+}
+.tension:hover { background:var(--surface2); border-color:rgba(0,255,127,.2); }
+.tension-type {
+  display:flex; align-items:center; gap:.6rem; margin-bottom:.9rem;
+}
+.tension-pip { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.tension-type-label {
+  font-family:'Unbounded',sans-serif; font-size:.65rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:1.5px;
+}
+.tension-title { font-family:'Unbounded',sans-serif; font-size:.9rem; font-weight:700; color:var(--white); margin-bottom:.6rem; letter-spacing:-.3px; }
+.tension-body { font-size:.82rem; color:rgba(240,253,244,.5); line-height:1.7; margin-bottom:1.2rem; }
+.tension-meter { }
+.tension-meter-row { display:flex; justify-content:space-between; font-size:.65rem; color:rgba(240,253,244,.35); margin-bottom:.4rem; }
+.tension-track { height:6px; background:rgba(255,255,255,.06); border-radius:3px; overflow:hidden; }
+.tension-fill { height:100%; border-radius:3px; transition: width 1.4s cubic-bezier(.4,0,.2,1) .5s; }
+
+/* ═══════════════════════════════════════
+   SCREEN 5 · ACCIONES
+═══════════════════════════════════════ */
+#s-acciones { background: var(--bg); }
+
+.timeline-wrap { position:relative; padding-left:80px; }
+.timeline-line {
+  position:absolute; left:27px; top:0; bottom:0; width:2px;
+  background: linear-gradient(to bottom, var(--green-neon), rgba(0,255,127,.1));
+  border-radius:1px;
+}
+
+.tl-item {
+  position:relative; margin-bottom:1.5rem; cursor:none;
+}
+.tl-bullet {
+  position:absolute; left:-80px; top:0;
+  width:54px; height:54px; border-radius:50%;
+  background:var(--surface2); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; z-index:2; transition: all .3s;
+}
+.tl-item.open .tl-bullet, .tl-item:hover .tl-bullet {
+  border-color:var(--green-neon);
+  box-shadow: 0 0 24px rgba(0,255,127,.3);
+  background:var(--green-deep);
+}
+.tl-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:20px; padding:2rem 2.5rem;
+  transition: background .3s, border-color .3s;
+}
+.tl-item.open .tl-card, .tl-item:hover .tl-card {
+  background:var(--surface2); border-color:rgba(0,255,127,.25);
+}
+.tl-card-head {
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+}
+.tl-card-title {
+  font-family:'Unbounded',sans-serif; font-size:1rem; font-weight:700;
+  color:var(--white); letter-spacing:-.3px;
+}
+.tl-card-phase {
+  font-size:.65rem; font-weight:700; font-family:'Unbounded',sans-serif;
+  letter-spacing:1px; text-transform:uppercase;
+  padding:.3rem .85rem; border-radius:20px;
+}
+.tl-card-sub { font-size:.83rem; color:rgba(240,253,244,.45); line-height:1.65; margin-top:.5rem; }
+.tl-expand {
+  display:none; margin-top:1.4rem; padding-top:1.4rem; border-top:1px solid var(--border2);
+}
+.tl-item.open .tl-expand { display:block; animation: fadeEnter .3s ease; }
+.tl-expand-body { font-size:.83rem; color:rgba(240,253,244,.55); line-height:1.8; }
+.tl-bullets { margin-top:1rem; display:flex; flex-direction:column; gap:.6rem; }
+.tl-bullet-item {
+  display:flex; gap:.75rem; align-items:flex-start;
+  background:rgba(0,255,127,.03); border:1px solid var(--border2);
+  border-radius:10px; padding:.75rem 1rem;
+  font-size:.8rem; color:rgba(240,253,244,.55); line-height:1.6;
+}
+.tl-bullet-item::before { content:'→'; color:var(--green-neon); flex-shrink:0; font-weight:700; }
+
+/* ═══════════════════════════════════════
+   PROGRESS BAR
+═══════════════════════════════════════ */
+.progress-dock {
+  position:fixed; bottom:0; left:0; right:0; z-index:400;
+  background:rgba(5,15,7,.92); backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; gap:1.5rem;
+  padding:.85rem 3rem; height:54px;
+}
+.prog-label { font-family:'Unbounded',sans-serif; font-size:.65rem; font-weight:700; color:var(--green-neon); white-space:nowrap; min-width:140px; }
+.prog-track { flex:1; height:3px; background:rgba(0,255,127,.1); border-radius:2px; overflow:hidden; }
+.prog-fill { height:100%; background:linear-gradient(90deg,var(--green-neon),var(--teal)); transition: width .5s cubic-bezier(.4,0,.2,1); border-radius:2px; }
+.prog-steps { display:flex; gap:.5rem; }
+.prog-step {
+  width:7px; height:7px; border-radius:50%; cursor:none;
+  background:rgba(0,255,127,.15); border:1px solid var(--border);
+  transition: all .25s;
+}
+.prog-step.done { background:var(--green-neon); border-color:var(--green-neon); }
+.prog-team { font-size:.65rem; color:rgba(240,253,244,.25); white-space:nowrap; }
+
+/* NOISE OVERLAY */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:1000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><div class="dot"></div>ECO·MAPA</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="nav('hero',0,this)">Inicio</button>
+    <button class="nav-btn" onclick="nav('mapa',1,this)">Mapa Empatía</button>
+    <button class="nav-btn" onclick="nav('circular',2,this)">Ec. Circular</button>
+    <button class="nav-btn" onclick="nav('perfil',3,this)">Perfil</button>
+    <button class="nav-btn" onclick="nav('acciones',4,this)">Acciones</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-pill">UPDS · 2026</div>
+    <div class="nav-keys"><span class="key">←</span><span class="key">→</span> navegar</div>
+  </div>
+</nav>
+
+<!-- ══════ S1: HERO ══════ -->
+<section id="s-hero" class="screen active">
+  <div class="hero-bg">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Emprendedurismo · Actividad 01 · Marzo 2026</div>
+    </div>
+    <h1 class="hero-h1">
+      <span class="line1">MAPA DE</span>
+      <span class="line2">EMPATÍA</span>
+      <span class="line3">SOSTENIBLE</span>
+    </h1>
+    <p class="hero-sub">
+      Análisis profundo del consumidor consciente en Santa Cruz de la Sierra, orientado a la economía circular y el emprendimiento responsable.
+    </p>
+    <div class="hero-ctas">
+      <button class="btn-glow" onclick="nav('mapa',1)">VER MAPA DE EMPATÍA <span>→</span></button>
+      <button class="btn-outline" onclick="nav('circular',2)">Economía Circular</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-n">4</div>
+        <div class="hero-stat-l">Dimensiones</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">SCZ</div>
+        <div class="hero-stat-l">Contexto local</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">6</div>
+        <div class="hero-stat-l">Ejes de análisis</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">♻</div>
+        <div class="hero-stat-l">Modelo circular</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eco Wheel decoration -->
+  <div class="hero-right">
+    <div class="eco-wheel">
+      <div class="eco-wheel-track"></div>
+      <div class="eco-wheel-track t2"></div>
+      <div class="eco-wheel-track t3"></div>
+      <div class="eco-center">
+        <div class="eco-center-icon">♻️</div>
+        <div class="eco-center-label">CIRCULAR</div>
+      </div>
+      <div class="eco-node n0">🌱<span>Diseño</span></div>
+      <div class="eco-node n1">⚙️<span>Producción</span></div>
+      <div class="eco-node n2">🔄<span>Retorno</span></div>
+      <div class="eco-node n3">🌍<span>Impacto</span></div>
+      <div class="eco-node n4">📦<span>Uso</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ S2: MAPA EMPATÍA ══════ -->
+<section id="s-mapa" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Paso 2 · Análisis empático</div>
+    <h2 class="sec-h2">¿Quién es el<br><em>Cliente Sostenible?</em></h2>
+    <p class="sec-sub">Haz clic en cada cuadrante para explorar en profundidad cada dimensión del mapa de empatía.</p>
+  </div>
+
+  <div class="empathy-layout">
+    <!-- VE -->
+    <div class="eq" style="--accent-color:#2dd4bf;--icon-bg:rgba(45,212,191,.1);--icon-border:rgba(45,212,191,.25);" onclick="toggleEQ(this,'ve')">
+      <div class="eq-num">01</div>
+      <div class="eq-icon">👁️</div>
+      <div class="eq-q">¿QUÉ VE?</div>
+      <div class="eq-preview">Etiquetas ecológicas en Hipermaxi, mercados con bolsas plásticas, universitarios adoptando hábitos sostenibles.</div>
+      <button class="eq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="eq-drawer" id="dv-ve">
+        <div class="eq-item"><div class="eq-item-dot"></div>Productos con etiquetas ecológicas o envases reciclables en Hipermaxi o Fidalga, aunque la mayoría aún se venden en plástico.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>En mercados como Los Pozos o Mercado Abasto, verduras y frutas en bolsas plásticas desechables, sin alternativas reutilizables.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Estudiantes de la UAGRM con termos, bolsas de tela y bicicletas en el campus — hábitos más sostenibles visibles.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Crecimiento de ferias ecológicas en el Parque Urbano: jabones artesanales, alimentos orgánicos, envases reutilizables.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Mercadito Eco publicando en Instagram mensajes de consumo responsable, reciclaje y productos ecológicos.</div>
+      </div>
+    </div>
+
+    <!-- OYE -->
+    <div class="eq" style="--accent-color:#f59e0b;--icon-bg:rgba(245,158,11,.1);--icon-border:rgba(245,158,11,.25);" onclick="toggleEQ(this,'oye')">
+      <div class="eq-num">02</div>
+      <div class="eq-icon">👂</div>
+      <div class="eq-q">¿QUÉ OYE?</div>
+      <div class="eq-preview">Noticias sobre la Chiquitanía, sequías y deforestación. Recomendaciones de Peregrino e Innovaplast.</div>
+      <button class="eq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="eq-drawer" id="dv-oye">
+        <div class="eq-item"><div class="eq-item-dot"></div>En El Deber y Unitel: noticias sobre inundaciones en Santa Cruz, sequías en el oriente y deforestación en la Chiquitanía.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Recomendaciones de amigos sobre Peregrino — escobas y cepillos hechos de botellas PET recicladas, referente local.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Innovaplast comunicando el desarrollo de envases biodegradables y procesos de producción más limpios en Santa Cruz.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Conversaciones en clases y reuniones de trabajo sobre reducir plásticos, reciclar y consumir responsablemente.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Estudiantes de Veterinaria UAGRM comentando que los ingresos del Zoológico Municipal financian el cuidado animal.</div>
+      </div>
+    </div>
+
+    <!-- DICE Y HACE -->
+    <div class="eq" style="--accent-color:#a3e635;--icon-bg:rgba(163,230,53,.1);--icon-border:rgba(163,230,53,.25);" onclick="toggleEQ(this,'dice')">
+      <div class="eq-num">03</div>
+      <div class="eq-icon">💬</div>
+      <div class="eq-q">¿QUÉ DICE Y HACE?</div>
+      <div class="eq-preview">Lleva bolsas reutilizables a Hipermaxi, habla de sostenibilidad en Typica Café, pero cede por comodidad ocasionalmente.</div>
+      <button class="eq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="eq-drawer" id="dv-dice">
+        <div class="eq-item"><div class="eq-item-dot"></div>En Hipermaxi o Fidalga lleva bolsas reutilizables, aunque en Oki Market a veces acepta plástico por comodidad o precio.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Habla de reducir plástico con amigos en Typica Café (Equipetrol), cuidando no insistir demasiado para no incomodar.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Apoya ferias locales (Eco Vida, Parque Urbano) cuando puede, pero el tráfico y la rutina lo llevan a PedidosYa o Hipermaxi.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Participa en el Reciclatón de la UPDS: recolecta cuadernos usados, hojas y cartón para reducir residuos.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Guarda tapas plásticas para el Hospital Oncológico, aunque a veces olvida separarlas y terminan en la basura.</div>
+      </div>
+    </div>
+
+    <!-- PIENSA Y SIENTE -->
+    <div class="eq" style="--accent-color:#fb7185;--icon-bg:rgba(251,113,133,.1);--icon-border:rgba(251,113,133,.25);" onclick="toggleEQ(this,'piensa')">
+      <div class="eq-num">04</div>
+      <div class="eq-icon">🧠</div>
+      <div class="eq-q">¿QUÉ PIENSA Y SIENTE?</div>
+      <div class="eq-preview">Orgullo ante iniciativas juveniles del Piraí. Cree que empresas y gobierno tienen más responsabilidad ambiental.</div>
+      <button class="eq-toggle">Explorar <span class="arrow">→</span></button>
+      <div class="eq-drawer" id="dv-piensa">
+        <div class="eq-item"><div class="eq-item-dot"></div>Siente orgullo y esperanza al ver jóvenes cruceños organizar limpiezas del río Piraí y campañas de arborización.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Piensa que las empresas y el gobierno tienen mayor responsabilidad ambiental que los consumidores individuales.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Le preocupa el crecimiento acelerado de Santa Cruz con nuevas urbanizaciones que afectan espacios naturales.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Se imagina vivir en Santa Cruz cuidando el medioambiente con estabilidad económica, sin renunciar a comodidad.</div>
+        <div class="eq-item"><div class="eq-item-dot"></div>Aspira a ser un ejemplo dentro de su grupo: demostrar que en Santa Cruz es posible adoptar hábitos sostenibles.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Esfuerzos + Resultados -->
+  <div class="bottom-duo" style="margin-top:1.5rem;">
+    <div class="bcard" style="--bot-color:#fb7185;">
+      <div class="bcard-label"><span class="licon">⚡</span> Esfuerzos y Barreras</div>
+      <div class="bcard-list">
+        <div class="bcard-item">Viaja desde el Plan 3000 a ferias agroecológicas del Parque Urbano, invirtiendo más tiempo y pasaje en micro.</div>
+        <div class="bcard-item">No existe reciclaje formal en Santa Cruz, transporte público irregular, productos sostenibles más caros en ferias como Eco Vida.</div>
+        <div class="bcard-item">Falta info clara: marcas como Sabor Clandestino o Muyu Bolivia se presentan ecológicas sin explicar su proceso.</div>
+        <div class="bcard-item">Presión social: compañeros dicen que separar basura es exagerado en almuerzos donde piden por PedidosYa.</div>
+      </div>
+    </div>
+    <div class="bcard" style="--bot-color:#00ff7f;">
+      <div class="bcard-label"><span class="licon">✨</span> Resultados y Beneficios</div>
+      <div class="bcard-list">
+        <div class="bcard-item">Conectarse con personas que también quieren consumir responsablemente. Participa en limpiezas del río Piraí.</div>
+        <div class="bcard-item">Mide su éxito reduciendo basura: usa su termo en Typica Café, evita cubiertos plásticos en pedidos de comida.</div>
+        <div class="bcard-item">Sentirse mejor consumiendo miel o mermeladas artesanales de la Feria de Emprendedores del Parque Urbano.</div>
+        <div class="bcard-item">Habrá logrado su meta cuando amigos empiecen a copiar sus hábitos: llevar termo, usar envases reutilizables.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S3: ECONOMÍA CIRCULAR ══════ -->
+<section id="s-circular" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Paso 5 · Aplicación</div>
+    <h2 class="sec-h2">La <em>Economía Circular</em><br>en Acción</h2>
+    <p class="sec-sub">Para poner en práctica la circularidad en un emprendimiento es clave entender las áreas del modelo de negocio en relación con la reducción de impacto ambiental.</p>
+  </div>
+
+  <div class="circular-hero-band">
+    <div class="chb-text">
+      <div class="chb-tag">♻ Circularidad y Emprendimiento</div>
+      <h3 class="chb-title">Modelo de Negocio<br><em>Circular</em></h3>
+      <p class="chb-p">Cada área del modelo de negocio puede ser rediseñada bajo principios de economía circular: eliminar residuos, mantener productos en uso y regenerar los sistemas naturales.</p>
+    </div>
+    <div class="circular-canvas">
+      <div class="cc-ring"></div>
+      <div class="cc-ring r2"></div>
+      <div class="cc-ring r3"></div>
+      <div class="cc-center">
+        <div class="cc-center-icon">♻️</div>
+        <div class="cc-center-txt">ECONOMÍA<br>CIRCULAR</div>
+      </div>
+      <div class="cc-point p0">🎨</div>
+      <div class="cc-point p1">⚙️</div>
+      <div class="cc-point p2">🔄</div>
+      <div class="cc-point p3">🌱</div>
+      <div class="cc-point p4">🚚</div>
+      <div class="cc-point p5">📊</div>
+    </div>
+  </div>
+
+  <div class="areas-grid">
+    <div class="acard" onclick="this.style.background=this.style.background?'':'var(--surface2)'">
+      <div class="acard-accent" style="background:rgba(0,255,127,.1);border:1px solid rgba(0,255,127,.2);">🎨</div>
+      <div class="acard-t">Diseño Circular</div>
+      <div class="acard-d">Productos concebidos para ser reutilizados, reparados o reciclados desde el origen. El residuo como error de diseño.</div>
+      <div class="acard-tag" style="background:rgba(0,255,127,.08);color:var(--green-neon);border:1px solid rgba(0,255,127,.2);">Sin residuos por diseño</div>
+    </div>
+    <div class="acard" onclick="this.style.background=this.style.background?'':'var(--surface2)'">
+      <div class="acard-accent" style="background:rgba(163,230,53,.1);border:1px solid rgba(163,230,53,.2);">🌱</div>
+      <div class="acard-t">Materias Primas</div>
+      <div class="acard-d">Uso de materiales reciclados o biodegradables. Referente local: Peregrino fabrica escobas con botellas PET recicladas.</div>
+      <div class="acard-tag" style="background:rgba(163,230,53,.08);color:var(--lime);border:1px solid rgba(163,230,53,.2);">Ejemplo: Peregrino SCZ</div>
+    </div>
+    <div class="acard" onclick="this.style.background=this.style.background?'':'var(--surface2)'">
+      <div class="acard-accent" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);">⚙️</div>
+      <div class="acard-t">Producción Limpia</div>
+      <div class="acard-d">Procesos que minimizan residuos y energía. Innovaplast desarrollando envases biodegradables en Santa Cruz.</div>
+      <div class="acard-tag" style="background:rgba(245,158,11,.08);color:var(--amber);border:1px solid rgba(245,158,11,.2);">Ejemplo: Innovaplast</div>
+    </div>
+    <div class="acard" onclick="this.style.background=this.style.background?'':'var(--surface2)'">
+      <div class="acard-accent" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);">🚚</div>
+      <div class="acard-t">Distribución Verde</div>
+      <div class="acard-d">Canales que reducen emisiones y embalaje. Ferias locales como Eco Vida (Los Mangales) y Parque Urbano.</div>
+      <div class="acard-tag" style="background:rgba(45,212,191,.08);color:var(--teal);border:1px solid rgba(45,212,191,.2);">Ferias Eco Vida · SCZ</div>
+    </div>
+    <div class="acard" onclick="this.style.background=this.style.background?'':'var(--surface2)'">
+      <div class="acard-accent" style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.2);">🔄</div>
+      <div class="acard-t">Recuperación</div>
+      <div class="acard-d">Sistemas de retorno y reciclaje post-consumo. Reciclatón UPDS, recolección de tapas para el Hospital Oncológico.</div>
+      <div class="acard-tag" style="background:rgba(251,113,133,.08);color:var(--coral);border:1px solid rgba(251,113,133,.2);">Reciclatón UPDS</div>
+    </div>
+    <div class="acard" onclick="this.style.background=this.style.background?'':'var(--surface2)'">
+      <div class="acard-accent" style="background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);">📊</div>
+      <div class="acard-t">Medición de Impacto</div>
+      <div class="acard-d">KPIs de circularidad: kg reciclados, % insumos locales, reducción de plástico, clientes que retornan envases.</div>
+      <div class="acard-tag" style="background:rgba(167,139,250,.08);color:#c4b5fd;border:1px solid rgba(167,139,250,.2);">Reporte trimestral</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S4: PERFIL ══════ -->
+<section id="s-perfil" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Análisis · Perfil del cliente</div>
+    <h2 class="sec-h2">Tensiones del<br><em>Consumidor Consciente</em></h2>
+    <p class="sec-sub">Entre sus aspiraciones sostenibles y las barreras reales del contexto de Santa Cruz de la Sierra.</p>
+  </div>
+
+  <div class="perfil-grid">
+    <!-- Profile card -->
+    <div class="profile-card">
+      <div class="pc-avatar">🌿</div>
+      <div class="pc-name">Cliente Sostenible</div>
+      <div class="pc-role">Santa Cruz de la Sierra · 2026</div>
+      <div class="pc-chips">
+        <span class="pc-chip">Universitario</span>
+        <span class="pc-chip">Profesional joven</span>
+        <span class="pc-chip">Consciente</span>
+        <span class="pc-chip">Pro-ambiente</span>
+        <span class="pc-chip">Presupuesto ajustado</span>
+        <span class="pc-chip">Digital</span>
+      </div>
+      <div class="pc-divider"></div>
+      <div class="pc-metric">
+        <div class="pc-metric-row">
+          <span class="pc-metric-label">Intención ambiental</span>
+          <span class="pc-metric-val">Alta</span>
+        </div>
+        <div class="pc-bar"><div class="pc-bar-fill" data-w="88%" style="width:0;background:linear-gradient(90deg,var(--green-neon),var(--teal))"></div></div>
+      </div>
+      <div class="pc-metric">
+        <div class="pc-metric-row">
+          <span class="pc-metric-label">Acción sostenible real</span>
+          <span class="pc-metric-val">Media</span>
+        </div>
+        <div class="pc-bar"><div class="pc-bar-fill" data-w="52%" style="width:0;background:linear-gradient(90deg,var(--lime),var(--green-neon))"></div></div>
+      </div>
+      <div class="pc-metric">
+        <div class="pc-metric-row">
+          <span class="pc-metric-label">Disposición a pagar más</span>
+          <span class="pc-metric-val">Baja-media</span>
+        </div>
+        <div class="pc-bar"><div class="pc-bar-fill" data-w="35%" style="width:0;background:linear-gradient(90deg,var(--amber),#fde68a)"></div></div>
+      </div>
+      <div class="pc-metric">
+        <div class="pc-metric-row">
+          <span class="pc-metric-label">Influencia en su entorno</span>
+          <span class="pc-metric-val">30% y creciendo</span>
+        </div>
+        <div class="pc-bar"><div class="pc-bar-fill" data-w="30%" style="width:0;background:linear-gradient(90deg,var(--teal),#7dd3fc)"></div></div>
+      </div>
+    </div>
+
+    <!-- Tensions -->
+    <div class="tensions">
+      <div class="tension">
+        <div class="tension-type">
+          <div class="tension-pip" style="background:var(--green-neon)"></div>
+          <div class="tension-type-label" style="color:var(--green-neon)">Aspiración</div>
+        </div>
+        <div class="tension-title">Vivir con propósito ambiental</div>
+        <div class="tension-body">Se imagina un estilo de vida donde cuide el medioambiente, mantenga estabilidad económica y bienestar personal, sin renunciar a comodidad ni seguridad financiera.</div>
+        <div class="tension-meter">
+          <div class="tension-meter-row"><span>Alineación con sus valores</span><span>88%</span></div>
+          <div class="tension-track"><div class="tension-fill" data-w="88%" style="width:0;background:linear-gradient(90deg,var(--green-neon),var(--teal))"></div></div>
+        </div>
+      </div>
+
+      <div class="tension">
+        <div class="tension-type">
+          <div class="tension-pip" style="background:var(--coral)"></div>
+          <div class="tension-type-label" style="color:var(--coral)">Barrera principal</div>
+        </div>
+        <div class="tension-title">Infraestructura ambiental inexistente</div>
+        <div class="tension-body">No existe reciclaje formal en Santa Cruz, el transporte público es irregular y los productos sostenibles solo se encuentran en ferias como Eco Vida, donde son más caros.</div>
+        <div class="tension-meter">
+          <div class="tension-meter-row"><span>Impacto en sus decisiones</span><span>82%</span></div>
+          <div class="tension-track"><div class="tension-fill" data-w="82%" style="width:0;background:linear-gradient(90deg,var(--coral),#fda4af)"></div></div>
+        </div>
+      </div>
+
+      <div class="tension">
+        <div class="tension-type">
+          <div class="tension-pip" style="background:var(--amber)"></div>
+          <div class="tension-type-label" style="color:var(--amber)">Tensión social</div>
+        </div>
+        <div class="tension-title">Presión del entorno y comodidad</div>
+        <div class="tension-body">Amigos y compañeros comentan que separar basura es exagerado. En almuerzos laborales la mayoría pide por PedidosYa o compra en Toby y Pollos Chriss.</div>
+        <div class="tension-meter">
+          <div class="tension-meter-row"><span>Influencia en sus hábitos</span><span>65%</span></div>
+          <div class="tension-track"><div class="tension-fill" data-w="65%" style="width:0;background:linear-gradient(90deg,var(--amber),#fde68a)"></div></div>
+        </div>
+      </div>
+
+      <div class="tension">
+        <div class="tension-type">
+          <div class="tension-pip" style="background:var(--teal)"></div>
+          <div class="tension-type-label" style="color:var(--teal)">Meta</div>
+        </div>
+        <div class="tension-title">Inspirar a su entorno social</div>
+        <div class="tension-body">Considerará lograda su meta cuando amigos o compañeros empiecen a copiar sus hábitos: llevar termo al trabajo o usar envases reutilizables para jugos naturales.</div>
+        <div class="tension-meter">
+          <div class="tension-meter-row"><span>Progreso actual</span><span>30%</span></div>
+          <div class="tension-track"><div class="tension-fill" data-w="30%" style="width:0;background:linear-gradient(90deg,var(--teal),#7dd3fc)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════ S5: ACCIONES ══════ -->
+<section id="s-acciones" class="screen">
+<div class="sec-wrap">
+  <div class="sec-head">
+    <div class="sec-badge">Propuesta · Emprendimiento circular</div>
+    <h2 class="sec-h2">Acciones para un<br><em>Emprendimiento Circular</em></h2>
+    <p class="sec-sub">Hoja de ruta basada en los insights del mapa de empatía y los principios de economía circular.</p>
+  </div>
+
+  <div class="timeline-wrap">
+    <div class="timeline-line"></div>
+
+    <div class="tl-item" onclick="toggleTL(this)">
+      <div class="tl-bullet">🔍</div>
+      <div class="tl-card">
+        <div class="tl-card-head">
+          <div class="tl-card-title">Investigar al cliente sostenible local</div>
+          <div class="tl-card-phase" style="background:rgba(0,255,127,.1);color:var(--green-neon);border:1px solid rgba(0,255,127,.2);">FASE 1</div>
+        </div>
+        <div class="tl-card-sub">Aplicar el mapa de empatía para entender profundamente al consumidor consciente de Santa Cruz.</div>
+        <div class="tl-expand">
+          <div class="tl-expand-body">El cliente sostenible de Santa Cruz tiene alta intención pero baja acción. Las barreras son estructurales, no individuales.</div>
+          <div class="tl-bullets">
+            <div class="tl-bullet-item">Visitar Eco Vida, Parque Urbano y Natura Market para entrevistas en contexto real.</div>
+            <div class="tl-bullet-item">Identificar las barreras reales: falta de reciclaje formal, transporte irregular y precio de productos eco.</div>
+            <div class="tl-bullet-item">Mapear los referentes locales: Peregrino, Innovaplast, Mercadito Eco como benchmarks.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" onclick="toggleTL(this)">
+      <div class="tl-bullet">🌱</div>
+      <div class="tl-card">
+        <div class="tl-card-head">
+          <div class="tl-card-title">Diseñar producto o servicio circular</div>
+          <div class="tl-card-phase" style="background:rgba(163,230,53,.1);color:var(--lime);border:1px solid rgba(163,230,53,.2);">FASE 2</div>
+        </div>
+        <div class="tl-card-sub">Propuesta de valor que resuelve las tensiones: accesible en precio, conveniente, y claramente sostenible.</div>
+        <div class="tl-expand">
+          <div class="tl-expand-body">El cliente no está dispuesto a pagar precios muy superiores. El producto debe ser competitivo y cómodo de obtener.</div>
+          <div class="tl-bullets">
+            <div class="tl-bullet-item">Usar materiales locales y reciclados. Inspiración: botellas PET de Peregrino.</div>
+            <div class="tl-bullet-item">Precio accesible: no depender solo de ferias especializadas, llegar a canales masivos.</div>
+            <div class="tl-bullet-item">Comunicar el origen de insumos con total transparencia — diferenciarse de Muyu Bolivia o Sabor Clandestino.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" onclick="toggleTL(this)">
+      <div class="tl-bullet">📣</div>
+      <div class="tl-card">
+        <div class="tl-card-head">
+          <div class="tl-card-title">Comunicar con transparencia radical</div>
+          <div class="tl-card-phase" style="background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);">FASE 3</div>
+        </div>
+        <div class="tl-card-sub">El cliente sostenible desconfía de marcas que no explican su proceso productivo. La autenticidad genera comunidad.</div>
+        <div class="tl-expand">
+          <div class="tl-expand-body">En Instagram y Facebook, mostrar el proceso productivo completo: origen de materiales, fabricación e impacto real.</div>
+          <div class="tl-bullets">
+            <div class="tl-bullet-item">Publicar el porcentaje de materiales reciclados, el proveedor local y el ahorro de CO₂.</div>
+            <div class="tl-bullet-item">Usar el canal de redes sociales donde ya está el cliente: Instagram, grupos universitarios UAGRM.</div>
+            <div class="tl-bullet-item">Evitar el "greenwashing" — ser específico, no genérico.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" onclick="toggleTL(this)">
+      <div class="tl-bullet">🤝</div>
+      <div class="tl-card">
+        <div class="tl-card-head">
+          <div class="tl-card-title">Construir comunidad sostenible</div>
+          <div class="tl-card-phase" style="background:rgba(45,212,191,.1);color:var(--teal);border:1px solid rgba(45,212,191,.2);">FASE 4</div>
+        </div>
+        <div class="tl-card-sub">El cliente quiere conectarse con personas que comparten sus valores. El emprendimiento debe ser el nexo.</div>
+        <div class="tl-expand">
+          <div class="tl-expand-body">Participar activamente en limpiezas del río Piraí, campañas de arborización y el Reciclatón UPDS.</div>
+          <div class="tl-bullets">
+            <div class="tl-bullet-item">Crear espacios de encuentro en ferias del Parque Urbano y Los Mangales.</div>
+            <div class="tl-bullet-item">Colaborar con la UPDS y UAGRM en iniciativas de reciclaje y sostenibilidad.</div>
+            <div class="tl-bullet-item">Construir una tribu alrededor del emprendimiento — no solo clientes, sino embajadores.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" onclick="toggleTL(this)">
+      <div class="tl-bullet">📊</div>
+      <div class="tl-card">
+        <div class="tl-card-head">
+          <div class="tl-card-title">Medir y publicar el impacto circular</div>
+          <div class="tl-card-phase" style="background:rgba(167,139,250,.1);color:#c4b5fd;border:1px solid rgba(167,139,250,.2);">FASE 5</div>
+        </div>
+        <div class="tl-card-sub">Implementar métricas de circularidad que demuestren el impacto real y diferencien al emprendimiento.</div>
+        <div class="tl-expand">
+          <div class="tl-expand-body">Los KPIs de circularidad generan confianza y diferencian al emprendimiento de competidores que solo hablan.</div>
+          <div class="tl-bullets">
+            <div class="tl-bullet-item">KPIs clave: kg reciclados/mes, % insumos locales, reducción de plástico en embalaje.</div>
+            <div class="tl-bullet-item">Número de clientes que retornan envases para reutilización — medir la circularidad real.</div>
+            <div class="tl-bullet-item">Publicar reportes de impacto trimestrales en redes — generar confianza y atraer al cliente sostenible.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- PROGRESS DOCK -->
+<div class="progress-dock">
+  <div class="prog-label" id="prog-label">INICIO</div>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:20%"></div></div>
+  <div class="prog-steps">
+    <div class="prog-step done" onclick="nav('hero',0)" title="Inicio"></div>
+    <div class="prog-step" onclick="nav('mapa',1)" title="Mapa"></div>
+    <div class="prog-step" onclick="nav('circular',2)" title="Circular"></div>
+    <div class="prog-step" onclick="nav('perfil',3)" title="Perfil"></div>
+    <div class="prog-step" onclick="nav('acciones',4)" title="Acciones"></div>
+  </div>
+  <div class="prog-team">Luis Mario · Brandon · Aldo · Ericka</div>
+</div>
+
+<script>
+/* ── CURSOR ── */
+const cur = document.getElementById('cur'), curR = document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function animCursor(){
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  curR.style.left=rx+'px'; curR.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+
+/* ── SCREENS ── */
+const SCREENS = ['hero','mapa','circular','perfil','acciones'];
+const LABELS = ['INICIO','MAPA DE EMPATÍA','EC. CIRCULAR','PERFIL CLIENTE','ACCIONES'];
+let cur_idx = 0;
+
+function nav(id, idx, btn) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','fade-enter'));
+  const el = document.getElementById('s-'+id);
+  el.classList.add('active');
+  requestAnimationFrame(()=>el.classList.add('fade-enter'));
+
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+
+  cur_idx = idx;
+  document.getElementById('prog-fill').style.width = ((idx+1)/SCREENS.length*100)+'%';
+  document.getElementById('prog-label').textContent = LABELS[idx];
+
+  // Update progress steps
+  document.querySelectorAll('.prog-step').forEach((s,i)=>{
+    s.classList.toggle('done', i<=idx);
+  });
+
+  // Animate bars when perfil is shown
+  if(id==='perfil') setTimeout(animateBars, 300);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight' && cur_idx<SCREENS.length-1) nav(SCREENS[cur_idx+1], cur_idx+1);
+  if(e.key==='ArrowLeft' && cur_idx>0) nav(SCREENS[cur_idx-1], cur_idx-1);
+});
+
+/* ── EMPATHY TOGGLES ── */
+function toggleEQ(card, key) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.eq').forEach(c=>c.classList.remove('open'));
+  if(!isOpen) card.classList.add('open');
+}
+
+/* ── TIMELINE ── */
+function toggleTL(item) {
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.tl-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+/* ── ANIMATE BARS ── */
+function animateBars() {
+  document.querySelectorAll('.pc-bar-fill, .tension-fill').forEach(b=>{
+    const target = b.dataset.w;
+    b.style.width = target;
+  });
+}
+
+</script>
+</body>
+</html>
