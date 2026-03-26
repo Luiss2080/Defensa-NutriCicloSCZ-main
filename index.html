@@ -1728,154 +1728,74 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         En esta sección se identifican todos los insumos necesarios para la elaboración del bloque multinutricional, clasificándolos en componentes biológicos y técnicos para facilitar su análisis según su origen y naturaleza.
       </div>
 
-      <div class="dec-tools">
-        <button type="button" class="dec-filter-btn active" onclick="filterDecRows('all',this)">Todos</button>
-        <button type="button" class="dec-filter-btn" onclick="filterDecRows('bio',this)">Biológicos</button>
-        <button type="button" class="dec-filter-btn" onclick="filterDecRows('tec',this)">Técnicos</button>
-      </div>
+      <div class="row g-3 dec-card-grid">
+        <div class="col-lg-6">
+          <article class="dec-card">
+            <div class="dec-card-media"><img src="Insumos_04.png" alt="Insumos 3.1.1 a 3.1.4"></div>
+            <div class="dec-card-body">
+              <div class="dec-card-title">
+                <h4>Bloque 1 · Componentes Biológicos Base</h4>
+                <span class="dec-badge bio">Biológico</span>
+              </div>
+              <ul class="dec-list">
+                <li><strong>3.1.1 Melaza de caña:</strong> base energética y agente de integración.</li>
+                <li><strong>3.1.2 Harina de sangre:</strong> fuente concentrada de proteína.</li>
+                <li><strong>3.1.3 Cascarilla de arroz:</strong> absorbe humedad y aporta consistencia.</li>
+                <li><strong>3.1.4 Afrecho de soya:</strong> complemento proteico y energético.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
 
-      <div class="dec-table-wrap">
-        <table class="dec-table" aria-label="Deconstrucción del producto NutriCiclo">
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Insumo / Material</th>
-              <th>Clasificación</th>
-              <th>Función principal</th>
-              <th>Detalle</th>
-              <th>Ficha</th>
-            </tr>
-          </thead>
-          <tbody id="decTableBody">
-            <tr data-kind="bio">
-              <td class="dec-code">3.1.1</td>
-              <td>Melaza de caña</td>
-              <td><span class="dec-chip bio">Biológico</span></td>
-              <td>Base energética y agente de integración de la mezcla.</td>
-              <td>Líquido oscuro, subproducto azucarero.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="bio"><td colspan="6">La melaza facilita la unión de componentes y mejora la palatabilidad del bloque, permitiendo una mezcla homogénea con mayor consistencia.</td></tr>
+        <div class="col-lg-6">
+          <article class="dec-card">
+            <div class="dec-card-media"><img src="Insumos_01.png" alt="Insumos 3.1.5 a 3.1.7"></div>
+            <div class="dec-card-body">
+              <div class="dec-card-title">
+                <h4>Bloque 2 · Componentes Biológicos Complementarios</h4>
+                <span class="dec-badge bio">Biológico</span>
+              </div>
+              <ul class="dec-list">
+                <li><strong>3.1.5 Harina de hueso:</strong> aporte de calcio y fósforo.</li>
+                <li><strong>3.1.6 Harina BSF:</strong> proteína de alto valor y diferencial técnico.</li>
+                <li><strong>3.1.7 Frass:</strong> subproducto valorizable como fertilizante.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
 
-            <tr data-kind="bio">
-              <td class="dec-code">3.1.2</td>
-              <td>Harina de sangre</td>
-              <td><span class="dec-chip bio">Biológico</span></td>
-              <td>Fuente concentrada de proteína.</td>
-              <td>Polvo marrón oscuro de alta densidad proteica.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="bio"><td colspan="6">Se obtiene por cocción, secado y molienda de sangre animal, reforzando el perfil nutricional del bloque en etapas de mayor requerimiento.</td></tr>
+        <div class="col-lg-6">
+          <article class="dec-card">
+            <div class="dec-card-media"><img src="Insumos_02.png" alt="Insumos 3.2.1 a 3.2.2"></div>
+            <div class="dec-card-body">
+              <div class="dec-card-title">
+                <h4>Bloque 3 · Componentes Técnicos Iniciales</h4>
+                <span class="dec-badge tec">Técnico</span>
+              </div>
+              <ul class="dec-list">
+                <li><strong>3.2.1 Urea agrícola:</strong> complemento nitrogenado de la mezcla.</li>
+                <li><strong>3.2.2 Cal viva:</strong> aglutinante para dureza y estabilidad del bloque.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
 
-            <tr data-kind="bio">
-              <td class="dec-code">3.1.3</td>
-              <td>Cascarilla de arroz</td>
-              <td><span class="dec-chip bio">Biológico</span></td>
-              <td>Absorción de humedad y estructura física.</td>
-              <td>Material seco, liviano y fibroso.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="bio"><td colspan="6">Contribuye a estabilizar la mezcla y evita exceso de humedad, mejorando el secado y la resistencia final del bloque.</td></tr>
-
-            <tr data-kind="bio">
-              <td class="dec-code">3.1.4</td>
-              <td>Afrecho de soya</td>
-              <td><span class="dec-chip bio">Biológico</span></td>
-              <td>Complemento proteico y energético.</td>
-              <td>Subproducto seco de extracción de aceite.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="bio"><td colspan="6">Aporta equilibrio nutricional junto con otros componentes, ayudando a sostener desempeño productivo del ganado.</td></tr>
-
-            <tr class="dec-image-row" data-kind="bio"><td colspan="6"><figure class="dec-inline-figure"><img src="Insumos_04.png" alt="Insumos base: melaza, harina de sangre, cascarilla y afrecho"><figcaption>Imagen 1 · Referencia visual de los insumos 3.1.1 a 3.1.4.</figcaption></figure></td></tr>
-
-            <tr data-kind="bio">
-              <td class="dec-code">3.1.5</td>
-              <td>Harina de hueso</td>
-              <td><span class="dec-chip bio">Biológico</span></td>
-              <td>Aporte mineral (calcio y fósforo).</td>
-              <td>Polvo claro por calcinación y molienda.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="bio"><td colspan="6">Se integra para fortalecer el perfil mineral del producto, contribuyendo a nutrición ósea y rendimiento animal.</td></tr>
-
-            <tr data-kind="bio">
-              <td class="dec-code">3.1.6</td>
-              <td>Harina de mosca soldado negra (BSF)</td>
-              <td><span class="dec-chip bio">Biológico</span></td>
-              <td>Proteína de alto valor y diferencial de innovación.</td>
-              <td>Polvo marrón claro de larvas valorizadas.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="bio"><td colspan="6">Se produce a partir de larvas alimentadas con residuos orgánicos, permitiendo transformar desecho en insumo nutricional estratégico.</td></tr>
-
-            <tr data-kind="bio">
-              <td class="dec-code">3.1.7</td>
-              <td>Frass (subproducto)</td>
-              <td><span class="dec-chip bio">Biológico</span></td>
-              <td>Subproducto valorizable como fertilizante.</td>
-              <td>Material oscuro generado en crianza BSF.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="bio"><td colspan="6">Aunque no entra al bloque, amplía el modelo de economía circular al abrir una línea adicional de aprovechamiento agrícola.</td></tr>
-
-            <tr class="dec-image-row" data-kind="bio"><td colspan="6"><figure class="dec-inline-figure"><img src="Insumos_01.png" alt="Insumos biológicos complementarios: harina de hueso, harina BSF y frass"><figcaption>Imagen 2 · Referencia visual de los insumos 3.1.5 a 3.1.7.</figcaption></figure></td></tr>
-
-            <tr data-kind="tec">
-              <td class="dec-code">3.2.1</td>
-              <td>Urea agrícola</td>
-              <td><span class="dec-chip tec">Técnico</span></td>
-              <td>Complemento nitrogenado para contenido proteico.</td>
-              <td>Gránulos blancos de uso agroindustrial.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="tec"><td colspan="6">Se incorpora en dosificación controlada para mejorar valor nutricional, manteniendo seguridad de consumo con formulación técnica.</td></tr>
-
-            <tr data-kind="tec">
-              <td class="dec-code">3.2.2</td>
-              <td>Cal viva</td>
-              <td><span class="dec-chip tec">Técnico</span></td>
-              <td>Aglutinante para endurecimiento del bloque.</td>
-              <td>Polvo blanco fino con aporte de calcio.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="tec"><td colspan="6">Mejora la estabilidad física del bloque en manipulación y almacenamiento, favoreciendo resistencia y vida útil del producto.</td></tr>
-
-            <tr class="dec-image-row" data-kind="tec"><td colspan="6"><figure class="dec-inline-figure"><img src="Insumos_02.png" alt="Componentes técnicos: urea agrícola y cal viva"><figcaption>Imagen 3 · Referencia visual de los insumos 3.2.1 y 3.2.2.</figcaption></figure></td></tr>
-
-            <tr data-kind="tec">
-              <td class="dec-code">3.2.3</td>
-              <td>Sal mineralizada</td>
-              <td><span class="dec-chip tec">Técnico</span></td>
-              <td>Aporte de micronutrientes esenciales.</td>
-              <td>Mezcla granular de minerales.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="tec"><td colspan="6">Permite balancear la formulación final con minerales traza para sostener mejor respuesta productiva del ganado.</td></tr>
-
-            <tr data-kind="tec">
-              <td class="dec-code">3.2.4</td>
-              <td>Azufre</td>
-              <td><span class="dec-chip tec">Técnico</span></td>
-              <td>Complemento nutricional en baja dosificación.</td>
-              <td>Polvo amarillo de uso técnico.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="tec"><td colspan="6">Se utiliza en proporciones controladas para fortalecer perfil nutricional sin alterar estabilidad ni seguridad de la formulación.</td></tr>
-
-            <tr data-kind="tec">
-              <td class="dec-code">3.2.5</td>
-              <td>Empaque</td>
-              <td><span class="dec-chip tec">Técnico</span></td>
-              <td>Protección logística y comercial.</td>
-              <td>Sacos plásticos resistentes para traslado.</td>
-              <td><button class="dec-row-btn" onclick="toggleDecDetail(this)">Ver más</button></td>
-            </tr>
-            <tr class="dec-detail-row hidden" data-kind="tec"><td colspan="6">Facilita almacenamiento, manipulación y distribución del producto final, reduciendo mermas en cadena operativa.</td></tr>
-
-            <tr class="dec-image-row" data-kind="tec"><td colspan="6"><figure class="dec-inline-figure"><img src="Insumos_03.png" alt="Componentes técnicos finales: sal mineralizada, azufre y empaque"><figcaption>Imagen 4 · Referencia visual de los insumos 3.2.3 a 3.2.5.</figcaption></figure></td></tr>
-          </tbody>
-        </table>
+        <div class="col-lg-6">
+          <article class="dec-card">
+            <div class="dec-card-media"><img src="Insumos_03.png" alt="Insumos 3.2.3 a 3.2.5"></div>
+            <div class="dec-card-body">
+              <div class="dec-card-title">
+                <h4>Bloque 4 · Componentes Técnicos De Cierre</h4>
+                <span class="dec-badge tec">Técnico</span>
+              </div>
+              <ul class="dec-list">
+                <li><strong>3.2.3 Sal mineralizada:</strong> aporte de micronutrientes esenciales.</li>
+                <li><strong>3.2.4 Azufre:</strong> complemento nutricional en baja dosificación.</li>
+                <li><strong>3.2.5 Empaque:</strong> almacenamiento y transporte del producto final.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
   </div>
