@@ -2649,18 +2649,24 @@ function openEmpModal(key){
 
 // Canvas tabs
 function switchCanvas(tab,btn){
-  document.getElementById('canvas-pos').style.display=tab==='pos'?'block':'none';
-  document.getElementById('canvas-neg').style.display=tab==='neg'?'block':'none';
-  document.querySelectorAll('.nav-pills .nav-link').forEach(a=>a.classList.remove('active'));
+  const canvas = document.getElementById('canvas');
+  const pos = document.getElementById('canvas-pos');
+  const neg = document.getElementById('canvas-neg');
+  if(!canvas || !pos || !neg) return;
+
+  pos.classList.toggle('active',tab==='pos');
+  neg.classList.toggle('active',tab==='neg');
+  canvas.querySelectorAll('.canvas-tab-btn').forEach(a=>a.classList.remove('active'));
   btn.classList.add('active');
 }
 
 // Canvas card collapse
 function toggleCollapse(card){
-  const c=card.querySelector('.collapse-content');
-  const s=card.querySelector('small');
+  const c=card.querySelector('.collapse-content, .canvas-detail');
+  const s=card.querySelector('small, .canvas-toggle-label');
+  if(!c || !s) return;
   const open=c.classList.toggle('show');
-  s.textContent=open?'▲ Cerrar':'▼ Ver más';
+  s.textContent=open?'▲ Cerrar':'▼ Ver detalle';
 }
 
 // Recursos tabs
