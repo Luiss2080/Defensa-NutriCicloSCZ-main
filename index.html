@@ -527,6 +527,26 @@ body{overflow-x:hidden;background:#f8fdf4}
 
 .ev-total{padding:.45rem .95rem;background:#1e5c8f;color:#fff;font-size:.8rem;font-weight:900;letter-spacing:.02em;text-align:center}
 
+/* ── PASO A: DECONSTRUCCIÓN DEL PRODUCTO ── */
+#deconstruccion-producto{
+  background:
+    radial-gradient(circle at 9% 10%, rgba(123,193,66,.14), transparent 30%),
+    radial-gradient(circle at 90% 12%, rgba(45,110,24,.12), transparent 28%),
+    linear-gradient(180deg,#f5fbf2,#ffffff);
+  padding:3.2rem 0;
+}
+.dec-wrap{max-width:1240px;margin:0 auto}
+.dec-intro{background:#fff;border:1px solid #d8e8d4;border-radius:14px;padding:.9rem 1rem;color:#35583e;font-size:.84rem;line-height:1.55;box-shadow:0 8px 20px rgba(18,64,35,.08);margin-bottom:.8rem}
+.dec-subhead{margin:.95rem 0 .55rem;font-size:.95rem;font-weight:900;color:#174228;letter-spacing:.02em}
+.dec-subdesc{font-size:.82rem;color:#4b6a53;line-height:1.5;margin:0 0 .6rem}
+.dec-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.dec-item{background:#fff;border:1px solid #dcead8;border-radius:12px;padding:.72rem .8rem;box-shadow:0 6px 16px rgba(18,64,35,.06)}
+.dec-item h5{margin:0 0 .3rem;font-size:.84rem;font-weight:900;color:#1e4d2d}
+.dec-item p{margin:0;font-size:.79rem;color:#35583e;line-height:1.48}
+.dec-figure{margin:.75rem 0 .9rem;background:#fff;border:1px solid #d8e8d4;border-radius:14px;overflow:hidden;box-shadow:0 10px 24px rgba(18,64,35,.1)}
+.dec-figure img{width:100%;height:auto;display:block}
+.dec-figure figcaption{padding:.55rem .8rem;font-size:.76rem;color:#496a39;background:#f7fcf6;border-top:1px solid #e2eee0;font-weight:700}
+
 /* ── ACTIVIDAD / INFOGRAFÍAS COMPLEMENTARIAS ── */
 #actividad-complementaria{
   background:linear-gradient(180deg,#ffffff,#f4f9f2);
@@ -665,6 +685,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .aprobadas-cell{min-height:auto}
   .dt-table{min-width:980px}
   .ev-table{min-width:940px}
+  .dec-grid{grid-template-columns:1fr}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
   .stat-item:last-child{border-bottom:none}
 }
