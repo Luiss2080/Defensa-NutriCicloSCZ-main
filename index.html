@@ -705,18 +705,76 @@ body{overflow-x:hidden;background:#f8fdf4}
 .r-card:hover .r-desc,.r-card.lit .r-desc{color:rgba(255,255,255,.95)}
 
 /* ── RECURSOS ── */
-#recursos{background:#fff;padding:3.2rem 0}
-.rec-tab-btn{border-radius:12px;border:none;padding:.7rem 1.5rem;font-weight:700;font-size:.85rem;cursor:pointer;background:#f5f5f5;color:#555;transition:.25s;display:flex;align-items:center;gap:.5rem}
-.rec-tab-btn.active-tec{background:var(--g2);color:#fff}
-.rec-tab-btn.active-ene{background:#e65100;color:#fff}
-.rec-tab-btn.active-nat{background:#00796b;color:#fff}
+#recursos{
+  background:
+    radial-gradient(circle at 92% 8%, rgba(123,193,66,.14), transparent 30%),
+    linear-gradient(180deg,#f7fcf6,#ffffff);
+  padding:3.2rem 0;
+}
+.rec-shell{max-width:1240px;margin:0 auto}
+.rec-tabbar{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:.45rem;
+  margin:0 0 .95rem;
+  padding:.38rem;
+  border:1px solid #d8e8d4;
+  border-radius:999px;
+  background:#fff;
+  box-shadow:0 8px 20px rgba(18,64,35,.08);
+}
+.rec-tab-btn{
+  border:none;
+  border-radius:999px;
+  padding:.45rem 1rem;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  background:#eef5ea;
+  color:#275336;
+  transition:.2s;
+  display:flex;
+  align-items:center;
+  gap:.35rem;
+}
+.rec-tab-btn:hover{transform:translateY(-1px)}
+.rec-tab-btn.tec.active{background:#2d6e18;color:#fff;box-shadow:0 8px 16px rgba(45,110,24,.24)}
+.rec-tab-btn.ene.active{background:#cc6800;color:#fff;box-shadow:0 8px 16px rgba(204,104,0,.24)}
+.rec-tab-btn.nat.active{background:#0b7a6d;color:#fff;box-shadow:0 8px 16px rgba(11,122,109,.24)}
+
 .rec-panel{display:none}
-.rec-panel.visible{display:block}
-.rec-item{background:#f8fdf4;border-radius:12px;padding:1.1rem 1.4rem;display:flex;gap:1rem;align-items:flex-start;border-left:4px solid var(--g3);transition:.2s}
-.rec-item:hover{transform:translateX(5px);background:#eef6e7}
-.rec-icon{font-size:1.7rem;flex-shrink:0}
-.rec-item h5{font-size:.88rem;font-weight:800;color:var(--g1);margin-bottom:.2rem}
-.rec-item p{font-size:.8rem;color:#5a7a4a;margin:0;line-height:1.5}
+.rec-panel.active{display:block}
+
+.rec-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:0 0 .75rem}
+.rec-metric{background:#fff;border:1px solid #dcead8;border-radius:12px;padding:.62rem .68rem;box-shadow:0 8px 18px rgba(18,64,35,.07)}
+.rec-metric strong{display:block;font-size:.84rem;color:#174228;line-height:1.2}
+.rec-metric span{display:block;font-size:.73rem;color:#4d6b55;line-height:1.35;margin-top:.16rem}
+
+.rec-q-card{background:#fff;border:1px solid #dcead8;border-radius:14px;padding:.72rem .78rem;box-shadow:0 8px 20px rgba(18,64,35,.08);transition:.2s;cursor:pointer;height:100%}
+.rec-q-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(18,64,35,.12);border-color:#b7d3af}
+.rec-q-card.ene{border-color:#eed8bf;background:#fffaf4;box-shadow:0 8px 20px rgba(124,72,18,.08)}
+.rec-q-card.ene:hover{box-shadow:0 12px 28px rgba(124,72,18,.14);border-color:#dfc6a7}
+.rec-q-card.nat{border-color:#bde3dd;background:#f4fffc;box-shadow:0 8px 20px rgba(16,97,87,.08)}
+.rec-q-card.nat:hover{box-shadow:0 12px 28px rgba(16,97,87,.14);border-color:#98d0c8}
+.rec-kicker{font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#2d6e18;margin:0 0 .26rem}
+.rec-q-card.ene .rec-kicker{color:#b86600}
+.rec-q-card.nat .rec-kicker{color:#0b7a6d}
+.rec-q-title{font-size:.9rem;font-weight:900;color:#174228;line-height:1.3;margin:0 0 .35rem}
+.rec-q-card.ene .rec-q-title{color:#7a4707}
+.rec-q-card.nat .rec-q-title{color:#0f5d53}
+.rec-summary{font-size:.79rem;color:#3b5c45;line-height:1.5;margin:0}
+.rec-q-card.ene .rec-summary{color:#6f522e}
+.rec-q-card.nat .rec-summary{color:#2f5f58}
+.rec-detail{margin-top:.5rem}
+.rec-detail ul{margin:0;padding-left:1rem}
+.rec-detail li{font-size:.77rem;line-height:1.45;color:#33533e;margin:.2rem 0}
+.rec-q-card.ene .rec-detail li{color:#684d2b}
+.rec-q-card.nat .rec-detail li{color:#2c5e58}
+.rec-toggle-label{display:block;margin-top:.5rem;font-size:.72rem;font-weight:800;color:#2d6e18;letter-spacing:.03em}
+.rec-q-card.ene .rec-toggle-label{color:#b86600}
+.rec-q-card.nat .rec-toggle-label{color:#0b7a6d}
 
 /* ── INNOVACIÓN ── */
 #innovacion{background:linear-gradient(180deg,#f0f8e8,#e8f4de);padding:3.2rem 0}
@@ -783,6 +841,8 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   .mb-analysis p{font-size:.8rem}
   .diag-btn{font-size:.82rem;padding:.72rem .82rem}
   .diag-body{padding:.68rem .62rem .72rem}
+  .rec-tabbar{border-radius:16px;justify-content:flex-start;overflow:auto;white-space:nowrap}
+  .rec-metrics{grid-template-columns:1fr}
   .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}
   .stat-item:last-child{border-bottom:none}
 }
@@ -2312,39 +2372,271 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 ══════════════════════════════════ -->
 <section id="recursos">
   <div class="container">
-    <div class="text-center mb-4" data-aos="fade-up">
+    <div class="sec-head" data-aos="fade-up">
       <div class="sec-label"><i class="ri-database-2-line"></i>Canvas Circularidad</div>
       <h2 class="sec-title">Nuestros <span>Recursos</span></h2>
+      <p class="sec-desc mx-auto mt-2">Actualización integral de recursos técnicos, energéticos y naturales en formato dinámico e interactivo.</p>
     </div>
-    <div class="d-flex gap-2 justify-content-center mb-4 flex-wrap" data-aos="fade-up">
-      <button class="rec-tab-btn active-tec" onclick="switchRec('tec',this)"><i class="bi bi-gear"></i> Técnicos</button>
-      <button class="rec-tab-btn" onclick="switchRec('ene',this)"><i class="bi bi-lightning"></i> Energéticos</button>
-      <button class="rec-tab-btn" onclick="switchRec('nat',this)"><i class="bi bi-tree"></i> Naturales</button>
-    </div>
-    <div id="rec-tec" class="rec-panel visible" data-aos="fade-up">
-      <div class="row g-3 justify-content-center">
-        <div class="col-md-6"><div class="rec-item"><div class="rec-icon">🏭</div><div><h5>Infraestructura industrial</h5><p>Procesamiento térmico, mecánico y biológico a pequeña/mediana escala en zona industrial PI-44.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item"><div class="rec-icon">⚒️</div><div><h5>Maquinaria principal</h5><p>Molinos de martillos, mezcladoras industriales, prensas mecánicas, hornos de calcinación y deshidratadores solares.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item"><div class="rec-icon">🐛</div><div><h5>Módulos BSF</h5><p>Cría de mosca soldado negra con ciclo de 10-14 días. Temperatura 25-30°C, humedad 60-70%. Producción continua.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item"><div class="rec-icon">📡</div><div><h5>Tecnología IoT</h5><p>Sensores ESP32+DHT22 para monitoreo automatizado. Control de temperatura y humedad en módulos BSF en tiempo real.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item"><div class="rec-icon">🧪</div><div><h5>Control de calidad</h5><p>Penetrómetro para verificar dureza y consistencia de cada lote. Garantiza dosificación segura de urea antes de liberar.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item"><div class="rec-icon">🚗</div><div><h5>Logística optimizada</h5><p>Vehículo de recolección con GPS. Rutas optimizadas para reducir km en 30%. Mataderos FRIGOR y municipal de SCZ.</p></div></div></div>
+
+    <div class="rec-shell" data-aos="fade-up" data-aos-delay="80">
+      <div class="rec-tabbar">
+        <button class="rec-tab-btn tec active" type="button" onclick="switchRec('tec',this)"><i class="bi bi-gear"></i> Técnicos</button>
+        <button class="rec-tab-btn ene" type="button" onclick="switchRec('ene',this)"><i class="bi bi-lightning"></i> Energéticos</button>
+        <button class="rec-tab-btn nat" type="button" onclick="switchRec('nat',this)"><i class="bi bi-tree"></i> Naturales</button>
       </div>
-    </div>
-    <div id="rec-ene" class="rec-panel" data-aos="fade-up">
-      <div class="row g-3 justify-content-center">
-        <div class="col-md-6"><div class="rec-item" style="border-color:#e65100"><div class="rec-icon">🔥</div><div><h5>Gas natural</h5><p>Para alcanzar 500-600°C en horno de calcinación de huesos. Plan futuro: sustituir por bagazo (carbono neutro).</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item" style="border-color:#e65100"><div class="rec-icon">⚡</div><div><h5>Energía eléctrica</h5><p>Para molinos, mezcladoras, deshidratadores y sensores IoT. Fuente principal de operación cotidiana.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item" style="border-color:#e65100"><div class="rec-icon">☀️</div><div><h5>Solar parabólica</h5><p>Deshidratadores solares para sangre y larvas BSF. Alta radiación solar de SCZ reduce dependencia eléctrica.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item" style="border-color:#e65100"><div class="rec-icon">🌱</div><div><h5>Biogás (visión futura)</h5><p>Procesamiento de biogás propio para autonomía energética parcial. Cierre total del ciclo energético.</p></div></div></div>
+
+      <div id="rec-tec" class="rec-panel active">
+        <div class="rec-metrics">
+          <div class="rec-metric"><strong>Base operativa</strong><span>Infraestructura básica y flujo manual organizado para pequeña escala.</span></div>
+          <div class="rec-metric"><strong>Equipamiento clave</strong><span>Balanzas, moldes, recipientes, molienda y secado técnico simple.</span></div>
+          <div class="rec-metric"><strong>Control crítico</strong><span>Verificación de dureza del bloque y dosificación correcta de urea.</span></div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">2.1 Recursos Técnicos</div>
+              <h5 class="rec-q-title">¿Mis productos necesitan procesos para regresar al ciclo?</h5>
+              <p class="rec-summary">Sí. El bloque está diseñado para regresar al ciclo biológico luego del consumo animal, promoviendo compostaje y lombricultura.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Los nutrientes retornan al suelo mediante estiércol.</li>
+                  <li>Se impulsa gestión de residuos de bajo costo operativo.</li>
+                  <li>El enfoque mejora aprovechamiento postconsumo.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Infraestructura</div>
+              <h5 class="rec-q-title">¿Qué recursos técnicos son necesarios?</h5>
+              <p class="rec-summary">Área techada, zona de secado, espacio de almacenamiento y equipos básicos para procesamiento manual.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>No se requiere tecnología compleja para iniciar.</li>
+                  <li>Sí se exige orden de flujo y control por etapas.</li>
+                  <li>La operación depende de disciplina operativa.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Materiales y equipos</div>
+              <h5 class="rec-q-title">¿Qué productos, componentes o máquinas se utilizan?</h5>
+              <p class="rec-summary">Balanzas, moldes, recipientes plásticos/metal, molino o tambor manual y secado solar o deshidratador simple.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Calcinación de huesos en tambores adaptados.</li>
+                  <li>En BSF: bandejas, cajas y control manual de humedad.</li>
+                  <li>En etapa inicial no se requieren sensores automatizados.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Proceso operativo</div>
+              <h5 class="rec-q-title">¿Qué procesos necesitamos realizar?</h5>
+              <p class="rec-summary">Recolección, secado, cocción, mezcla, moldeado, curado natural y almacenamiento técnico por lote.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Recolección en zonas de mataderos y agroindustrias.</li>
+                  <li>Curado de bloque entre 24 y 48 horas.</li>
+                  <li>Control de calidad antes de distribución.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+        </div>
       </div>
-    </div>
-    <div id="rec-nat" class="rec-panel" data-aos="fade-up">
-      <div class="row g-3 justify-content-center">
-        <div class="col-md-6"><div class="rec-item" style="border-color:#00796b"><div class="rec-icon">🩸</div><div><h5>Residuos orgánicos (74%)</h5><p>Sangre, vísceras y huesos bovinos — +20,000 ton/año disponibles en SCZ sin aprovechar. Materia prima GRATIS.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item" style="border-color:#00796b"><div class="rec-icon">💧</div><div><h5>Agua — protección directa</h5><p>Consumo interno mínimo. Por cada tonelada de sangre transformada, evitamos miles de litros contaminados en los ríos.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item" style="border-color:#00796b"><div class="rec-icon">🌿</div><div><h5>Flora y fauna simbiótica</h5><p>Fertilizantes revitalizan pastizales. BSF sanea patógenos; ácido láurico de la harina BSF mejora inmunidad del ganado.</p></div></div></div>
-        <div class="col-md-6"><div class="rec-item" style="border-color:#00796b"><div class="rec-icon">🌱</div><div><h5>Suelo — biodegradabilidad 100%</h5><p>Compost, frass BSF y ceniza retornan a la tierra. Empaques retornables con Bs 5 de descuento al devolver.</p></div></div></div>
+
+      <div id="rec-ene" class="rec-panel">
+        <div class="rec-metrics">
+          <div class="rec-metric"><strong>Uso energético</strong><span>Secado, calcinación, operación de equipos básicos y transporte.</span></div>
+          <div class="rec-metric"><strong>Fuentes combinadas</strong><span>Solar, eléctrica y térmica (gas o biomasa local).</span></div>
+          <div class="rec-metric"><strong>Eficiencia</strong><span>Priorización solar y optimización logística para menor consumo.</span></div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card ene" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">2.2 Recursos Energéticos</div>
+              <h5 class="rec-q-title">¿Para qué y cómo utilizamos energía?</h5>
+              <p class="rec-summary">La energía se usa en secado de insumos, calcinación de huesos, operación de equipos básicos y transporte.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Secado: control de humedad del lote.</li>
+                  <li>Calcinación: transformación de hueso para aporte mineral.</li>
+                  <li>Operación: molienda, mezcla y logística.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card ene" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Tipos de energía</div>
+              <h5 class="rec-q-title">¿Qué tipos de energía usamos?</h5>
+              <p class="rec-summary">Se integra energía solar para secado, eléctrica para equipos pequeños y gas/biomasa para calcinación.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Solar: opción principal en clima cálido y radiación alta.</li>
+                  <li>Eléctrica: operación de molino y mezcladora.</li>
+                  <li>Térmica: gas o bagazo de caña según disponibilidad.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card ene" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Optimización</div>
+              <h5 class="rec-q-title">¿Hemos optimizado el consumo de energía?</h5>
+              <p class="rec-summary">Sí. Se prioriza secado solar, se optimizan rutas y se minimiza uso de maquinaria pesada.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Menor consumo de diésel por rutas eficientes.</li>
+                  <li>Reducción de energía eléctrica en secado.</li>
+                  <li>Reemplazo parcial por procesos manuales viables.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card ene" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Autonomía</div>
+              <h5 class="rec-q-title">¿La actividad no requiere energía o es autónoma?</h5>
+              <p class="rec-summary">No es completamente autónoma, pero opera con bajo consumo en pequeña escala y alta participación manual.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Puede sostener operación eficiente con recursos limitados.</li>
+                  <li>El proceso puede ejecutarse por etapas manuales.</li>
+                  <li>Proyección futura: integración de biogás local.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div id="rec-nat" class="rec-panel">
+        <div class="rec-metrics">
+          <div class="rec-metric"><strong>Retorno al suelo</strong><span>Frass, cenizas y residuos orgánicos con reincorporación agrícola.</span></div>
+          <div class="rec-metric"><strong>Beneficio ambiental</strong><span>Menor contaminación de ríos y menor descomposición anaeróbica.</span></div>
+          <div class="rec-metric"><strong>Relación ecológica</strong><span>Mejora nutrición animal, pasturas y manejo preventivo del agua.</span></div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card nat" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">2.3 Recursos Naturales</div>
+              <h5 class="rec-q-title">¿Mis recursos pueden volver a la tierra?</h5>
+              <p class="rec-summary">Sí. La mayoría son orgánicos y retornan al suelo tras el consumo del bloque por el ganado.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Frass y cenizas se aplican como fertilizantes.</li>
+                  <li>Se fomenta reincorporación de materia orgánica.</li>
+                  <li>Mejora regeneración de suelos productivos.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card nat" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Impacto ambiental</div>
+              <h5 class="rec-q-title">¿Qué beneficio ambiental buscamos obtener?</h5>
+              <p class="rec-summary">Reducir contaminación del río Piraí y río Grande, evitando acumulación de residuos en mataderos.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Disminuye emisiones de descomposición anaeróbica.</li>
+                  <li>Reduce presión sobre disposición de residuos orgánicos.</li>
+                  <li>Mejora condiciones sanitarias regionales.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card nat" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Composición</div>
+              <h5 class="rec-q-title">¿Qué recursos naturales y orgánicos usamos?</h5>
+              <p class="rec-summary">Sangre, huesos, melaza, cascarilla, afrecho y BSF, complementados con minerales y compuestos agrícolas.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Minerales: cal viva, azufre y sales.</li>
+                  <li>Compuesto agrícola: urea en dosificación controlada.</li>
+                  <li>Combinación que cubre requerimientos nutricionales del ganado.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card nat" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Biodegradabilidad</div>
+              <h5 class="rec-q-title">¿Facilitamos su biodegradabilidad?</h5>
+              <p class="rec-summary">Sí. Por su composición natural y por acciones complementarias de reutilización de empaques.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Se priorizan materiales de menor impacto.</li>
+                  <li>Se promueve retorno y reutilización de sacos.</li>
+                  <li>Disminuye la carga de residuos plásticos.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card nat" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Flora y fauna</div>
+              <h5 class="rec-q-title">¿Cómo nos relacionamos con la flora y fauna?</h5>
+              <p class="rec-summary">Mejoramos nutrición y resistencia del ganado y favorecemos crecimiento de pasturas y cultivos.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Mejor condición corporal y productividad animal.</li>
+                  <li>Aporte indirecto a suelos más fértiles.</li>
+                  <li>Mayor estabilidad del sistema productivo local.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <article class="rec-q-card nat" onclick="toggleCollapse(this)">
+              <div class="rec-kicker">Agua</div>
+              <h5 class="rec-q-title">¿Cómo nos relacionamos con el agua?</h5>
+              <p class="rec-summary">El consumo directo es bajo y el mayor impacto es preventivo al evitar que residuos orgánicos lleguen a cuerpos de agua.</p>
+              <div class="collapse rec-detail">
+                <ul>
+                  <li>Uso limitado a limpieza y preparación de mezclas.</li>
+                  <li>Disminuye riesgo sanitario y ambiental regional.</li>
+                  <li>Reduce carga contaminante sobre ríos locales.</li>
+                </ul>
+              </div>
+              <small class="rec-toggle-label">▼ Ver detalle</small>
+            </article>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2671,12 +2963,15 @@ function toggleCollapse(card){
 
 // Recursos tabs
 function switchRec(tab,btn){
-  document.querySelectorAll('.rec-panel').forEach(p=>p.classList.remove('visible'));
-  document.querySelectorAll('.rec-tab-btn').forEach(b=>{b.className='rec-tab-btn'});
-  document.getElementById('rec-'+tab).classList.add('visible');
-  if(tab==='tec') btn.className='rec-tab-btn active-tec';
-  if(tab==='ene') btn.className='rec-tab-btn active-ene';
-  if(tab==='nat') btn.className='rec-tab-btn active-nat';
+  const recursos = document.getElementById('recursos');
+  if(!recursos) return;
+
+  recursos.querySelectorAll('.rec-panel').forEach(p=>p.classList.remove('active'));
+  recursos.querySelectorAll('.rec-tab-btn').forEach(b=>b.classList.remove('active'));
+
+  const target = document.getElementById('rec-'+tab);
+  if(target) target.classList.add('active');
+  btn.classList.add('active');
 }
 </script>
 </body>
