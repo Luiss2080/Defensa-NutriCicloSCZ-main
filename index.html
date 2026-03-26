@@ -33,6 +33,51 @@ body{overflow-x:hidden;background:#f8fdf4}
 .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center}
 .slide-overlay{position:absolute;inset:0}
 .slide-content{position:relative;z-index:2;height:100%;display:flex;align-items:center}
+.hero-chip{background:rgba(123,193,66,.2);border:1px solid rgba(123,193,66,.4);color:var(--g4);font-size:.75rem;font-weight:700;padding:5px 18px;border-radius:30px;letter-spacing:.1em;text-transform:uppercase}
+.hero-kpi{background:rgba(255,255,255,.1);border-radius:12px;padding:.8rem 1.2rem;text-align:center}
+
+#hero .carousel-indicators{margin-bottom:1.05rem;gap:.42rem}
+#hero .carousel-indicators [data-bs-target]{
+  width:36px;
+  height:4px;
+  border-radius:999px;
+  background:rgba(255,255,255,.35);
+  border:none;
+  margin:0;
+  transition:all .25s ease;
+}
+#hero .carousel-indicators .active{background:#fff;transform:none;width:56px}
+
+#hero .carousel-control-prev,#hero .carousel-control-next{width:auto;opacity:1}
+#hero .carousel-control-prev{left:1.6rem}
+#hero .carousel-control-next{right:1.6rem}
+#hero .carousel-control-prev-icon,#hero .carousel-control-next-icon{
+  width:20px;
+  height:20px;
+  background-size:20px;
+}
+#hero .carousel-control-prev span,#hero .carousel-control-next span{
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.26);
+  border-radius:50%;
+  padding:.82rem;
+  backdrop-filter:blur(5px);
+}
+
+.hero-counter{
+  position:absolute;
+  right:1.5rem;
+  bottom:1.25rem;
+  z-index:6;
+  color:#fff;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(4,20,8,.35);
+  border-radius:999px;
+  padding:.32rem .62rem;
+}
 
 /* Slide 1 */
 .s1-bg{background:linear-gradient(150deg,#061405 0%,#0f2808 30%,#1a3d0a 60%,#2d6e18 100%)}
@@ -378,6 +423,10 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 [data-aos]{transition-duration:.7s!important}
 
 @media(max-width:768px){
+  .carousel-item{height:88vh;min-height:500px}
+  #hero .carousel-control-prev{left:.55rem}
+  #hero .carousel-control-next{right:.55rem}
+  .hero-counter{right:.8rem;bottom:1rem}
   .inv-grid{grid-template-columns:1fr}
   .about-team-grid{grid-template-columns:1fr}
   .about-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -422,11 +471,12 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
 <!-- ══════════════════════════════════
      HERO CAROUSEL
 ══════════════════════════════════ -->
-<div id="hero" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+<div id="hero" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5200">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#hero" data-bs-slide-to="0" class="active"></button>
     <button type="button" data-bs-target="#hero" data-bs-slide-to="1"></button>
     <button type="button" data-bs-target="#hero" data-bs-slide-to="2"></button>
+    <button type="button" data-bs-target="#hero" data-bs-slide-to="3"></button>
   </div>
   <div class="carousel-inner">
 
@@ -439,9 +489,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
           <div class="row align-items-center">
             <div class="col-lg-7">
               <div class="mb-3" data-aos="fade-down">
-                <span style="background:rgba(123,193,66,.2);border:1px solid rgba(123,193,66,.4);color:var(--g4);font-size:.75rem;font-weight:700;padding:5px 18px;border-radius:30px;letter-spacing:.1em;text-transform:uppercase">
-                  Economía Circular · Bolivia 2026
-                </span>
+                <span class="hero-chip">Economía Circular · Bolivia 2026</span>
               </div>
               <h1 class="hero-title mb-3" data-aos="fade-up">
                 Nutri<span>Ciclo</span><br>SCZ
@@ -475,9 +523,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
           <div class="row align-items-center">
           <div class="col-lg-7">
             <div class="mb-3">
-              <span style="background:rgba(123,193,66,.2);border:1px solid rgba(123,193,66,.4);color:var(--g4);font-size:.75rem;font-weight:700;padding:5px 18px;border-radius:30px;letter-spacing:.1em;text-transform:uppercase">
-                Modelo de Negocio
-              </span>
+              <span class="hero-chip">Modelo de Negocio</span>
             </div>
             <h2 style="font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:#fff;line-height:1.15" class="mb-3">
               Revolucionando la<br><span style="color:var(--g4)">Nutrición Ganadera</span>
@@ -486,15 +532,15 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
               El único bloque en Bolivia a base de sangre y proteína de larvas BSF. Resolvemos 2 problemas a la vez: contaminación de mataderos + alimentación en sequía.
             </p>
             <div class="d-flex gap-3">
-              <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:.8rem 1.2rem;text-align:center">
+              <div class="hero-kpi">
                 <div style="font-size:1.6rem;font-weight:900;color:var(--g4)">74%</div>
                 <div style="font-size:.72rem;color:rgba(255,255,255,.6)">Origen circular</div>
               </div>
-              <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:.8rem 1.2rem;text-align:center">
+              <div class="hero-kpi">
                 <div style="font-size:1.6rem;font-weight:900;color:var(--g4)">20K+</div>
                 <div style="font-size:.72rem;color:rgba(255,255,255,.6)">Ton/año evitadas</div>
               </div>
-              <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:.8rem 1.2rem;text-align:center">
+              <div class="hero-kpi">
                 <div style="font-size:1.6rem;font-weight:900;color:var(--g4)">#1</div>
                 <div style="font-size:.72rem;color:rgba(255,255,255,.6)">Único en Bolivia</div>
               </div>
@@ -515,9 +561,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
       <div class="slide-content">
         <div class="container text-center">
           <div class="mb-3">
-            <span style="background:rgba(123,193,66,.2);border:1px solid rgba(123,193,66,.4);color:var(--g4);font-size:.75rem;font-weight:700;padding:5px 18px;border-radius:30px;letter-spacing:.1em;text-transform:uppercase">
-              Nuestro Impacto
-            </span>
+            <span class="hero-chip">Nuestro Impacto</span>
           </div>
           <h2 style="font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:#fff;margin-bottom:3rem">
             Dos problemas.<br><span style="color:var(--g4)">Una solución circular.</span>
@@ -531,6 +575,40 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         </div>
       </div>
     </div>
+
+    <!-- SLIDE 4: Investigación Aplicada -->
+    <div class="carousel-item">
+      <div class="slide-bg s1-bg"></div>
+      <div class="slide-overlay s1-overlay"></div>
+      <div class="slide-content">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-7">
+              <div class="mb-3">
+                <span class="hero-chip">Investigación Aplicada</span>
+              </div>
+              <h2 style="font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:#fff;line-height:1.12" class="mb-3">
+                Decisiones basadas en<br><span style="color:var(--g4)">evidencia local</span>
+              </h2>
+              <p style="color:rgba(255,255,255,.78);font-size:1rem;line-height:1.7" class="mb-4">
+                El análisis del cliente sostenible en Santa Cruz confirma que la oportunidad está en ofrecer soluciones ecológicas con alta conveniencia, transparencia y accesibilidad económica.
+              </p>
+              <div class="d-flex gap-3 flex-wrap">
+                <a href="#investigacion-previa" class="btn-hero-primary text-decoration-none">
+                  <i class="ri-search-eye-line me-2"></i>Ver investigación
+                </a>
+                <a href="#cierre-reflexion" class="btn-hero-outline text-decoration-none">
+                  <i class="ri-article-line me-2"></i>Ver conclusiones
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-5 p-0 d-none d-lg-block" style="position:absolute;right:0;top:54px;bottom:0;height:calc(100vh - 54px)">
+              <img src="Defensa_01/General.png" alt="Investigación previa y síntesis visual" style="width:100%;height:100%;object-fit:cover;object-position:center center">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#hero" data-bs-slide="prev">
     <span class="carousel-control-prev-icon"></span>
@@ -538,6 +616,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   <button class="carousel-control-next" type="button" data-bs-target="#hero" data-bs-slide="next">
     <span class="carousel-control-next-icon"></span>
   </button>
+  <div class="hero-counter" id="heroCounter">01 / 04</div>
 </div>
 
 <!-- ══════════════════════════════════
@@ -1299,6 +1378,18 @@ AOS.init({once:true,offset:80});
 window.addEventListener('scroll',()=>{
   document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);
 });
+
+// Hero carousel counter
+const heroEl = document.getElementById('hero');
+const heroCounter = document.getElementById('heroCounter');
+if (heroEl && heroCounter) {
+  const total = heroEl.querySelectorAll('.carousel-item').length;
+  const updateHeroCounter = (idx) => {
+    heroCounter.textContent = `${String(idx + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+  };
+  updateHeroCounter(0);
+  heroEl.addEventListener('slid.bs.carousel', (e) => updateHeroCounter(e.to));
+}
 
 // Investigacion previa interactiva
 const PREVIA = [
