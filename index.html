@@ -693,16 +693,32 @@ body{overflow-x:hidden;background:#f8fdf4}
 .canvas-q-card.neg .canvas-toggle-label{color:#b63228}
 
 /* ── R's ── */
-#circular{background:linear-gradient(135deg,#0a1f05,#1a3d0a,#2d5a15);padding:3.2rem 0}
-.r-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:.3s;position:relative;overflow:hidden;height:100%}
-.r-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--g3),var(--g4));opacity:0;transition:.3s}
-.r-card:hover::before,.r-card.lit::before{opacity:1}
-.r-card>*{position:relative;z-index:1}
-.r-letter{font-size:2.8rem;font-weight:900;color:var(--g4);transition:.3s}
-.r-card:hover .r-letter,.r-card.lit .r-letter{color:#fff}
-.r-name{font-weight:800;color:#fff;text-transform:uppercase;font-size:.85rem;letter-spacing:.06em;margin:.4rem 0 .6rem}
-.r-desc{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.5;transition:.3s}
-.r-card:hover .r-desc,.r-card.lit .r-desc{color:rgba(255,255,255,.95)}
+#circular{
+  background:
+    radial-gradient(circle at 8% 10%, rgba(123,193,66,.15), transparent 30%),
+    linear-gradient(180deg,#f2f9ef,#ffffff);
+  padding:3.2rem 0;
+}
+.r-shell{max-width:1240px;margin:0 auto}
+.r-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin:0 0 .8rem}
+.r-image-card,.r-note-card{background:#fff;border:1px solid #dcead8;border-radius:14px;box-shadow:0 8px 20px rgba(18,64,35,.08)}
+.r-image-card{padding:.45rem}
+.r-image-card img{width:100%;height:auto;display:block;border-radius:10px}
+.r-note-card{padding:.9rem .95rem}
+.r-note-card h4{margin:0 0 .4rem;font-size:1rem;font-weight:900;color:#174228}
+.r-note-card p{margin:0 0 .45rem;font-size:.82rem;color:#3d6147;line-height:1.52}
+.r-note-card p:last-child{margin-bottom:0}
+.r-grid{margin-top:.1rem}
+.r2-card{background:#fff;border:1px solid #dcead8;border-radius:14px;padding:.72rem .78rem;box-shadow:0 8px 20px rgba(18,64,35,.08);transition:.2s;cursor:pointer;height:100%}
+.r2-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(18,64,35,.12);border-color:#b7d3af}
+.r2-head{display:flex;align-items:center;gap:.45rem;margin:0 0 .35rem}
+.r2-badge{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 .35rem;border-radius:999px;background:#e8f6e5;color:#1d6f3b;font-size:.68rem;font-weight:900;letter-spacing:.03em}
+.r2-title{margin:0;font-size:.92rem;font-weight:900;color:#174228;line-height:1.25}
+.r2-summary{margin:0;font-size:.79rem;color:#3b5c45;line-height:1.5}
+.r2-detail{margin-top:.5rem}
+.r2-detail ul{margin:0;padding-left:1rem}
+.r2-detail li{font-size:.77rem;line-height:1.45;color:#33533e;margin:.2rem 0}
+.r2-toggle-label{display:block;margin-top:.5rem;font-size:.72rem;font-weight:800;color:#2d6e18;letter-spacing:.03em}
 
 /* ── RECURSOS ── */
 #recursos{
@@ -870,8 +886,8 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         <li class="nav-item"><a class="nav-link" href="#matriz-innovacion">Idea de Negocio</a></li>
         <li class="nav-item"><a class="nav-link" href="#matriz-insumos-analisis">Insumos</a></li>
         <li class="nav-item"><a class="nav-link" href="#canvas">Canvas</a></li>
-        <li class="nav-item"><a class="nav-link" href="#circular">R's Circular</a></li>
         <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#circular">R's Circular</a></li>
         <li class="nav-item"><a class="nav-link" href="#innovacion">Innovación</a></li>
       </ul>
     </div>
@@ -2694,6 +2710,7 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         <a href="#about">Quiénes Somos</a>
         <a href="#empathy">Mapa Empatía</a>
         <a href="#canvas">Canvas Impacto</a>
+        <a href="#recursos">Recursos</a>
         <a href="#circular">R's Circular</a>
         <a href="#innovacion">Innovación</a>
       </div>
@@ -2954,8 +2971,8 @@ function switchCanvas(tab,btn){
 
 // Canvas card collapse
 function toggleCollapse(card){
-  const c=card.querySelector('.collapse-content, .canvas-detail');
-  const s=card.querySelector('small, .canvas-toggle-label');
+  const c=card.querySelector('.collapse-content, .canvas-detail, .rec-detail, .r2-detail');
+  const s=card.querySelector('small, .canvas-toggle-label, .rec-toggle-label, .r2-toggle-label');
   if(!c || !s) return;
   const open=c.classList.toggle('show');
   s.textContent=open?'▲ Cerrar':'▼ Ver detalle';
