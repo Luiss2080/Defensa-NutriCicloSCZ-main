@@ -51,18 +51,68 @@ body{overflow-x:hidden;background:#f8fdf4}
 #hero .carousel-control-prev,#hero .carousel-control-next{width:auto;opacity:1}
 #hero .carousel-control-prev{left:1.6rem}
 #hero .carousel-control-next{right:1.6rem}
-#hero .carousel-control-prev-icon,#hero .carousel-control-next-icon{
-  width:20px;
-  height:20px;
-  background-size:20px;
-}
-#hero .carousel-control-prev span,#hero .carousel-control-next span{
+#hero .hero-nav-btn{
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   background:rgba(255,255,255,.14);
   border:1px solid rgba(255,255,255,.26);
   border-radius:50%;
-  padding:.82rem;
   backdrop-filter:blur(5px);
+  color:#fff;
+  font-size:1.2rem;
+  transition:.2s;
 }
+#hero .hero-nav-btn:hover{background:rgba(255,255,255,.24);transform:translateY(-1px)}
+
+.hero-progress-track{
+  position:absolute;
+  left:1.3rem;
+  right:1.3rem;
+  bottom:.3rem;
+  height:3px;
+  border-radius:999px;
+  background:rgba(255,255,255,.2);
+  overflow:hidden;
+  z-index:6;
+}
+.hero-progress-bar{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#d8f8b8,#7bc142);
+}
+.hero-progress-bar.run{animation:heroProgress 5.2s linear forwards}
+@keyframes heroProgress{from{width:0}to{width:100%}}
+
+.hero-quicknav{
+  position:absolute;
+  left:50%;
+  bottom:1.35rem;
+  transform:translateX(-50%);
+  z-index:6;
+  display:flex;
+  gap:.35rem;
+  padding:.3rem;
+  border-radius:999px;
+  background:rgba(5,20,8,.32);
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(4px);
+}
+.hero-quick-btn{
+  border:none;
+  border-radius:999px;
+  background:transparent;
+  color:rgba(255,255,255,.72);
+  font-size:.63rem;
+  font-weight:700;
+  letter-spacing:.05em;
+  padding:.28rem .58rem;
+  transition:.2s;
+}
+.hero-quick-btn.active{background:rgba(123,193,66,.24);color:#fff}
+.hero-quick-btn:hover{color:#fff}
 
 .hero-counter{
   position:absolute;
@@ -427,6 +477,8 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
   #hero .carousel-control-prev{left:.55rem}
   #hero .carousel-control-next{right:.55rem}
   .hero-counter{right:.8rem;bottom:1rem}
+  .hero-quicknav{bottom:1.15rem;max-width:86vw;overflow:auto;white-space:nowrap}
+  .hero-progress-track{left:.7rem;right:.7rem;bottom:.05rem}
   .inv-grid{grid-template-columns:1fr}
   .about-team-grid{grid-template-columns:1fr}
   .about-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
