@@ -2209,7 +2209,6 @@ footer .f-bottom{font-size:.78rem;color:rgba(255,255,255,.4)}
         <a href="#empathy">Mapa Empatía</a>
         <a href="#canvas">Canvas Impacto</a>
         <a href="#circular">R's Circular</a>
-        <a href="#materiales">Materiales</a>
         <a href="#innovacion">Innovación</a>
       </div>
       <div class="col-6 col-lg-3">
@@ -2468,19 +2467,6 @@ function toggleCollapse(card){
   const s=card.querySelector('small');
   const open=c.classList.toggle('show');
   s.textContent=open?'▲ Cerrar':'▼ Ver más';
-}
-
-// Materials filter
-function filterMats(type,btn){
-  document.querySelectorAll('#matGrid .mat-item').forEach(el=>{
-    el.style.display=(type==='all'||el.classList.contains(type))?'':'none';
-  });
-}
-
-// Materials toggle
-function toggleMat(card){
-  const open=card.classList.toggle('open');
-  card.querySelector('.mat-toggle-btn').textContent=open?'▲ Cerrar':'▼ Ver detalle';
 }
 
 // Recursos tabs
